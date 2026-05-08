@@ -383,7 +383,7 @@
       "post": {
         "operationId": "postApiBrokerThdCreate2",
         "summary": "Create THD",
-        "description": "THD гэрээ үүсгэнэ.\n\nЗаавал:\n- set\n- evaluation\n- type\n- vehicle\n- type=1 үед driver\n- type=2 үед company\n\nАнхаарах зүйл:\n- set нь бодит DB id байх ёстой\n- set code нь 0310 байх ёстой",
+        "description": "THD гэрээ үүсгэнэ.\n\nЗаавал:\n- set\n- evaluation\n- type\n- vehicle\n- type=1 үед driver\n- type=2 үед company\n\nАнхаарах зүйл:\n- set нь string code байна\n- жишээ: THD-13",
         "responses": {
           "200": {
             "description": "Successful response"
@@ -410,7 +410,7 @@
                     "type": "object",
                     "properties": {
                       "set": {
-                        "type": "integer"
+                        "type": "string"
                       },
                       "evaluation": {
                         "type": "integer"
@@ -537,7 +537,7 @@
                     "type": "object",
                     "properties": {
                       "set": {
-                        "type": "integer"
+                        "type": "string"
                       },
                       "evaluation": {
                         "type": "integer"
@@ -631,7 +631,7 @@
                 "individual": {
                   "summary": "Create THD (Иргэн)",
                   "value": {
-                    "set": 123,
+                    "set": "THD-13",
                     "evaluation": 50000000,
                     "type": 1,
                     "BeginDate": "2026-05-20",
@@ -664,7 +664,7 @@
                 "company": {
                   "summary": "Create THD (Компани)",
                   "value": {
-                    "set": 123,
+                    "set": "THD-13",
                     "evaluation": 50000000,
                     "type": 2,
                     "BeginDate": "2026-05-20",
@@ -782,7 +782,7 @@
                 "type": "object",
                 "properties": {
                   "set": {
-                    "type": "integer"
+                    "type": "string"
                   },
                   "evaluation": {
                     "type": "integer"
@@ -959,7 +959,7 @@
                 ]
               },
               "example": {
-                "set": 123,
+                "set": "HT-13",
                 "evaluation": 120000000,
                 "type": 1,
                 "BeginDate": "2026-05-20",
@@ -1073,7 +1073,7 @@
       "post": {
         "operationId": "postApiBrokerThd_loanCreate",
         "summary": "Create THD Loan",
-        "description": "THD loan гэрээ үүсгэнэ.\n\nАнхаарах зүйл:\n- set нь бодит DB id байх ёстой\n- set code нь 0313 байх ёстой",
+        "description": "THD loan гэрээ үүсгэнэ.\n\nАнхаарах зүйл:\n- set нь string code байна",
         "responses": {
           "200": {
             "description": "Successful response"
@@ -1098,7 +1098,7 @@
                 "type": "object",
                 "properties": {
                   "set": {
-                    "type": "integer"
+                    "type": "string"
                   },
                   "evaluation": {
                     "type": "integer"
@@ -1222,7 +1222,7 @@
                 ]
               },
               "example": {
-                "set": 123,
+                "set": "THD-LOAN-13",
                 "evaluation": 85000000,
                 "type": 2,
                 "BeginDate": "2026-05-20",
