@@ -10,7 +10,7 @@
       "post": {
         "operationId": "postApiBrokerGet_token",
         "summary": "Get Token",
-        "description": "Broker token авна.\n\nБуцаасан token-ийг дараагийн хүсэлтүүд дээр:\nAuthorization: Bearer <token>\nхэлбэрээр дамжуулна.",
+        "description": "Broker token авна.\n\nБуцаасан token-ийг дараагийн хүсэлтүүд дээр:\nAuthorization: <token>\nхэлбэрээр дамжуулна.",
         "responses": {
           "200": {
             "description": "Successful response"
@@ -23,6 +23,7 @@
           "1. Нэвтрэх"
         ],
         "x-fern-sdk-method-name": "Get Token",
+        "security": [],
         "requestBody": {
           "content": {
             "application/json": {
@@ -67,6 +68,11 @@
           "2. Нийтлэг endpoint-үүд"
         ],
         "x-fern-sdk-method-name": "Get Driver",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -106,6 +112,11 @@
           "2. Нийтлэг endpoint-үүд"
         ],
         "x-fern-sdk-method-name": "Get Vehicle",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -144,7 +155,12 @@
         "x-fern-sdk-group-name": [
           "2. Нийтлэг endpoint-үүд"
         ],
-        "x-fern-sdk-method-name": "Products"
+        "x-fern-sdk-method-name": "Products",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/broker/thd/get_sets": {
@@ -163,7 +179,12 @@
         "x-fern-sdk-group-name": [
           "2. Нийтлэг endpoint-үүд"
         ],
-        "x-fern-sdk-method-name": "Get Sets"
+        "x-fern-sdk-method-name": "Get Sets",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/broker/thd/check_pay": {
@@ -307,6 +328,11 @@
           "3. THD"
         ],
         "x-fern-sdk-method-name": "Create THD (Компани)",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -443,6 +469,11 @@
           "3. THD"
         ],
         "x-fern-sdk-method-name": "Upload Photos THD",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "multipart/form-data": {
@@ -499,6 +530,11 @@
           "4. HT"
         ],
         "x-fern-sdk-method-name": "Create HT (1 чиргүүлтэй)",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -749,6 +785,11 @@
           "4. HT"
         ],
         "x-fern-sdk-method-name": "Upload Photos HT",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "multipart/form-data": {
@@ -805,6 +846,11 @@
           "5. THD Loan"
         ],
         "x-fern-sdk-method-name": "Create THD Loan",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -988,6 +1034,11 @@
           "5. THD Loan"
         ],
         "x-fern-sdk-method-name": "Upload Photos THD Loan",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "multipart/form-data": {
@@ -1044,6 +1095,11 @@
           "6. AJD"
         ],
         "x-fern-sdk-method-name": "Create AJD (Компани)",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -1126,6 +1182,21 @@
   "servers": [
     {
       "url": "https://ubd.insur.mn"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "Enter your broker token obtained from /api/broker/get_token endpoint. Format: Authorization: <token>"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
     }
   ],
   "tags": [
