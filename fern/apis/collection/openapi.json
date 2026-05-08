@@ -163,11 +163,28 @@
         ]
       }
     },
-    "/api/broker/thd/get_sets": {
+    "/api/broker/{product_key}/get_sets": {
       "get": {
-        "operationId": "getApiBrokerThdGet_sets",
+        "operationId": "getApiBrokerProductGet_sets",
         "summary": "Get Sets",
         "description": "Сонгосон бүтээгдэхүүний багцын мэдээлэл авна.\n\nБуцаах common бүтэц:\n- set_name\n- is_active\n- protection_percent\n- own_responsibility\n- price_percent\n- is_limited\n- protected_risks\n\nТайлбар:\n- ajd нь [] буцаана\n- thd нь хуучин THD sets response-ээ яг тэр чигээр нь ашиглана",
+        "parameters": [
+          {
+            "name": "product_key",
+            "in": "path",
+            "required": true,
+            "description": "Бүтээгдэхүүний key",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "thd",
+                "ht",
+                "thd_loan",
+                "ajd"
+              ]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful response"
@@ -187,11 +204,28 @@
         ]
       }
     },
-    "/api/broker/thd/check_pay": {
+    "/api/broker/{product_key}/check_pay": {
       "post": {
-        "operationId": "postApiBrokerThdCheck_pay",
+        "operationId": "postApiBrokerProductCheck_pay",
         "summary": "Check Pay",
         "description": "Төлбөрийн төлөв шалгана.\n\nТөлөгдсөн үед THD-тэй ижил бүтэцтэй response буцаана:\n- code\n- is_paid\n- message\n- contract_url\n\ncontract_show_url буцаахгүй.",
+        "parameters": [
+          {
+            "name": "product_key",
+            "in": "path",
+            "required": true,
+            "description": "Бүтээгдэхүүний key",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "thd",
+                "ht",
+                "thd_loan",
+                "ajd"
+              ]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful response"
@@ -226,11 +260,28 @@
         }
       }
     },
-    "/api/broker/thd/contract": {
+    "/api/broker/{product_key}/contract": {
       "post": {
-        "operationId": "postApiBrokerThdContract",
+        "operationId": "postApiBrokerProductContract",
         "summary": "Get Contract",
         "description": "Broker-ийн өөрийн үүсгэсэн нэг гэрээний дэлгэрэнгүй мэдээллийг авна.",
+        "parameters": [
+          {
+            "name": "product_key",
+            "in": "path",
+            "required": true,
+            "description": "Бүтээгдэхүүний key",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "thd",
+                "ht",
+                "thd_loan",
+                "ajd"
+              ]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful response"
@@ -265,11 +316,28 @@
         }
       }
     },
-    "/api/broker/thd/contracts": {
+    "/api/broker/{product_key}/contracts": {
       "post": {
-        "operationId": "postApiBrokerThdContracts",
+        "operationId": "postApiBrokerProductContracts",
         "summary": "Get Contracts",
         "description": "Огнооны интервалаар гэрээнүүдийн жагсаалт авна.\n\nДотоод date field:\n- ajd => contract_created_at\n- бусад нь => created_at\n\nAJD status нь зөвхөн return дээр THD-style хэлбэрт хөрвөнө:\n- contract-create-success => insured\n- miis-invoice-success => pending\n- pre-contract-create => pending\n- contract-create-failed => failed\n- self-cancelled => cancelled\n- insurer-cancelled => cancelled\n- contract-expired => expired",
+        "parameters": [
+          {
+            "name": "product_key",
+            "in": "path",
+            "required": true,
+            "description": "Бүтээгдэхүүний key",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "thd",
+                "ht",
+                "thd_loan",
+                "ajd"
+              ]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful response"
