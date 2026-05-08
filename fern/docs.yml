@@ -1,0 +1,51 @@
+# yaml-language-server: $schema=https://schema.buildwithfern.dev/docs-yml.json
+
+instances:
+  - url: ubd-insurance.docs.buildwithfern.com
+    edit-this-page:
+      github:
+        owner: fern-starter
+        repo: mobilife
+        branch: main
+      launch: dashboard
+title: Улаанбаатар Хотын Даатгал (UBD Insurance) | Documentation
+layout:
+  searchbar-placement: header
+  page-width: full
+navigation:
+  - api: Broker Dynamic API (MN)
+    flattened: false
+    layout:
+      - 1. Нэвтрэх:
+          summary: docs/pages/1-overview.mdx
+      - 2. Нийтлэг endpoint-үүд:
+          summary: docs/pages/2-endpoint-overview.mdx
+      - 3. THD:
+          summary: docs/pages/3-thd-overview.mdx
+      - 4. HT:
+          summary: docs/pages/4-ht-overview.mdx
+      - 5. THD Loan:
+          summary: docs/pages/5-thd-loan-overview.mdx
+      - 6. AJD:
+          summary: docs/pages/6-ajd-overview.mdx
+    summary: docs/pages/collection-overview.mdx
+colors:
+  accent-primary:
+    light: "#414099"
+    dark: "#414099"
+  background:
+    light: "#F9F9FC"
+    dark: "#030308"
+  border:
+    light: "#CDCCD3"
+    dark: "#2A2A30"
+theme:
+  page-actions: toolbar
+  footer-nav: minimal
+logo:
+  dark: docs/assets/logo-dark.png
+  light: docs/assets/logo-light.png
+  height: 20
+  href: https://buildwithfern.com
+favicon: docs/assets/favicon.svg
+css: styles.css

@@ -1,0 +1,1157 @@
+{
+  "info": {
+    "title": "Broker Dynamic API (MN)",
+    "version": "1.0.0",
+    "description": "Broker Dynamic API Postman collection\n\n\\=== Ерөнхий урсгал ===\n\n1. POST /api/broker/get_token\n    \n\n- Broker username, password-оор token авна.\n    \n\n1. POST /api/broker/get-driver\n    \n\n- Регистрийн дугаараар жолооч / иргэний мэдээлэл татна.\n    \n- XYP ашигладаг.\n    \n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n    \n\n1. POST /api/broker/get-vehicle\n    \n\n- Улсын дугаараар тээврийн хэрэгслийн мэдээлэл татна.\n    \n- XYP ашигладаг.\n    \n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n    \n\n1. GET /api/broker/products\n    \n\n- Ашиглах боломжтой бүтээгдэхүүний жагсаалт авна.\n    \n\n1. GET /api/broker/{product_key}/get_sets\n    \n\n- Сонгосон бүтээгдэхүүний багцуудыг авна.\n    \n\n1. POST /api/broker/{product_key}/create\n    \n\n- Сонгосон бүтээгдэхүүний гэрээ үүсгэнэ.\n    \n\n1. POST /api/broker/{product_key}/upload_photos\n    \n\n- Гэрээ үүссэний дараа тээврийн хэрэгслийн зургууд upload хийнэ.\n    \n- Зөвхөн thd, ht, thd_loan дээр ажиллана.\n    \n\n1. POST /api/broker/{product_key}/check_pay\n    \n\n- Төлбөрийн төлөв шалгана.\n    \n- Төлөгдсөн бол contract_url буцаана.\n    \n\n1. POST /api/broker/{product_key}/contract\n    \n\n- Нэг гэрээний дэлгэрэнгүй мэдээлэл авна.\n    \n\n1. POST /api/broker/{product_key}/contracts\n    \n\n- Огнооны интервалаар гэрээнүүдийн жагсаалт авна.\n    \n\n\\=== Бүтээгдэхүүний key ===\n\n- thd\n    \n- ht\n    \n- thd_loan\n    \n- ajd"
+  },
+  "tags": [
+    {
+      "name": "1. Нэвтрэх",
+      "description": "Broker token авах endpoint."
+    },
+    {
+      "name": "2. Нийтлэг endpoint-үүд",
+      "description": "Бүх product дээр адилхан хэрэглэгдэх broker API endpoint-үүд."
+    },
+    {
+      "name": "3. THD",
+      "description": "THD нь хуучин broker THD API flow-ийг яг тэр чигээр нь ашиглана."
+    },
+    {
+      "name": "4. HT",
+      "description": "HT нь THD-тэй төстэй request body хүлээж авна. owner талбар driver руу normalize хийгдэнэ."
+    },
+    {
+      "name": "5. THD Loan",
+      "description": "THD loan нь company + owner + vehicle бүтэцтэй, THD-тэй төстэй payload хүлээнэ."
+    },
+    {
+      "name": "6. AJD",
+      "description": "AJD broker flow. is_limited-ийг backend үргэлж false болгож MIIS рүү явуулна."
+    }
+  ],
+  "paths": {
+    "/api/broker/products": {
+      "get": {
+        "tags": [
+          "2. Нийтлэг endpoint-үүд"
+        ],
+        "summary": "Products",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "description": "Dynamic broker API дээр идэвхтэй байгаа бүтээгдэхүүний жагсаалтыг авна.\n\nОдоогийн байдлаар:\n- thd\n- ht\n- thd_loan\n- ajd",
+        "operationId": "getApiBrokerProducts",
+        "x-fern-sdk-group-name": [
+          "2. Нийтлэг endpoint-үүд"
+        ],
+        "x-fern-sdk-method-name": "Products"
+      }
+    },
+    "/api/broker/get_token": {
+      "post": {
+        "tags": [
+          "1. Нэвтрэх"
+        ],
+        "summary": "Get Token",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "description": "Broker token авна.\n\nБуцаасан token-ийг дараагийн хүсэлтүүд дээр:\nAuthorization: Bearer <token>\nхэлбэрээр дамжуулна.",
+        "operationId": "postApiBrokerGet_token",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "username",
+                  "password"
+                ],
+                "properties": {
+                  "password": {
+                    "type": "string"
+                  },
+                  "username": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "password": "your_broker_password",
+                "username": "your_broker_username"
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": [
+          "1. Нэвтрэх"
+        ],
+        "x-fern-sdk-method-name": "Get Token"
+      }
+    },
+    "/api/broker/ht/create": {
+      "post": {
+        "tags": [
+          "4. HT"
+        ],
+        "summary": "Create HT (1 чиргүүлтэй)",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "description": "1 чиргүүлтэй HT гэрээ үүсгэнэ.\n\nТайлбар:\n- owner илгээвэл driver руу normalize хийгдэнэ\n- top-level evaluation байвал vehicle.evaluation руу шилжүүлж ашиглана",
+        "operationId": "postApiBrokerHtCreate",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "set",
+                  "evaluation",
+                  "type",
+                  "BeginDate",
+                  "vehicle",
+                  "owner",
+                  "trailers"
+                ],
+                "properties": {
+                  "set": {
+                    "type": "integer"
+                  },
+                  "type": {
+                    "type": "integer"
+                  },
+                  "owner": {
+                    "type": "object",
+                    "required": [
+                      "familyname",
+                      "lastname",
+                      "firstname",
+                      "regnum",
+                      "driver_ln",
+                      "driver_ln_date",
+                      "address",
+                      "phone_number",
+                      "email",
+                      "nationality",
+                      "sex",
+                      "born_Date",
+                      "ZipCode"
+                    ],
+                    "properties": {
+                      "sex": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string",
+                        "format": "email"
+                      },
+                      "regnum": {
+                        "type": "string"
+                      },
+                      "ZipCode": {
+                        "type": "string"
+                      },
+                      "address": {
+                        "type": "string"
+                      },
+                      "lastname": {
+                        "type": "string"
+                      },
+                      "born_Date": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "driver_ln": {
+                        "type": "string"
+                      },
+                      "firstname": {
+                        "type": "string"
+                      },
+                      "familyname": {
+                        "type": "string"
+                      },
+                      "nationality": {
+                        "type": "string"
+                      },
+                      "phone_number": {
+                        "type": "string"
+                      },
+                      "driver_ln_date": {
+                        "type": "string",
+                        "format": "date"
+                      }
+                    }
+                  },
+                  "vehicle": {
+                    "type": "object",
+                    "required": [
+                      "plate_number",
+                      "color",
+                      "cabin_number",
+                      "mark",
+                      "model",
+                      "made_year",
+                      "imported_date",
+                      "evaluation"
+                    ],
+                    "properties": {
+                      "mark": {
+                        "type": "string"
+                      },
+                      "color": {
+                        "type": "string"
+                      },
+                      "model": {
+                        "type": "string"
+                      },
+                      "made_year": {
+                        "type": "integer"
+                      },
+                      "evaluation": {
+                        "type": "integer"
+                      },
+                      "cabin_number": {
+                        "type": "string"
+                      },
+                      "plate_number": {
+                        "type": "string"
+                      },
+                      "imported_date": {
+                        "type": "string",
+                        "format": "date"
+                      }
+                    }
+                  },
+                  "trailers": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "plate_number",
+                        "color",
+                        "cabin_number",
+                        "mark",
+                        "model",
+                        "made_year",
+                        "imported_date",
+                        "type",
+                        "mass",
+                        "evaluation"
+                      ],
+                      "properties": {
+                        "mark": {
+                          "type": "string"
+                        },
+                        "mass": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "color": {
+                          "type": "string"
+                        },
+                        "model": {
+                          "type": "string"
+                        },
+                        "made_year": {
+                          "type": "integer"
+                        },
+                        "evaluation": {
+                          "type": "integer"
+                        },
+                        "cabin_number": {
+                          "type": "string"
+                        },
+                        "plate_number": {
+                          "type": "string"
+                        },
+                        "imported_date": {
+                          "type": "string",
+                          "format": "date"
+                        }
+                      }
+                    }
+                  },
+                  "BeginDate": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "evaluation": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "example": {
+                "set": 123,
+                "type": 1,
+                "owner": {
+                  "sex": "male",
+                  "email": "test@example.com",
+                  "regnum": "АБ12345678",
+                  "ZipCode": "15160",
+                  "address": "УБ",
+                  "lastname": "БАТ",
+                  "born_Date": "1990-01-01",
+                  "driver_ln": "1234567",
+                  "firstname": "ДОРЖ",
+                  "familyname": "БАТ",
+                  "nationality": "MN",
+                  "phone_number": "99112233",
+                  "driver_ln_date": "2015-01-01"
+                },
+                "vehicle": {
+                  "mark": "HOWO",
+                  "color": "ХӨХ",
+                  "model": "TRUCK",
+                  "made_year": 2020,
+                  "evaluation": 120000000,
+                  "cabin_number": "HTCABIN123",
+                  "plate_number": "5678УБА",
+                  "imported_date": "2020-01-01"
+                },
+                "trailers": [
+                  {
+                    "mark": "SCHMITZ",
+                    "mass": 24000,
+                    "type": "ЧИРГҮҮЛ",
+                    "color": "ЦАГААН",
+                    "model": "SCS24",
+                    "made_year": 2019,
+                    "evaluation": 30000000,
+                    "cabin_number": "TRL123456",
+                    "plate_number": "1234УНА",
+                    "imported_date": "2019-01-01"
+                  }
+                ],
+                "BeginDate": "2026-05-20",
+                "evaluation": 120000000
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": [
+          "4. HT"
+        ],
+        "x-fern-sdk-method-name": "Create HT (1 чиргүүлтэй)"
+      }
+    },
+    "/api/broker/ajd/create": {
+      "post": {
+        "tags": [
+          "6. AJD"
+        ],
+        "summary": "Create AJD (Компани)",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "description": "Байгууллагын AJD гэрээ үүсгэнэ.",
+        "operationId": "postApiBrokerAjdCreate2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "type",
+                  "vehicle",
+                  "company"
+                ],
+                "properties": {
+                  "type": {
+                    "type": "integer"
+                  },
+                  "company": {
+                    "type": "object",
+                    "required": [
+                      "regnum",
+                      "name",
+                      "address",
+                      "phone_number",
+                      "email"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string",
+                        "format": "email"
+                      },
+                      "regnum": {
+                        "type": "string"
+                      },
+                      "address": {
+                        "type": "string"
+                      },
+                      "phone_number": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "vehicle": {
+                    "type": "object",
+                    "required": [
+                      "plate_number",
+                      "is_chirguul"
+                    ],
+                    "properties": {
+                      "is_chirguul": {
+                        "type": "boolean"
+                      },
+                      "plate_number": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "type": 2,
+                "company": {
+                  "name": "TEST COMPANY",
+                  "email": "company@example.com",
+                  "regnum": "1234567",
+                  "address": "УБ",
+                  "phone_number": "70112233"
+                },
+                "vehicle": {
+                  "is_chirguul": false,
+                  "plate_number": "1234УБА"
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": [
+          "6. AJD"
+        ],
+        "x-fern-sdk-method-name": "Create AJD (Компани)"
+      }
+    },
+    "/api/broker/get-driver": {
+      "post": {
+        "tags": [
+          "2. Нийтлэг endpoint-үүд"
+        ],
+        "summary": "Get Driver",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "description": "Регистрийн дугаараар жолооч / иргэний мэдээлэл татна.\n\nЭнэ endpoint нь XYP lookup ашигладаг.\n\nАнхаарах зүйл:\n- Broker token-оо Authorization header дээр дамжуулна.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n- Энэ endpoint нь create-ийн өмнөх туслах autofill endpoint юм.",
+        "operationId": "postApiBrokerGet-driver",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "regnum"
+                ],
+                "properties": {
+                  "regnum": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "regnum": "АБ12345678"
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": [
+          "2. Нийтлэг endpoint-үүд"
+        ],
+        "x-fern-sdk-method-name": "Get Driver"
+      }
+    },
+    "/api/broker/thd/create": {
+      "post": {
+        "tags": [
+          "3. THD"
+        ],
+        "summary": "Create THD (Компани)",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "description": "Байгууллагын THD гэрээ үүсгэнэ.",
+        "operationId": "postApiBrokerThdCreate2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "set",
+                  "evaluation",
+                  "type",
+                  "BeginDate",
+                  "vehicle",
+                  "company"
+                ],
+                "properties": {
+                  "set": {
+                    "type": "integer"
+                  },
+                  "type": {
+                    "type": "integer"
+                  },
+                  "company": {
+                    "type": "object",
+                    "required": [
+                      "regnum",
+                      "name",
+                      "address",
+                      "phone_number",
+                      "ZipCode"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "regnum": {
+                        "type": "string"
+                      },
+                      "ZipCode": {
+                        "type": "string"
+                      },
+                      "address": {
+                        "type": "string"
+                      },
+                      "phone_number": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "vehicle": {
+                    "type": "object",
+                    "required": [
+                      "plate_number",
+                      "color",
+                      "cabin_number",
+                      "mark",
+                      "model",
+                      "made_year",
+                      "imported_date"
+                    ],
+                    "properties": {
+                      "mark": {
+                        "type": "string"
+                      },
+                      "color": {
+                        "type": "string"
+                      },
+                      "model": {
+                        "type": "string"
+                      },
+                      "made_year": {
+                        "type": "integer"
+                      },
+                      "cabin_number": {
+                        "type": "string"
+                      },
+                      "plate_number": {
+                        "type": "string"
+                      },
+                      "imported_date": {
+                        "type": "string",
+                        "format": "date"
+                      }
+                    }
+                  },
+                  "BeginDate": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "evaluation": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "example": {
+                "set": 123,
+                "type": 2,
+                "company": {
+                  "name": "TEST LLC",
+                  "regnum": "1234567",
+                  "ZipCode": "15160",
+                  "address": "УБ",
+                  "phone_number": "70112233"
+                },
+                "vehicle": {
+                  "mark": "TOYOTA",
+                  "color": "ЦАГААН",
+                  "model": "PRIUS",
+                  "made_year": 2018,
+                  "cabin_number": "CABIN123",
+                  "plate_number": "1234УБА",
+                  "imported_date": "2018-01-01"
+                },
+                "BeginDate": "2026-05-20",
+                "evaluation": 50000000
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": [
+          "3. THD"
+        ],
+        "x-fern-sdk-method-name": "Create THD (Компани)"
+      }
+    },
+    "/api/broker/get-vehicle": {
+      "post": {
+        "tags": [
+          "2. Нийтлэг endpoint-үүд"
+        ],
+        "summary": "Get Vehicle",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "description": "Улсын дугаараар тээврийн хэрэгслийн мэдээлэл татна.\n\nЭнэ endpoint нь XYP lookup ашигладаг.\n\nАнхаарах зүйл:\n- Broker token-оо Authorization header дээр дамжуулна.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n- Энэ endpoint нь create-ийн өмнөх туслах autofill endpoint юм.",
+        "operationId": "postApiBrokerGet-vehicle",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "plate_number"
+                ],
+                "properties": {
+                  "plate_number": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "plate_number": "1234УБА"
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": [
+          "2. Нийтлэг endpoint-үүд"
+        ],
+        "x-fern-sdk-method-name": "Get Vehicle"
+      }
+    },
+    "/api/broker/thd/contract": {
+      "post": {
+        "tags": [
+          "2. Нийтлэг endpoint-үүд"
+        ],
+        "summary": "Get Contract",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "description": "Broker-ийн өөрийн үүсгэсэн нэг гэрээний дэлгэрэнгүй мэдээллийг авна.",
+        "operationId": "postApiBrokerThdContract",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "contract_number"
+                ],
+                "properties": {
+                  "contract_number": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "contract_number": "{{contract_number}}"
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": [
+          "2. Нийтлэг endpoint-үүд"
+        ],
+        "x-fern-sdk-method-name": "Get Contract"
+      }
+    },
+    "/api/broker/thd/get_sets": {
+      "get": {
+        "tags": [
+          "2. Нийтлэг endpoint-үүд"
+        ],
+        "summary": "Get Sets",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "description": "Сонгосон бүтээгдэхүүний багцын мэдээлэл авна.\n\nБуцаах common бүтэц:\n- set_name\n- is_active\n- protection_percent\n- own_responsibility\n- price_percent\n- is_limited\n- protected_risks\n\nТайлбар:\n- ajd нь [] буцаана\n- thd нь хуучин THD sets response-ээ яг тэр чигээр нь ашиглана",
+        "operationId": "getApiBrokerThdGet_sets",
+        "x-fern-sdk-group-name": [
+          "2. Нийтлэг endpoint-үүд"
+        ],
+        "x-fern-sdk-method-name": "Get Sets"
+      }
+    },
+    "/api/broker/thd/check_pay": {
+      "post": {
+        "tags": [
+          "2. Нийтлэг endpoint-үүд"
+        ],
+        "summary": "Check Pay",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "description": "Төлбөрийн төлөв шалгана.\n\nТөлөгдсөн үед THD-тэй ижил бүтэцтэй response буцаана:\n- code\n- is_paid\n- message\n- contract_url\n\ncontract_show_url буцаахгүй.",
+        "operationId": "postApiBrokerThdCheck_pay",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "contract_number"
+                ],
+                "properties": {
+                  "contract_number": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "contract_number": "{{contract_number}}"
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": [
+          "2. Нийтлэг endpoint-үүд"
+        ],
+        "x-fern-sdk-method-name": "Check Pay"
+      }
+    },
+    "/api/broker/thd/contracts": {
+      "post": {
+        "tags": [
+          "2. Нийтлэг endpoint-үүд"
+        ],
+        "summary": "Get Contracts",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "description": "Огнооны интервалаар гэрээнүүдийн жагсаалт авна.\n\nДотоод date field:\n- ajd => contract_created_at\n- бусад нь => created_at\n\nAJD status нь зөвхөн return дээр THD-style хэлбэрт хөрвөнө:\n- contract-create-success => insured\n- miis-invoice-success => pending\n- pre-contract-create => pending\n- contract-create-failed => failed\n- self-cancelled => cancelled\n- insurer-cancelled => cancelled\n- contract-expired => expired",
+        "operationId": "postApiBrokerThdContracts",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "start_date",
+                  "end_date"
+                ],
+                "properties": {
+                  "end_date": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "start_date": {
+                    "type": "string",
+                    "format": "date"
+                  }
+                }
+              },
+              "example": {
+                "end_date": "2026-05-31",
+                "start_date": "2026-05-01"
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": [
+          "2. Нийтлэг endpoint-үүд"
+        ],
+        "x-fern-sdk-method-name": "Get Contracts"
+      }
+    },
+    "/api/broker/thd_loan/create": {
+      "post": {
+        "tags": [
+          "5. THD Loan"
+        ],
+        "summary": "Create THD Loan",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "description": "THD loan гэрээ үүсгэнэ.\n\nАнхаарах зүйл:\n- set нь бодит DB id байх ёстой\n- set code нь 0313 байх ёстой",
+        "operationId": "postApiBrokerThd_loanCreate",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "set",
+                  "evaluation",
+                  "type",
+                  "BeginDate",
+                  "vehicle",
+                  "company",
+                  "owner"
+                ],
+                "properties": {
+                  "set": {
+                    "type": "integer"
+                  },
+                  "type": {
+                    "type": "integer"
+                  },
+                  "owner": {
+                    "type": "object",
+                    "required": [
+                      "lastname",
+                      "firstname",
+                      "regnum",
+                      "phone_number",
+                      "driver_ln",
+                      "driver_ln_date",
+                      "address"
+                    ],
+                    "properties": {
+                      "regnum": {
+                        "type": "string"
+                      },
+                      "address": {
+                        "type": "string"
+                      },
+                      "lastname": {
+                        "type": "string"
+                      },
+                      "driver_ln": {
+                        "type": "string"
+                      },
+                      "firstname": {
+                        "type": "string"
+                      },
+                      "phone_number": {
+                        "type": "string"
+                      },
+                      "driver_ln_date": {
+                        "type": "string",
+                        "format": "date"
+                      }
+                    }
+                  },
+                  "company": {
+                    "type": "object",
+                    "required": [
+                      "regnum",
+                      "name",
+                      "address",
+                      "phone_number",
+                      "email"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string",
+                        "format": "email"
+                      },
+                      "regnum": {
+                        "type": "string"
+                      },
+                      "address": {
+                        "type": "string"
+                      },
+                      "phone_number": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "vehicle": {
+                    "type": "object",
+                    "required": [
+                      "plate_number",
+                      "color",
+                      "cabin_number",
+                      "mark",
+                      "model",
+                      "made_year",
+                      "imported_date"
+                    ],
+                    "properties": {
+                      "mark": {
+                        "type": "string"
+                      },
+                      "color": {
+                        "type": "string"
+                      },
+                      "model": {
+                        "type": "string"
+                      },
+                      "made_year": {
+                        "type": "integer"
+                      },
+                      "cabin_number": {
+                        "type": "string"
+                      },
+                      "plate_number": {
+                        "type": "string"
+                      },
+                      "imported_date": {
+                        "type": "string",
+                        "format": "date"
+                      }
+                    }
+                  },
+                  "BeginDate": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "evaluation": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "example": {
+                "set": 123,
+                "type": 2,
+                "owner": {
+                  "regnum": "АБ12345678",
+                  "address": "УБ",
+                  "lastname": "БАТ",
+                  "driver_ln": "1234567",
+                  "firstname": "ДОРЖ",
+                  "phone_number": "99112233",
+                  "driver_ln_date": "2015-01-01"
+                },
+                "company": {
+                  "name": "TEST BBSB",
+                  "email": "bbsb@example.com",
+                  "regnum": "1234567",
+                  "address": "УБ",
+                  "phone_number": "70112233"
+                },
+                "vehicle": {
+                  "mark": "TOYOTA",
+                  "color": "ХАР",
+                  "model": "PRADO",
+                  "made_year": 2021,
+                  "cabin_number": "LOANCABIN123",
+                  "plate_number": "9999УБА",
+                  "imported_date": "2021-01-01"
+                },
+                "BeginDate": "2026-05-20",
+                "evaluation": 85000000
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": [
+          "5. THD Loan"
+        ],
+        "x-fern-sdk-method-name": "Create THD Loan"
+      }
+    },
+    "/api/broker/ht/upload_photos": {
+      "post": {
+        "tags": [
+          "4. HT"
+        ],
+        "summary": "Upload Photos HT",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "description": "HT гэрээнд 4 зураг upload хийнэ.",
+        "operationId": "postApiBrokerHtUpload_photos",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "contract_number",
+                  "vehicle_front",
+                  "vehicle_left",
+                  "vehicle_back",
+                  "vehicle_right"
+                ],
+                "properties": {
+                  "vehicle_back": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "vehicle_left": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "vehicle_front": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "vehicle_right": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "contract_number": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": [
+          "4. HT"
+        ],
+        "x-fern-sdk-method-name": "Upload Photos HT"
+      }
+    },
+    "/api/broker/thd/upload_photos": {
+      "post": {
+        "tags": [
+          "3. THD"
+        ],
+        "summary": "Upload Photos THD",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "description": "THD гэрээнд 4 зураг upload хийнэ.",
+        "operationId": "postApiBrokerThdUpload_photos",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "contract_number",
+                  "vehicle_front",
+                  "vehicle_left",
+                  "vehicle_back",
+                  "vehicle_right"
+                ],
+                "properties": {
+                  "vehicle_back": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "vehicle_left": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "vehicle_front": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "vehicle_right": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "contract_number": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": [
+          "3. THD"
+        ],
+        "x-fern-sdk-method-name": "Upload Photos THD"
+      }
+    },
+    "/api/broker/thd_loan/upload_photos": {
+      "post": {
+        "tags": [
+          "5. THD Loan"
+        ],
+        "summary": "Upload Photos THD Loan",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        },
+        "description": "THD loan гэрээнд 4 зураг upload хийнэ.",
+        "operationId": "postApiBrokerThd_loanUpload_photos",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "contract_number",
+                  "vehicle_front",
+                  "vehicle_left",
+                  "vehicle_back",
+                  "vehicle_right"
+                ],
+                "properties": {
+                  "vehicle_back": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "vehicle_left": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "vehicle_front": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "vehicle_right": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "contract_number": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": [
+          "5. THD Loan"
+        ],
+        "x-fern-sdk-method-name": "Upload Photos THD Loan"
+      }
+    }
+  },
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "http://babi.insur.mn"
+    }
+  ]
+}

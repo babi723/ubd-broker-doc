@@ -1,0 +1,10 @@
+{
+  "desiredContentHash": "bc6b1235e4d0c7dc8e999aa10c0fe327ae5e990b2923928a1b497b1832d0b939",
+  "docsUrl": "https://ubd-insurance.docs.buildwithfern.com",
+  "starter": {
+    "repoOwner": "fern-api",
+    "repoName": "docs-starter-internal",
+    "commitSha": "f36776f9b239a11b416713f8d44be63d0f4e0232",
+    "label": "2026-04-25-manual-starter-sha-bump"
+  }
+}
