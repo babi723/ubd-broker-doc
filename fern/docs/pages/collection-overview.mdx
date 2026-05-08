@@ -6,84 +6,72 @@ Broker Dynamic API Postman collection
 
 \=== Ерөнхий урсгал ===
 
-1. POST /api/broker/get_token
-    
+1. POST /api/broker/get\_token
 
 - Broker username, password-оор token авна.
-    
 
-1. POST /api/broker/get-driver
-    
+1.1. POST /api/broker/get-driver
 
 - Регистрийн дугаараар жолооч / иргэний мэдээлэл татна.
-    
 - XYP ашигладаг.
-    
 - Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.
-    
 
-1. POST /api/broker/get-vehicle
-    
+1.2. POST /api/broker/get-vehicle
 
 - Улсын дугаараар тээврийн хэрэгслийн мэдээлэл татна.
-    
 - XYP ашигладаг.
-    
 - Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.
-    
 
-1. GET /api/broker/products
-    
+2. GET /api/broker/products
 
 - Ашиглах боломжтой бүтээгдэхүүний жагсаалт авна.
-    
 
-1. GET /api/broker/{product_key}/get_sets
-    
+3. GET /api/broker/
+
+{product_key}
+
+/get\_sets
 
 - Сонгосон бүтээгдэхүүний багцуудыг авна.
-    
 
-1. POST /api/broker/{product_key}/create
-    
+4. POST /api/broker/
+
+{product_key}
+
+/create
 
 - Сонгосон бүтээгдэхүүний гэрээ үүсгэнэ.
-    
 
-1. POST /api/broker/{product_key}/upload_photos
-    
+5. POST /api/broker/
+
+{product_key}
+
+/upload\_photos
 
 - Гэрээ үүссэний дараа тээврийн хэрэгслийн зургууд upload хийнэ.
-    
 - Зөвхөн thd, ht, thd_loan дээр ажиллана.
-    
 
-1. POST /api/broker/{product_key}/check_pay
-    
+6. POST /api/broker/
+
+{product_key}
+
+/check\_pay
 
 - Төлбөрийн төлөв шалгана.
-    
 - Төлөгдсөн бол contract_url буцаана.
-    
 
-1. POST /api/broker/{product_key}/contract
-    
+7. POST /api/broker/
+
+{product_key}
+
+/contract
 
 - Нэг гэрээний дэлгэрэнгүй мэдээлэл авна.
-    
 
-1. POST /api/broker/{product_key}/contracts
-    
+8. POST /api/broker/
+
+{product_key}
+
+/contracts
 
 - Огнооны интервалаар гэрээнүүдийн жагсаалт авна.
-    
-
-\=== Бүтээгдэхүүний key ===
-
-- thd
-    
-- ht
-    
-- thd_loan
-    
-- ajd
