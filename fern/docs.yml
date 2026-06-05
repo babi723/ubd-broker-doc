@@ -20,17 +20,17 @@ navigation:
           summary: docs/pages/1-overview.mdx
       - 2. Нийтлэг endpoint-үүд:
           summary: docs/pages/2-endpoint-overview.mdx
-      - 3. THD:
+      - 3. Тээврийн хэрэгслийн даатгал:
           summary: docs/pages/3-thd-overview.mdx
-      - 4. HT:
+      - 4. Хүнд даацын машины даатгал:
           summary: docs/pages/4-ht-overview.mdx
-      - 5. GOD:
+      - 5. Гэнэтийн ослын даатгал:
           summary: docs/pages/god-overview.mdx
-      - 6. THD Loan:
+      - 6. Зээлтэй автомашины даатгал:
           summary: docs/pages/5-thd-loan-overview.mdx
-      - 7. AJD:
+      - 7. Албан журмын даатгал:
           summary: docs/pages/6-ajd-overview.mdx
-      - 8. SGO:
+      - 8. Суудлын гэнэтийн ослын даатгал:
           summary: docs/pages/sgo-overview.mdx
     summary: docs/pages/collection-overview.mdx
 colors:

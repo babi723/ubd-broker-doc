@@ -3,7 +3,7 @@
   "info": {
     "title": "Broker Dynamic API (MN)",
     "version": "1.0.0",
-    "description": "Broker Dynamic API Postman collection\n\n=== Ерөнхий урсгал ===\n1. POST /api/broker/get_token\n- Broker username, password-оор token авна.\n\n2. POST /api/broker/get-driver\n- Регистрийн дугаараар жолооч / иргэний мэдээллийг татна.\n- XYP ашигладаг.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n\n3. POST /api/broker/get-vehicle\n- Улсын дугаараар тээврийн хэрэгслийн мэдээллийг татна.\n- XYP ашигладаг.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n\n4. GET /api/broker/products\n- Ашиглах боломжтой бүтээгдэхүүний жагсаалтыг авна.\n\n5. GET /api/broker/{product_key}/get_sets\n- Сонгосон бүтээгдэхүүний багцуудыг авна.\n\n6. POST /api/broker/{product_key}/create\n- Сонгосон бүтээгдэхүүний гэрээг үүсгэнэ.\n\n7. POST /api/broker/{product_key}/upload_photos\n- Гэрээ үүссэний дараа тээврийн хэрэгслийн зургуудыг upload хийнэ.\n- Зөвхөн thd, ht, thd_loan дээр ажиллана.\n\n8. POST /api/broker/{product_key}/check_pay\n- Төлбөрийн төлөвийг шалгана.\n- Төлөгдсөн бол contract_url буцаана.\n\n9. POST /api/broker/{product_key}/contract\n- Нэг гэрээний дэлгэрэнгүй мэдээллийг авна.\n\n10. POST /api/broker/{product_key}/contracts\n- Огнооны интервалаар гэрээнүүдийн жагсаалтыг авна.\n\n=== Бүтээгдэхүүний key ===\n- thd\n- ht\n- god\n- thd_loan\n- ajd\n- sgo\n\n=== Нэмэлт тайлбар ===\n- THD нь хуучин /api/broker/thd/* flow-ийг яг тэр чигээр нь ашиглана.\n- HT, GOD, THD loan, AJD, SGO нь broker dynamic controller-оор дамжина.\n- AJD get_sets нь хоосон жагсаалт буцаана.\n- THD get_sets нь хуучин THD sets response-ээ яг тэр чигээр нь ашиглана.\n- GOD, SGO get_sets нь common broker structure дээр insurance_type, protection_amount, price талбаруудыг нэмээд буцаана.\n- Баталгаажсан token-ийг Authorization: <token> хэлбэрээр protected endpoint бүрд дамжуулна.\n- set утга нь тухайн product-ийн get_sets endpoint-ээс авсан key/id байна."
+    "description": "Broker Dynamic API Postman collection\n\n=== Ерөнхий урсгал ===\n1. POST /api/broker/get_token\n- Broker username, password-оор token авна.\n\n2. POST /api/broker/get-driver\n- Регистрийн дугаараар жолооч / иргэний мэдээллийг татна.\n- XYP ашигладаг.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n\n3. POST /api/broker/get-vehicle\n- Улсын дугаараар тээврийн хэрэгслийн мэдээллийг татна.\n- XYP ашигладаг.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n\n4. GET /api/broker/products\n- Ашиглах боломжтой бүтээгдэхүүний жагсаалтыг авна.\n\n5. GET /api/broker/{product_key}/get_sets\n- Сонгосон бүтээгдэхүүний багцуудыг авна.\n\n6. POST /api/broker/{product_key}/create\n- Сонгосон бүтээгдэхүүний гэрээг үүсгэнэ.\n\n7. POST /api/broker/{product_key}/upload_photos\n- Гэрээ үүссэний дараа тээврийн хэрэгслийн зургуудыг upload хийнэ.\n- Зөвхөн thd, ht, thd_loan дээр ажиллана.\n\n8. POST /api/broker/{product_key}/check_pay\n- Төлбөрийн төлөвийг шалгана.\n- Төлөгдсөн бол contract_url буцаана.\n\n9. POST /api/broker/{product_key}/contract\n- Нэг гэрээний дэлгэрэнгүй мэдээллийг авна.\n\n10. POST /api/broker/{product_key}/contracts\n- Огнооны интервалаар гэрээнүүдийн жагсаалтыг авна.\n\n=== Бүтээгдэхүүний key ===\n- thd\n- ht\n- god\n- thd_loan\n- ajd\n- sgo\n\n=== Нэмэлт тайлбар ===\n- Тээврийн хэрэгслийн даатгал нь хуучин /api/broker/thd/* flow-ийг яг тэр чигээр нь ашиглана.\n- Хүнд даацын машины даатгал, Гэнэтийн ослын даатгал, Зээлтэй автомашины даатгал, Албан журмын даатгал, Суудлын гэнэтийн ослын даатгал нь broker dynamic controller-оор дамжина.\n- Албан журмын даатгалын get_sets нь хоосон жагсаалт буцаана.\n- Тээврийн хэрэгслийн даатгалын get_sets нь хуучин THD sets response-ээ яг тэр чигээр нь ашиглана.\n- Гэнэтийн ослын даатгал, Суудлын гэнэтийн ослын даатгалын get_sets нь common broker structure дээр insurance_type, protection_amount, price талбаруудыг нэмээд буцаана.\n- Баталгаажсан token-ийг Authorization: <token> хэлбэрээр protected endpoint бүрд дамжуулна.\n- set утга нь тухайн product-ийн get_sets endpoint-ээс авсан key/id байна."
   },
   "paths": {
     "/api/broker/get_token": {
@@ -391,17 +391,17 @@
       "post": {
         "operationId": "postApiBrokerThdCreate2",
         "summary": "Create THD",
-        "description": "THD гэрээ үүсгэнэ.\n\nЗаавал:\n- set\n- evaluation\n- type\n- vehicle\n- type=1 үед driver\n- type=2 үед company\n\nАнхаарах зүйл:\n- set нь string code байна\n- жишээ: THD-13",
+        "description": "Тээврийн хэрэгслийн даатгалын гэрээг үүсгэнэ.\n\nЗаавал:\n- set\n- evaluation\n- type\n- vehicle\n- type=1 үед driver\n- type=2 үед company\n\nАнхаарах зүйл:\n- set нь string code байна\n- жишээ: THD-13",
         "responses": {
           "200": {
             "description": "Successful response"
           }
         },
         "tags": [
-          "3. THD"
+          "3. Тээврийн хэрэгслийн даатгал"
         ],
         "x-fern-sdk-group-name": [
-          "3. THD"
+          "3. Тээврийн хэрэгслийн даатгал"
         ],
         "x-fern-sdk-method-name": "Create THD",
         "security": [
@@ -704,17 +704,17 @@
       "post": {
         "operationId": "postApiBrokerThdUpload_photos",
         "summary": "Upload Photos THD",
-        "description": "THD гэрээнд 4 зураг upload хийнэ.",
+        "description": "Тээврийн хэрэгслийн даатгалын гэрээнд 4 зураг upload хийнэ.",
         "responses": {
           "200": {
             "description": "Successful response"
           }
         },
         "tags": [
-          "3. THD"
+          "3. Тээврийн хэрэгслийн даатгал"
         ],
         "x-fern-sdk-group-name": [
-          "3. THD"
+          "3. Тээврийн хэрэгслийн даатгал"
         ],
         "x-fern-sdk-method-name": "Upload Photos THD",
         "security": [
@@ -765,17 +765,17 @@
       "post": {
         "operationId": "postApiBrokerHtCreate",
         "summary": "Create HT (1 чиргүүлтэй)",
-        "description": "1 чиргүүлтэй HT гэрээ үүсгэнэ.\n\nТайлбар:\n- owner илгээвэл driver руу normalize хийгдэнэ\n- top-level evaluation байвал vehicle.evaluation руу шилжүүлж ашиглана",
+        "description": "1 чиргүүлтэй хүнд даацын машины даатгалын гэрээг үүсгэнэ.\n\nТайлбар:\n- owner илгээвэл driver руу normalize хийгдэнэ\n- top-level evaluation байвал vehicle.evaluation руу шилжүүлж ашиглана",
         "responses": {
           "200": {
             "description": "Successful response"
           }
         },
         "tags": [
-          "4. HT"
+          "4. Хүнд даацын машины даатгал"
         ],
         "x-fern-sdk-group-name": [
-          "4. HT"
+          "4. Хүнд даацын машины даатгал"
         ],
         "x-fern-sdk-method-name": "Create HT (1 чиргүүлтэй)",
         "security": [
@@ -1020,17 +1020,17 @@
       "post": {
         "operationId": "postApiBrokerHtUpload_photos",
         "summary": "Upload Photos HT",
-        "description": "HT гэрээнд 4 зураг upload хийнэ.",
+        "description": "Хүнд даацын машины даатгалын гэрээнд 4 зураг upload хийнэ.",
         "responses": {
           "200": {
             "description": "Successful response"
           }
         },
         "tags": [
-          "4. HT"
+          "4. Хүнд даацын машины даатгал"
         ],
         "x-fern-sdk-group-name": [
-          "4. HT"
+          "4. Хүнд даацын машины даатгал"
         ],
         "x-fern-sdk-method-name": "Upload Photos HT",
         "security": [
@@ -1081,17 +1081,17 @@
       "post": {
         "operationId": "postApiBrokerGodCreate",
         "summary": "Create GOD",
-        "description": "GOD гэрээг үүсгэнэ.\n\nТайлбар:\n- Зөвхөн иргэний гэрээг дэмжинэ\n- owner илгээвэл driver руу normalize хийгдэнэ\n- type илгээхгүй бол backend 1 болгож ашиглана\n- зураг upload endpoint байхгүй",
+        "description": "Гэнэтийн ослын даатгалын гэрээг үүсгэнэ.\n\nТайлбар:\n- Зөвхөн иргэний гэрээг дэмжинэ\n- owner илгээвэл driver руу normalize хийгдэнэ\n- type илгээхгүй бол backend 1 болгож ашиглана\n- зураг upload endpoint байхгүй",
         "responses": {
           "200": {
             "description": "Successful response"
           }
         },
         "tags": [
-          "5. GOD"
+          "5. Гэнэтийн ослын даатгал"
         ],
         "x-fern-sdk-group-name": [
-          "5. GOD"
+          "5. Гэнэтийн ослын даатгал"
         ],
         "x-fern-sdk-method-name": "Create GOD",
         "security": [
@@ -1201,17 +1201,17 @@
       "post": {
         "operationId": "postApiBrokerThd_loanCreate",
         "summary": "Create THD Loan",
-        "description": "THD loan гэрээг үүсгэнэ.\n\nАнхаарах зүйл:\n- owner илгээхгүй, driver илгээсэн бол backend owner руу normalize хийнэ\n- top-level evaluation байвал vehicle.evaluation руу шилжүүлж ашиглана",
+        "description": "Зээлтэй автомашины даатгалын гэрээг үүсгэнэ.\n\nАнхаарах зүйл:\n- owner илгээхгүй, driver илгээсэн бол backend owner руу normalize хийнэ\n- top-level evaluation байвал vehicle.evaluation руу шилжүүлж ашиглана",
         "responses": {
           "200": {
             "description": "Successful response"
           }
         },
         "tags": [
-          "6. THD Loan"
+          "6. Зээлтэй автомашины даатгал"
         ],
         "x-fern-sdk-group-name": [
-          "6. THD Loan"
+          "6. Зээлтэй автомашины даатгал"
         ],
         "x-fern-sdk-method-name": "Create THD Loan",
         "security": [
@@ -1389,17 +1389,17 @@
       "post": {
         "operationId": "postApiBrokerThd_loanUpload_photos",
         "summary": "Upload Photos THD Loan",
-        "description": "THD loan гэрээнд 4 зураг upload хийнэ.",
+        "description": "Зээлтэй автомашины даатгалын гэрээнд 4 зураг upload хийнэ.",
         "responses": {
           "200": {
             "description": "Successful response"
           }
         },
         "tags": [
-          "6. THD Loan"
+          "6. Зээлтэй автомашины даатгал"
         ],
         "x-fern-sdk-group-name": [
-          "6. THD Loan"
+          "6. Зээлтэй автомашины даатгал"
         ],
         "x-fern-sdk-method-name": "Upload Photos THD Loan",
         "security": [
@@ -1450,17 +1450,17 @@
       "post": {
         "operationId": "postApiBrokerAjdCreate2",
         "summary": "Create AJD",
-        "description": "Иргэний AJD эсвэл байгууллагын AJD гэрээг үүсгэнэ.\n\nТайлбар:\n- is_limited request дээрээс авахгүй\n- backend үргэлж false-аар MIIS рүү явуулна\n- co_drivers optional\n- nested driver/vehicle payload-ийг backend normalize хийж top-level request болгон ашиглана",
+        "description": "Иргэний эсвэл байгууллагын албан журмын даатгалын гэрээг үүсгэнэ.\n\nТайлбар:\n- is_limited request дээрээс авахгүй\n- backend үргэлж false-аар MIIS рүү явуулна\n- co_drivers optional\n- nested driver/vehicle payload-ийг backend normalize хийж top-level request болгон ашиглана",
         "responses": {
           "200": {
             "description": "Successful response"
           }
         },
         "tags": [
-          "7. AJD"
+          "7. Албан журмын даатгал"
         ],
         "x-fern-sdk-group-name": [
-          "7. AJD"
+          "7. Албан журмын даатгал"
         ],
         "x-fern-sdk-method-name": "Create AJD",
         "security": [
@@ -1643,17 +1643,17 @@
       "post": {
         "operationId": "postApiBrokerSgoCreate",
         "summary": "Create SGO",
-        "description": "SGO гэрээг үүсгэнэ.\n\nТайлбар:\n- broker endpoint нь driver.regnum, driver.phone_number, vehicle.plate_number утгуудыг top-level талбар руу normalize хийнэ\n- insured_seats илгээвэл seat_type руу normalize хийгдэнэ\n- insured_seats=0 эсвэл хоосон бол нийт суудлаар даатгана\n- зураг upload endpoint байхгүй",
+        "description": "Суудлын гэнэтийн ослын даатгалын гэрээг үүсгэнэ.\n\nТайлбар:\n- broker endpoint нь driver.regnum, driver.phone_number, vehicle.plate_number утгуудыг top-level талбар руу normalize хийнэ\n- insured_seats илгээвэл seat_type руу normalize хийгдэнэ\n- insured_seats=0 эсвэл хоосон бол нийт суудлаар даатгана\n- зураг upload endpoint байхгүй",
         "responses": {
           "200": {
             "description": "Successful response"
           }
         },
         "tags": [
-          "8. SGO"
+          "8. Суудлын гэнэтийн ослын даатгал"
         ],
         "x-fern-sdk-group-name": [
-          "8. SGO"
+          "8. Суудлын гэнэтийн ослын даатгал"
         ],
         "x-fern-sdk-method-name": "Create SGO",
         "security": [
@@ -1760,28 +1760,28 @@
       "description": "Бүх бүтээгдэхүүн дээр ижил хэрэглэгдэх broker API endpoint-үүд."
     },
     {
-      "name": "3. THD",
-      "description": "THD нь хуучин broker THD API flow-ийг яг тэр чигээр нь ашиглана."
+      "name": "3. Тээврийн хэрэгслийн даатгал",
+      "description": "Тээврийн хэрэгслийн даатгал нь хуучин broker THD API flow-ийг яг тэр чигээр нь ашиглана."
     },
     {
-      "name": "4. HT",
-      "description": "HT нь THD-тэй төстэй request body хүлээж авна. owner талбар driver руу normalize хийгдэнэ."
+      "name": "4. Хүнд даацын машины даатгал",
+      "description": "Хүнд даацын машины даатгал нь тээврийн хэрэгслийн даатгалтай төстэй request body хүлээж авна. owner талбар driver руу normalize хийгдэнэ."
     },
     {
-      "name": "5. GOD",
-      "description": "GOD broker flow. Зөвхөн иргэний гэрээг дэмжинэ."
+      "name": "5. Гэнэтийн ослын даатгал",
+      "description": "Гэнэтийн ослын даатгалын broker flow. Зөвхөн иргэний гэрээг дэмжинэ."
     },
     {
-      "name": "6. THD Loan",
-      "description": "THD loan нь company + owner + vehicle бүтэцтэй, THD-тэй төстэй payload хүлээнэ."
+      "name": "6. Зээлтэй автомашины даатгал",
+      "description": "Зээлтэй автомашины даатгал нь company + owner + vehicle бүтэцтэй, тээврийн хэрэгслийн даатгалтай төстэй payload хүлээнэ."
     },
     {
-      "name": "7. AJD",
-      "description": "AJD broker flow. is_limited-ийг backend үргэлж false болгож MIIS рүү явуулна."
+      "name": "7. Албан журмын даатгал",
+      "description": "Албан журмын даатгалын broker flow. is_limited-ийг backend үргэлж false болгож MIIS рүү явуулна."
     },
     {
-      "name": "8. SGO",
-      "description": "SGO broker flow. Зөвхөн суудлын гэнэтийн ослын даатгалын гэрээ үүсгэнэ."
+      "name": "8. Суудлын гэнэтийн ослын даатгал",
+      "description": "Суудлын гэнэтийн ослын даатгалын broker flow. Зөвхөн суудлын гэнэтийн ослын даатгалын гэрээг үүсгэнэ."
     }
   ]
 }

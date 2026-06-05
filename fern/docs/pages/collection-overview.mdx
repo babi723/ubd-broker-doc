@@ -44,10 +44,10 @@ Broker Dynamic API Postman collection
 
 ## Нэмэлт тайлбар
 
-- `THD` нь хуучин `/api/broker/thd/*` flow-ийг яг тэр чигээр нь ашиглана.
-- `HT`, `GOD`, `THD loan`, `AJD`, `SGO` нь broker dynamic controller-оор дамжина.
-- `AJD get_sets` нь хоосон жагсаалт буцаана.
-- `THD get_sets` нь хуучин THD sets response-ээ яг тэр чигээр нь ашиглана.
-- `GOD`, `SGO get_sets` нь common broker structure дээр `insurance_type`, `protection_amount`, `price` талбаруудыг нэмээд буцаана.
+- Тээврийн хэрэгслийн даатгал нь хуучин `/api/broker/thd/*` flow-ийг яг тэр чигээр нь ашиглана.
+- Хүнд даацын машины даатгал, Гэнэтийн ослын даатгал, Зээлтэй автомашины даатгал, Албан журмын даатгал, Суудлын гэнэтийн ослын даатгал нь broker dynamic controller-оор дамжина.
+- Албан журмын даатгалын `get_sets` нь хоосон жагсаалт буцаана.
+- Тээврийн хэрэгслийн даатгалын `get_sets` нь хуучин THD sets response-ээ яг тэр чигээр нь ашиглана.
+- Гэнэтийн ослын даатгал, Суудлын гэнэтийн ослын даатгалын `get_sets` нь common broker structure дээр `insurance_type`, `protection_amount`, `price` талбаруудыг нэмээд буцаана.
 - Баталгаажсан token-ийг `Authorization: <token>` хэлбэрээр protected endpoint бүрд дамжуулна.
 - `set` утга нь тухайн product-ийн `get_sets` endpoint-ээс авсан key/id байна.
