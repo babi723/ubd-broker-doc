@@ -24,10 +24,14 @@ navigation:
           summary: docs/pages/3-thd-overview.mdx
       - 4. HT:
           summary: docs/pages/4-ht-overview.mdx
-      - 5. THD Loan:
+      - 5. GOD:
+          summary: docs/pages/god-overview.mdx
+      - 6. THD Loan:
           summary: docs/pages/5-thd-loan-overview.mdx
-      - 6. AJD:
+      - 7. AJD:
           summary: docs/pages/6-ajd-overview.mdx
+      - 8. SGO:
+          summary: docs/pages/sgo-overview.mdx
     summary: docs/pages/collection-overview.mdx
 colors:
   accent-primary:
