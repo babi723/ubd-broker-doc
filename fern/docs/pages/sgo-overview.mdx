@@ -3,3 +3,14 @@ title: Overview
 ---
 
 Суудлын гэнэтийн ослын даатгалын broker flow. Зөвхөн суудлын гэнэтийн ослын даатгалын гэрээг үүсгэнэ.
+
+## Endpoint
+
+- `POST /api/broker/sgo/create`: SGO гэрээ үүсгэнэ.
+
+## Тайлбар
+
+- Backend нь `driver.regnum`, `driver.phone_number`, `vehicle.plate_number` утгуудыг top-level талбар руу normalize хийнэ.
+- `insured_seats` илгээвэл `seat_type` руу normalize хийнэ.
+- `insured_seats=0` эсвэл хоосон бол нийт суудлаар даатгана.
+- Зураг upload endpoint байхгүй.

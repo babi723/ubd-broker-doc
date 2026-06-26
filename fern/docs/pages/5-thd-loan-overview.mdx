@@ -2,4 +2,14 @@
 title: Overview
 ---
 
-Зээлтэй автомашины даатгал нь company + owner + vehicle бүтэцтэй, тээврийн хэрэгслийн даатгалтай төстэй payload хүлээнэ.
+Зээлтэй автомашины даатгал нь `company + owner + vehicle` бүтэцтэй, THD-тэй төстэй payload хүлээнэ.
+
+## Endpoint-үүд
+
+- `POST /api/broker/thd_loan/create`: THD loan гэрээ үүсгэнэ.
+- `POST /api/broker/thd_loan/upload_photos`: Үүссэн гэрээнд 4 зураг upload хийнэ.
+
+## Тайлбар
+
+- `owner` илгээхгүй, `driver` илгээсэн бол backend `owner` руу normalize хийнэ.
+- Top-level `evaluation` байвал `vehicle.evaluation` руу шилжүүлж ашиглана.

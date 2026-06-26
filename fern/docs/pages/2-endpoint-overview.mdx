@@ -3,3 +3,21 @@ title: Overview
 ---
 
 Бүх бүтээгдэхүүн дээр ижил хэрэглэгдэх broker API endpoint-үүд.
+
+## Endpoint-үүд
+
+- `POST /api/broker/get-driver`: Регистрийн дугаараар жолооч / иргэний мэдээлэл татна. XYP ашигладаг тул зөвхөн XYP эрхтэй хэрэглэгч ашиглана.
+- `POST /api/broker/get-vehicle`: Улсын дугаараар тээврийн хэрэгслийн мэдээлэл татна. Энэ нь мөн XYP lookup ашиглана.
+- `GET /api/broker/products`: Ашиглах боломжтой бүтээгдэхүүний жагсаалт авна. Response дээр `id`, `key`, `name`, `is_active` талбарууд ирнэ.
+- `GET /api/broker/products/{product_key}/category`: Бүтээгдэхүүний category-г авна. Боломжит утгууд нь `mashin`, `oron_suuts`, `ed_hurungu`.
+- `GET /api/broker/{product_key}/get_sets`: Сонгосон бүтээгдэхүүний багцуудыг авна.
+- `POST /api/broker/{product_key}/check_pay`: Төлбөрийн төлөв шалгана. Төлөгдсөн үед `contract_url` буцна.
+- `POST /api/broker/{product_key}/contract`: Нэг гэрээний дэлгэрэнгүй мэдээлэл авна.
+- `POST /api/broker/{product_key}/contracts`: Огнооны интервалаар гэрээнүүдийн жагсаалт авна.
+
+## Тайлбар
+
+- Protected endpoint бүрд `Authorization: <token>` header дамжуулна.
+- `ajd` бүтээгдэхүүний `get_sets` нь хоосон жагсаалт буцаана.
+- `god`, `sgo` бүтээгдэхүүний `get_sets` response нь common бүтэц дээр `insurance_type`, `protection_amount`, `price` талбар нэмээд ирнэ.
+- `contracts` endpoint дээр `ajd`, `sgo` нь `contract_created_at`, бусад нь `created_at` field-ээр шүүнэ.

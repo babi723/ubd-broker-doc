@@ -3,3 +3,14 @@ title: Overview
 ---
 
 Тээврийн хэрэгслийн даатгал нь хуучин broker THD API flow-ийг яг тэр чигээр нь ашиглана.
+
+## Endpoint-үүд
+
+- `POST /api/broker/thd/create`: Иргэн болон байгууллагын THD гэрээ үүсгэнэ.
+- `POST /api/broker/thd/upload_photos`: Үүссэн гэрээнд 4 зураг upload хийнэ.
+
+## Тайлбар
+
+- `set` утгыг `GET /api/broker/thd/get_sets` endpoint-ээс авна.
+- `type=1` үед `driver`, `type=2` үед `company` илгээнэ.
+- Зураг upload нь `contract_number` болон `vehicle_front`, `vehicle_left`, `vehicle_back`, `vehicle_right` файлуудыг авна.

@@ -2,4 +2,15 @@
 title: Overview
 ---
 
-Хүнд даацын машины даатгал нь тээврийн хэрэгслийн даатгалтай төстэй request body хүлээж авна. owner талбар driver руу normalize хийгдэнэ.
+Хүнд даацын машины даатгал нь тээврийн хэрэгслийн даатгалтай төстэй request body хүлээж авна. `owner` талбар `driver` руу normalize хийгдэнэ.
+
+## Endpoint-үүд
+
+- `POST /api/broker/ht/create`: HT гэрээ үүсгэнэ.
+- `POST /api/broker/ht/upload_photos`: Үүссэн гэрээнд 4 зураг upload хийнэ.
+
+## Тайлбар
+
+- `owner` илгээвэл backend `driver` руу normalize хийнэ.
+- Top-level `evaluation` байвал `vehicle.evaluation` руу шилжүүлж ашиглана.
+- `trailers` массив ашиглан чиргүүлийн мэдээлэл дамжуулна.

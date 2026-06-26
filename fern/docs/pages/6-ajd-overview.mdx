@@ -2,4 +2,15 @@
 title: Overview
 ---
 
-Албан журмын даатгалын broker flow. is_limited-ийг backend үргэлж false болгож MIIS рүү явуулна.
+Албан журмын даатгалын broker flow. `is_limited`-ийг backend үргэлж `false` болгож MIIS рүү явуулна.
+
+## Endpoint
+
+- `POST /api/broker/ajd/create`: Иргэн болон байгууллагын AJD гэрээ үүсгэнэ.
+
+## Тайлбар
+
+- `GET /api/broker/ajd/get_sets` нь хоосон жагсаалт буцаана.
+- `is_limited` request дээрээс авахгүй.
+- `co_drivers` optional.
+- Nested `driver` болон `vehicle` payload-ийг backend normalize хийж top-level request болгон ашиглана.
