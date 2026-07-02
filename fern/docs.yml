@@ -13,26 +13,37 @@ layout:
   searchbar-placement: header
   page-width: full
 navigation:
+  - section: Ерөнхий мэдээлэл
+    contents:
+      - page: Broker Dynamic API танилцуулга
+        path: docs/pages/collection-overview.mdx
   - api: Broker Dynamic API (MN)
     flattened: false
     layout:
-      - 1. Нэвтрэх:
+      - auth:
+          title: Нэвтрэх
           summary: docs/pages/1-overview.mdx
-      - 2. Нийтлэг endpoint-үүд:
+      - commonEndpoints:
+          title: Нийтлэг endpoint-үүд
           summary: docs/pages/2-endpoint-overview.mdx
-      - 3. Тээврийн хэрэгслийн даатгал:
+      - thd:
+          title: Тээврийн хэрэгслийн даатгал
           summary: docs/pages/3-thd-overview.mdx
-      - 4. Хүнд даацын машины даатгал:
+      - ht:
+          title: Хүнд даацын машины даатгал
           summary: docs/pages/4-ht-overview.mdx
-      - 5. Гэнэтийн ослын даатгал:
+      - god:
+          title: Гэнэтийн ослын даатгал
           summary: docs/pages/god-overview.mdx
-      - 6. Зээлтэй автомашины даатгал:
+      - thdLoan:
+          title: Зээлтэй автомашины даатгал
           summary: docs/pages/5-thd-loan-overview.mdx
-      - 7. Албан журмын даатгал:
+      - ajd:
+          title: Албан журмын даатгал
           summary: docs/pages/6-ajd-overview.mdx
-      - 8. Суудлын гэнэтийн ослын даатгал:
+      - sgo:
+          title: Суудлын гэнэтийн ослын даатгал
           summary: docs/pages/sgo-overview.mdx
-    summary: docs/pages/collection-overview.mdx
 colors:
   accent-primary:
     light: "#414099"

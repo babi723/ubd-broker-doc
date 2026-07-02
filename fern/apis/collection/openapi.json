@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "servers": [
     {
-      "url": "https://ubd.insur.mn",
+      "url": "https://ubd.smartdaatgal.mn",
       "description": "Production server"
     }
   ],
@@ -24,16 +24,19 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AuthTokenResponse"
+                },
+                "example": {
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.example"
                 }
               }
             }
           }
         },
         "tags": [
-          "1. Нэвтрэх"
+          "auth"
         ],
         "x-fern-sdk-group-name": [
-          "1. Нэвтрэх"
+          "auth"
         ],
         "x-fern-sdk-method-name": "Get Token",
         "security": [],
@@ -76,16 +79,24 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/DriverLookupResponse"
+                },
+                "example": {
+                  "lastname": "БАТ",
+                  "firstname": "ДОРЖ",
+                  "familyname": "БАТ",
+                  "regnum": "АБ12345678",
+                  "address": "Улаанбаатар",
+                  "phone_number": "99112233"
                 }
               }
             }
           }
         },
         "tags": [
-          "2. Нийтлэг endpoint-үүд"
+          "common-endpoints"
         ],
         "x-fern-sdk-group-name": [
-          "2. Нийтлэг endpoint-үүд"
+          "common-endpoints"
         ],
         "x-fern-sdk-method-name": "Get Driver",
         "security": [
@@ -127,16 +138,24 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/VehicleLookupResponse"
+                },
+                "example": {
+                  "plate_number": "1234УБА",
+                  "mark": "TOYOTA",
+                  "model": "PRIUS",
+                  "made_year": 2018,
+                  "color": "ЦАГААН",
+                  "cabin_number": "CABIN123"
                 }
               }
             }
           }
         },
         "tags": [
-          "2. Нийтлэг endpoint-үүд"
+          "common-endpoints"
         ],
         "x-fern-sdk-group-name": [
-          "2. Нийтлэг endpoint-үүд"
+          "common-endpoints"
         ],
         "x-fern-sdk-method-name": "Get Vehicle",
         "security": [
@@ -178,16 +197,30 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProductsResponse"
-                }
+                },
+                "example": [
+                  {
+                    "id": 1,
+                    "key": "thd",
+                    "name": "Тээврийн хэрэгслийн даатгал",
+                    "is_active": true
+                  },
+                  {
+                    "id": 2,
+                    "key": "ajd",
+                    "name": "Албан журмын даатгал",
+                    "is_active": true
+                  }
+                ]
               }
             }
           }
         },
         "tags": [
-          "2. Нийтлэг endpoint-үүд"
+          "common-endpoints"
         ],
         "x-fern-sdk-group-name": [
-          "2. Нийтлэг endpoint-үүд"
+          "common-endpoints"
         ],
         "x-fern-sdk-method-name": "Products",
         "security": [
@@ -228,16 +261,19 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProductCategoryResponse"
+                },
+                "example": {
+                  "category": "mashin"
                 }
               }
             }
           }
         },
         "tags": [
-          "2. Нийтлэг endpoint-үүд"
+          "common-endpoints"
         ],
         "x-fern-sdk-group-name": [
-          "2. Нийтлэг endpoint-үүд"
+          "common-endpoints"
         ],
         "x-fern-sdk-method-name": "Get Category",
         "security": [
@@ -278,16 +314,27 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProductSetsResponse"
-                }
+                },
+                "example": [
+                  {
+                    "id": "THD-13",
+                    "key": "THD-13",
+                    "set_name": "Стандарт",
+                    "is_active": true,
+                    "protection_percent": 80,
+                    "own_responsibility": 10,
+                    "price_percent": 1.2
+                  }
+                ]
               }
             }
           }
         },
         "tags": [
-          "2. Нийтлэг endpoint-үүд"
+          "common-endpoints"
         ],
         "x-fern-sdk-group-name": [
-          "2. Нийтлэг endpoint-үүд"
+          "common-endpoints"
         ],
         "x-fern-sdk-method-name": "Get Sets",
         "security": [
@@ -328,16 +375,22 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CheckPayResponse"
+                },
+                "example": {
+                  "code": 200,
+                  "is_paid": true,
+                  "message": "Payment confirmed",
+                  "contract_url": "https://ubd.insur.mn/storage/contracts/THD-2026-00001.pdf"
                 }
               }
             }
           }
         },
         "tags": [
-          "2. Нийтлэг endpoint-үүд"
+          "common-endpoints"
         ],
         "x-fern-sdk-group-name": [
-          "2. Нийтлэг endpoint-үүд"
+          "common-endpoints"
         ],
         "x-fern-sdk-method-name": "Check Pay",
         "security": [
@@ -398,16 +451,23 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ContractDetailResponse"
+                },
+                "example": {
+                  "contract_number": "THD-2026-00001",
+                  "status": "insured",
+                  "product_key": "thd",
+                  "premium_amount": 250000,
+                  "contract_url": "https://ubd.insur.mn/storage/contracts/THD-2026-00001.pdf"
                 }
               }
             }
           }
         },
         "tags": [
-          "2. Нийтлэг endpoint-үүд"
+          "common-endpoints"
         ],
         "x-fern-sdk-group-name": [
-          "2. Нийтлэг endpoint-үүд"
+          "common-endpoints"
         ],
         "x-fern-sdk-method-name": "Get Contract",
         "security": [
@@ -468,16 +528,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ContractsResponse"
-                }
+                },
+                "example": [
+                  {
+                    "contract_number": "THD-2026-00001",
+                    "status": "insured",
+                    "product_key": "thd",
+                    "premium_amount": 250000,
+                    "contract_url": "https://ubd.insur.mn/storage/contracts/THD-2026-00001.pdf"
+                  }
+                ]
               }
             }
           }
         },
         "tags": [
-          "2. Нийтлэг endpoint-үүд"
+          "common-endpoints"
         ],
         "x-fern-sdk-group-name": [
-          "2. Нийтлэг endpoint-үүд"
+          "common-endpoints"
         ],
         "x-fern-sdk-method-name": "Get Contracts",
         "security": [
@@ -526,16 +595,23 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CreateContractResponse"
+                },
+                "example": {
+                  "code": 200,
+                  "message": "Contract created",
+                  "contract_number": "THD-2026-00001",
+                  "invoice_id": "INV-2026-00001",
+                  "invoice_link": "https://ubd.insur.mn/pay/INV-2026-00001"
                 }
               }
             }
           }
         },
         "tags": [
-          "3. Тээврийн хэрэгслийн даатгал"
+          "thd"
         ],
         "x-fern-sdk-group-name": [
-          "3. Тээврийн хэрэгслийн даатгал"
+          "thd"
         ],
         "x-fern-sdk-method-name": "Create THD",
         "security": [
@@ -846,16 +922,20 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UploadPhotosResponse"
+                },
+                "example": {
+                  "code": 200,
+                  "message": "Photos uploaded successfully"
                 }
               }
             }
           }
         },
         "tags": [
-          "3. Тээврийн хэрэгслийн даатгал"
+          "thd"
         ],
         "x-fern-sdk-group-name": [
-          "3. Тээврийн хэрэгслийн даатгал"
+          "thd"
         ],
         "x-fern-sdk-method-name": "Upload Photos THD",
         "security": [
@@ -914,16 +994,23 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CreateContractResponse"
+                },
+                "example": {
+                  "code": 200,
+                  "message": "Contract created",
+                  "contract_number": "HT-2026-00001",
+                  "invoice_id": "INV-2026-00002",
+                  "invoice_link": "https://ubd.insur.mn/pay/INV-2026-00002"
                 }
               }
             }
           }
         },
         "tags": [
-          "4. Хүнд даацын машины даатгал"
+          "ht"
         ],
         "x-fern-sdk-group-name": [
-          "4. Хүнд даацын машины даатгал"
+          "ht"
         ],
         "x-fern-sdk-method-name": "Create HT (1 чиргүүлтэй)",
         "security": [
@@ -1176,16 +1263,20 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UploadPhotosResponse"
+                },
+                "example": {
+                  "code": 200,
+                  "message": "Photos uploaded successfully"
                 }
               }
             }
           }
         },
         "tags": [
-          "4. Хүнд даацын машины даатгал"
+          "ht"
         ],
         "x-fern-sdk-group-name": [
-          "4. Хүнд даацын машины даатгал"
+          "ht"
         ],
         "x-fern-sdk-method-name": "Upload Photos HT",
         "security": [
@@ -1244,16 +1335,23 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CreateContractResponse"
+                },
+                "example": {
+                  "code": 200,
+                  "message": "Contract created",
+                  "contract_number": "GOD-2026-00001",
+                  "invoice_id": "INV-2026-00003",
+                  "invoice_link": "https://ubd.insur.mn/pay/INV-2026-00003"
                 }
               }
             }
           }
         },
         "tags": [
-          "5. Гэнэтийн ослын даатгал"
+          "god"
         ],
         "x-fern-sdk-group-name": [
-          "5. Гэнэтийн ослын даатгал"
+          "god"
         ],
         "x-fern-sdk-method-name": "Create GOD",
         "security": [
@@ -1371,16 +1469,23 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CreateContractResponse"
+                },
+                "example": {
+                  "code": 200,
+                  "message": "Contract created",
+                  "contract_number": "THD-LOAN-2026-00001",
+                  "invoice_id": "INV-2026-00004",
+                  "invoice_link": "https://ubd.insur.mn/pay/INV-2026-00004"
                 }
               }
             }
           }
         },
         "tags": [
-          "6. Зээлтэй автомашины даатгал"
+          "thd-loan"
         ],
         "x-fern-sdk-group-name": [
-          "6. Зээлтэй автомашины даатгал"
+          "thd-loan"
         ],
         "x-fern-sdk-method-name": "Create THD Loan",
         "security": [
@@ -1566,16 +1671,20 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UploadPhotosResponse"
+                },
+                "example": {
+                  "code": 200,
+                  "message": "Photos uploaded successfully"
                 }
               }
             }
           }
         },
         "tags": [
-          "6. Зээлтэй автомашины даатгал"
+          "thd-loan"
         ],
         "x-fern-sdk-group-name": [
-          "6. Зээлтэй автомашины даатгал"
+          "thd-loan"
         ],
         "x-fern-sdk-method-name": "Upload Photos THD Loan",
         "security": [
@@ -1634,16 +1743,23 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CreateContractResponse"
+                },
+                "example": {
+                  "code": 200,
+                  "message": "Contract created",
+                  "contract_number": "AJD-2026-00001",
+                  "invoice_id": "INV-2026-00005",
+                  "invoice_link": "https://ubd.insur.mn/pay/INV-2026-00005"
                 }
               }
             }
           }
         },
         "tags": [
-          "7. Албан журмын даатгал"
+          "ajd"
         ],
         "x-fern-sdk-group-name": [
-          "7. Албан журмын даатгал"
+          "ajd"
         ],
         "x-fern-sdk-method-name": "Create AJD",
         "security": [
@@ -1834,16 +1950,23 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CreateContractResponse"
+                },
+                "example": {
+                  "code": 200,
+                  "message": "Contract created",
+                  "contract_number": "SGO-2026-00001",
+                  "invoice_id": "INV-2026-00006",
+                  "invoice_link": "https://ubd.insur.mn/pay/INV-2026-00006"
                 }
               }
             }
           }
         },
         "tags": [
-          "8. Суудлын гэнэтийн ослын даатгал"
+          "sgo"
         ],
         "x-fern-sdk-group-name": [
-          "8. Суудлын гэнэтийн ослын даатгал"
+          "sgo"
         ],
         "x-fern-sdk-method-name": "Create SGO",
         "security": [
@@ -1920,11 +2043,6 @@
       }
     }
   },
-  "servers": [
-    {
-      "url": "https://ubd.insur.mn"
-    }
-  ],
   "components": {
     "schemas": {
       "AuthTokenResponse": {
@@ -2271,35 +2389,35 @@
   ],
   "tags": [
     {
-      "name": "1. Нэвтрэх",
+      "name": "auth",
       "description": "Broker token авах endpoint."
     },
     {
-      "name": "2. Нийтлэг endpoint-үүд",
+      "name": "common-endpoints",
       "description": "Бүх бүтээгдэхүүн дээр ижил хэрэглэгдэх broker API endpoint-үүд."
     },
     {
-      "name": "3. Тээврийн хэрэгслийн даатгал",
+      "name": "thd",
       "description": "Тээврийн хэрэгслийн даатгал нь хуучин broker THD API flow-ийг яг тэр чигээр нь ашиглана."
     },
     {
-      "name": "4. Хүнд даацын машины даатгал",
+      "name": "ht",
       "description": "Хүнд даацын машины даатгал нь тээврийн хэрэгслийн даатгалтай төстэй request body хүлээж авна. owner талбар driver руу normalize хийгдэнэ."
     },
     {
-      "name": "5. Гэнэтийн ослын даатгал",
+      "name": "god",
       "description": "Гэнэтийн ослын даатгалын broker flow. Зөвхөн иргэний гэрээг дэмжинэ."
     },
     {
-      "name": "6. Зээлтэй автомашины даатгал",
+      "name": "thd-loan",
       "description": "Зээлтэй автомашины даатгал нь company + owner + vehicle бүтэцтэй, тээврийн хэрэгслийн даатгалтай төстэй payload хүлээнэ."
     },
     {
-      "name": "7. Албан журмын даатгал",
+      "name": "ajd",
       "description": "Албан журмын даатгалын broker flow. is_limited-ийг backend үргэлж false болгож MIIS рүү явуулна."
     },
     {
-      "name": "8. Суудлын гэнэтийн ослын даатгал",
+      "name": "sgo",
       "description": "Суудлын гэнэтийн ослын даатгалын broker flow. Зөвхөн суудлын гэнэтийн ослын даатгалын гэрээг үүсгэнэ."
     }
   ]
