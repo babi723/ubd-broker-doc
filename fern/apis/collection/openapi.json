@@ -19,7 +19,14 @@
         "description": "Broker token авна.\n\nБуцаасан token-ийг дараагийн хүсэлтүүд дээр:\nAuthorization: <token>\nхэлбэрээр дамжуулна.",
         "responses": {
           "200": {
-            "description": "Successful response"
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthTokenResponse"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -64,7 +71,14 @@
         "description": "Регистрийн дугаараар жолооч / иргэний мэдээлэл татна.\n\nЭнэ endpoint нь XYP lookup ашигладаг.\n\nАнхаарах зүйл:\n- Broker token-оо Authorization header дээр дамжуулна.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n- Энэ endpoint нь create-ийн өмнөх туслах autofill endpoint юм.",
         "responses": {
           "200": {
-            "description": "Successful response"
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DriverLookupResponse"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -108,7 +122,14 @@
         "description": "Улсын дугаараар тээврийн хэрэгслийн мэдээлэл татна.\n\nЭнэ endpoint нь XYP lookup ашигладаг.\n\nАнхаарах зүйл:\n- Broker token-оо Authorization header дээр дамжуулна.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n- Энэ endpoint нь create-ийн өмнөх туслах autofill endpoint юм.",
         "responses": {
           "200": {
-            "description": "Successful response"
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleLookupResponse"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -152,7 +173,14 @@
         "description": "Dynamic broker API дээр ашиглах боломжтой бүтээгдэхүүний жагсаалтыг авна.\n\nProduct бүр дээр:\n- id\n- key\n- name\n- is_active\n\nОдоогийн байдлаар:\n- thd\n- ht\n- god\n- thd_loan\n- ajd\n- sgo",
         "responses": {
           "200": {
-            "description": "Successful response"
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductsResponse"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -195,7 +223,14 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful response"
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductCategoryResponse"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -238,7 +273,14 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful response"
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductSetsResponse"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -281,7 +323,14 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful response"
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CheckPayResponse"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -344,7 +393,14 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful response"
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContractDetailResponse"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -407,7 +463,14 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful response"
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContractsResponse"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -458,7 +521,14 @@
         "description": "THD гэрээ үүсгэнэ.\n\nЗаавал:\n- set\n- evaluation\n- type\n- vehicle\n- type=1 үед driver\n- type=2 үед company\n\nАнхаарах зүйл:\n- set утга нь get_sets-с авсан утга байна",
         "responses": {
           "200": {
-            "description": "Successful response"
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateContractResponse"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -771,7 +841,14 @@
         "description": "THD гэрээнд 4 зураг upload хийнэ.",
         "responses": {
           "200": {
-            "description": "Successful response"
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadPhotosResponse"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -832,7 +909,14 @@
         "description": "1 чиргүүлтэй HT гэрээ үүсгэнэ.\n\nТайлбар:\n- owner илгээвэл driver руу normalize хийгдэнэ\n- top-level evaluation байвал vehicle.evaluation руу шилжүүлж ашиглана",
         "responses": {
           "200": {
-            "description": "Successful response"
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateContractResponse"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -1087,7 +1171,14 @@
         "description": "HT гэрээнд 4 зураг upload хийнэ.",
         "responses": {
           "200": {
-            "description": "Successful response"
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadPhotosResponse"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -1148,7 +1239,14 @@
         "description": "GOD гэрээ үүсгэнэ.\n\nТайлбар:\n- Зөвхөн иргэн дэмжинэ\n- owner илгээвэл driver руу normalize хийгдэнэ\n- type илгээхгүй бол backend 1 болгож ашиглана\n- зураг upload endpoint байхгүй",
         "responses": {
           "200": {
-            "description": "Successful response"
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateContractResponse"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -1268,7 +1366,14 @@
         "description": "THD loan гэрээ үүсгэнэ.\n\nАнхаарах зүйл:\n- owner илгээхгүй, driver илгээсэн бол backend owner руу normalize хийнэ\n- top-level evaluation байвал vehicle.evaluation руу шилжүүлж ашиглана",
         "responses": {
           "200": {
-            "description": "Successful response"
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateContractResponse"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -1456,7 +1561,14 @@
         "description": "THD loan гэрээнд 4 зураг upload хийнэ.",
         "responses": {
           "200": {
-            "description": "Successful response"
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadPhotosResponse"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -1517,7 +1629,14 @@
         "description": "Иргэний AJD гэрээ үүсгэнэ.\n\nТайлбар:\n- is_limited request дээрээс авахгүй\n- backend үргэлж false-аар MIIS рүү явуулна\n- co_drivers optional\n- nested driver/vehicle payload-ийг backend normalize хийж top-level request болгон ашиглана",
         "responses": {
           "200": {
-            "description": "Successful response"
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateContractResponse"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -1710,7 +1829,14 @@
         "description": "SGO гэрээ үүсгэнэ.\n\nТайлбар:\n- broker endpoint нь driver.regnum, driver.phone_number, vehicle.plate_number утгуудыг top-level талбар руу normalize хийнэ\n- insured_seats илгээвэл seat_type руу normalize хийгдэнэ\n- insured_seats=0 эсвэл хоосон бол нийт суудлаар даатгана\n- зураг upload endpoint байхгүй",
         "responses": {
           "200": {
-            "description": "Successful response"
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateContractResponse"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -1800,6 +1926,335 @@
     }
   ],
   "components": {
+    "schemas": {
+      "AuthTokenResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "token"
+        ],
+        "example": {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.example"
+        }
+      },
+      "DriverLookupResponse": {
+        "type": "object",
+        "properties": {
+          "lastname": {
+            "type": "string"
+          },
+          "firstname": {
+            "type": "string"
+          },
+          "familyname": {
+            "type": "string"
+          },
+          "regnum": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "phone_number": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true,
+        "example": {
+          "lastname": "БАТ",
+          "firstname": "ДОРЖ",
+          "familyname": "БАТ",
+          "regnum": "АБ12345678",
+          "address": "Улаанбаатар",
+          "phone_number": "99112233"
+        }
+      },
+      "VehicleLookupResponse": {
+        "type": "object",
+        "properties": {
+          "plate_number": {
+            "type": "string"
+          },
+          "mark": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "made_year": {
+            "type": "integer"
+          },
+          "color": {
+            "type": "string"
+          },
+          "cabin_number": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true,
+        "example": {
+          "plate_number": "1234УБА",
+          "mark": "TOYOTA",
+          "model": "PRIUS",
+          "made_year": 2018,
+          "color": "ЦАГААН",
+          "cabin_number": "CABIN123"
+        }
+      },
+      "ProductsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "key": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "is_active": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": true
+        },
+        "example": [
+          {
+            "id": 1,
+            "key": "thd",
+            "name": "Тээврийн хэрэгслийн даатгал",
+            "is_active": true
+          },
+          {
+            "id": 2,
+            "key": "ajd",
+            "name": "Албан журмын даатгал",
+            "is_active": true
+          }
+        ]
+      },
+      "ProductCategoryResponse": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": [
+              "mashin",
+              "oron_suuts",
+              "ed_hurungu"
+            ]
+          }
+        },
+        "required": [
+          "category"
+        ],
+        "example": {
+          "category": "mashin"
+        }
+      },
+      "ProductSetsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "key": {
+              "type": "string"
+            },
+            "set_name": {
+              "type": "string"
+            },
+            "is_active": {
+              "type": "boolean"
+            },
+            "protection_percent": {
+              "type": "number"
+            },
+            "own_responsibility": {
+              "type": "number"
+            },
+            "price_percent": {
+              "type": "number"
+            },
+            "insurance_type": {
+              "type": "string"
+            },
+            "protection_amount": {
+              "type": "number"
+            },
+            "price": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": true
+        },
+        "example": [
+          {
+            "id": "THD-13",
+            "key": "THD-13",
+            "set_name": "Стандарт",
+            "is_active": true,
+            "protection_percent": 80,
+            "own_responsibility": 10,
+            "price_percent": 1.2
+          }
+        ]
+      },
+      "CheckPayResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "is_paid": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "contract_url": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "code",
+          "is_paid",
+          "message"
+        ],
+        "additionalProperties": true,
+        "example": {
+          "code": 200,
+          "is_paid": true,
+          "message": "Payment confirmed",
+          "contract_url": "https://ubd.insur.mn/storage/contracts/THD-2026-00001.pdf"
+        }
+      },
+      "ContractDetailResponse": {
+        "type": "object",
+        "properties": {
+          "contract_number": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "product_key": {
+            "type": "string"
+          },
+          "premium_amount": {
+            "type": "number"
+          },
+          "contract_url": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "contract_number"
+        ],
+        "additionalProperties": true,
+        "example": {
+          "contract_number": "THD-2026-00001",
+          "status": "insured",
+          "product_key": "thd",
+          "premium_amount": 250000,
+          "contract_url": "https://ubd.insur.mn/storage/contracts/THD-2026-00001.pdf"
+        }
+      },
+      "ContractsResponse": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ContractDetailResponse"
+        },
+        "example": [
+          {
+            "contract_number": "THD-2026-00001",
+            "status": "insured",
+            "product_key": "thd",
+            "premium_amount": 250000,
+            "contract_url": "https://ubd.insur.mn/storage/contracts/THD-2026-00001.pdf"
+          }
+        ]
+      },
+      "CreateContractResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          },
+          "contract_number": {
+            "type": "string"
+          },
+          "invoice_id": {
+            "oneOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "invoice_link": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "contract_number"
+        ],
+        "additionalProperties": true,
+        "example": {
+          "code": 200,
+          "message": "Contract created",
+          "contract_number": "THD-2026-00001",
+          "invoice_id": "INV-2026-00001",
+          "invoice_link": "https://ubd.insur.mn/pay/INV-2026-00001"
+        }
+      },
+      "UploadPhotosResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "additionalProperties": true,
+        "example": {
+          "code": 200,
+          "message": "Photos uploaded successfully"
+        }
+      }
+    },
     "securitySchemes": {
       "bearerAuth": {
         "type": "apiKey",
