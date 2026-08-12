@@ -420,6 +420,69 @@
         }
       }
     },
+    "/api/broker/test/mark-paid": {
+      "post": {
+        "operationId": "postApiBrokerTestMarkPaid",
+        "summary": "Test Mark Paid",
+        "description": "Тестийн үед broker-ийн өөрийн гэрээг төлөгдсөн, insured төлөвт оруулна.\n\nНөхцөл:\n- Зөвхөн `brokers.test_user=true` broker ашиглана\n- Authorization token заавал дамжуулна\n- Зөвхөн тухайн broker-ийн өөрийн `contract_number` ажиллана\n- `thd`, `ht`, `god`, `thd_loan`, `ajd`, `sgo` бүтээгдэхүүн дэмжинэ\n- Бодит төлбөр шалгахгүй\n- SMS болон campaign ticket үүсгэхгүй\n- Давтан дуудахад insured хэвээр success буцаана",
+        "responses": {
+          "200": {
+            "description": "Гэрээг тестээр төлөгдсөн, даатгагдсан төлөвт амжилттай оруулсан",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TestMarkPaidResponse"
+                },
+                "example": {
+                  "code": 0,
+                  "is_paid": 1,
+                  "is_insured": 1,
+                  "product_key": "ht",
+                  "contract_number": "CONTRACT_NUMBER",
+                  "message": "Тест төлбөр амжилттай төлөгдөж, гэрээ даатгагдлаа."
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Broker нь test эрхгүй"
+          }
+        },
+        "tags": [
+          "common-endpoints"
+        ],
+        "x-fern-sdk-group-name": [
+          "common-endpoints"
+        ],
+        "x-fern-sdk-method-name": "Test Mark Paid",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "contract_number": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "contract_number"
+                ]
+              },
+              "example": {
+                "contract_number": "{{contract_number}}"
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/broker/{product_key}/contract": {
       "post": {
         "operationId": "postApiBrokerProductContract",
@@ -2262,6 +2325,60 @@
           "is_paid": true,
           "message": "Payment confirmed",
           "contract_url": "https://ubd.insur.mn/storage/contracts/THD-2026-00001.pdf"
+        }
+      },
+      "TestMarkPaidResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "example": 0
+          },
+          "is_paid": {
+            "type": "integer",
+            "enum": [
+              1
+            ]
+          },
+          "is_insured": {
+            "type": "integer",
+            "enum": [
+              1
+            ]
+          },
+          "product_key": {
+            "type": "string",
+            "enum": [
+              "thd",
+              "ht",
+              "god",
+              "thd_loan",
+              "ajd",
+              "sgo"
+            ]
+          },
+          "contract_number": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "is_paid",
+          "is_insured",
+          "product_key",
+          "contract_number",
+          "message"
+        ],
+        "example": {
+          "code": 0,
+          "is_paid": 1,
+          "is_insured": 1,
+          "product_key": "ht",
+          "contract_number": "CONTRACT_NUMBER",
+          "message": "Тест төлбөр амжилттай төлөгдөж, гэрээ даатгагдлаа."
         }
       },
       "ContractDetailResponse": {

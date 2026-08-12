@@ -12,12 +12,14 @@ title: Overview
 - `GET /api/broker/products/{product_key}/category`: Бүтээгдэхүүний category-г авна. Боломжит утгууд нь `mashin`, `oron_suuts`, `ed_hurungu`.
 - `GET /api/broker/{product_key}/get_sets`: Сонгосон бүтээгдэхүүний багцуудыг авна.
 - `POST /api/broker/{product_key}/check_pay`: Төлбөрийн төлөв шалгана. Төлөгдсөн үед `contract_url` буцна.
+- `POST /api/broker/test/mark-paid`: Test эрхтэй broker-ийн өөрийн гэрээг бодит төлбөр шалгахгүйгээр `insured` төлөвт оруулна.
 - `POST /api/broker/{product_key}/contract`: Нэг гэрээний дэлгэрэнгүй мэдээлэл авна.
 - `POST /api/broker/{product_key}/contracts`: Огнооны интервалаар гэрээнүүдийн жагсаалт авна.
 
 ## Тайлбар
 
 - Protected endpoint бүрд `Authorization: <token>` header дамжуулна.
+- `test/mark-paid` endpoint-ийг зөвхөн `brokers.test_user=true` хэрэглэгч ашиглана. Энэ endpoint SMS болон campaign ticket үүсгэхгүй бөгөөд test эрхгүй broker дээр HTTP `403` буцаана.
 - `ajd` бүтээгдэхүүний `get_sets` нь хоосон жагсаалт буцаана.
 - `god`, `sgo` бүтээгдэхүүний `get_sets` response нь common бүтэц дээр `insurance_type`, `protection_amount`, `price` талбар нэмээд ирнэ.
 - `contracts` endpoint дээр `ajd`, `sgo` нь `contract_created_at`, бусад нь `created_at` field-ээр шүүнэ.
