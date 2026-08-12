@@ -35,6 +35,14 @@ Broker Dynamic API Postman collection
 11. `POST /api/broker/{product_key}/contracts`
 - Огнооны интервалаар гэрээнүүдийн жагсаалтыг авна.
 
+## Тест төлбөр баталгаажуулах
+
+- `POST /api/broker/test/mark-paid` нь зөвхөн `brokers.test_user=true` broker-ийн өөрийн гэрээг бодит төлбөр шалгахгүйгээр төлөгдсөн, `insured` төлөвт оруулна.
+- `contract_number`-ийг request body-д дамжуулна.
+- `thd`, `ht`, `god`, `thd_loan`, `ajd`, `sgo` бүтээгдэхүүнийг дэмжинэ.
+- SMS болон campaign ticket үүсгэхгүй. Давтан дуудахад гэрээг `insured` хэвээр үлдээн success буцаана.
+- Test эрхгүй broker дээр HTTP `403` буцаана.
+
 ## Бүтээгдэхүүний key
 
 - `thd`
