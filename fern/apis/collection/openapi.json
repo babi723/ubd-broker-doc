@@ -2005,7 +2005,7 @@
       "post": {
         "operationId": "postApiBrokerSgoCreate",
         "summary": "Create SGO",
-        "description": "SGO гэрээ үүсгэнэ.\n\nТайлбар:\n- broker endpoint нь driver.regnum, driver.phone_number, vehicle.plate_number утгуудыг top-level талбар руу normalize хийнэ\n- insured_seats илгээвэл seat_type руу normalize хийгдэнэ\n- insured_seats=0 эсвэл хоосон бол нийт суудлаар даатгана\n- зураг upload endpoint байхгүй",
+        "description": "SGO гэрээ үүсгэнэ.\n\nТайлбар:\n- phone_number, regnum, plate_number, seat_type талбаруудыг top-level дээр илгээнэ\n- vehicle талбарт тээврийн хэрэгслийн дэлгэрэнгүй мэдээлэл илгээнэ\n- driver талбарт жолоочийн дэлгэрэнгүй мэдээлэл илгээнэ\n- зураг upload endpoint байхгүй",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -2046,28 +2046,56 @@
                   "set": {
                     "type": "string"
                   },
-                  "insured_seats": {
-                    "type": "integer"
+                  "phone_number": {
+                    "type": "string"
+                  },
+                  "regnum": {
+                    "type": "string"
+                  },
+                  "plate_number": {
+                    "type": "string"
+                  },
+                  "seat_type": {
+                    "type": "string"
                   },
                   "vehicle": {
                     "type": "object",
                     "properties": {
-                      "plate_number": {
+                      "cabin_number": {
                         "type": "string"
+                      },
+                      "mark": {
+                        "type": "string"
+                      },
+                      "model": {
+                        "type": "string"
+                      },
+                      "seat_number": {
+                        "type": "integer"
                       }
                     },
                     "required": [
-                      "plate_number"
+                      "cabin_number",
+                      "mark",
+                      "model",
+                      "seat_number"
                     ]
                   },
                   "driver": {
                     "type": "object",
                     "properties": {
-                      "regnum": {
+                      "firstname": {
                         "type": "string"
                       },
-                      "phone_number": {
+                      "lastname": {
                         "type": "string"
+                      },
+                      "license_number": {
+                        "type": "string"
+                      },
+                      "driver_date": {
+                        "type": "string",
+                        "format": "date"
                       },
                       "email": {
                         "type": "string",
@@ -2075,29 +2103,42 @@
                       }
                     },
                     "required": [
-                      "regnum",
-                      "phone_number",
+                      "firstname",
+                      "lastname",
+                      "license_number",
+                      "driver_date",
                       "email"
                     ]
                   }
                 },
                 "required": [
                   "set",
-                  "insured_seats",
+                  "phone_number",
+                  "regnum",
+                  "plate_number",
+                  "seat_type",
                   "vehicle",
                   "driver"
                 ]
               },
               "example": {
-                "set": "SGO-01",
-                "insured_seats": 0,
+                "set": "SGO-2",
+                "phone_number": "88112233",
+                "regnum": "УБ12345678",
+                "plate_number": "1234УБА",
+                "seat_type": "2",
                 "vehicle": {
-                  "plate_number": "1234УБА"
+                  "cabin_number": "JTDBT123456789012",
+                  "mark": "TOYOTA",
+                  "model": "PRIUS",
+                  "seat_number": 5
                 },
                 "driver": {
-                  "regnum": "АБ12345678",
-                  "phone_number": "99112233",
-                  "email": "test@example.com"
+                  "firstname": "Бат",
+                  "lastname": "Болд",
+                  "license_number": "12345678",
+                  "driver_date": "2015-05-01",
+                  "email": "bat@example.mn"
                 }
               }
             }
