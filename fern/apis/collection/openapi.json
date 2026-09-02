@@ -1964,6 +1964,7 @@
                   "summary": "Create AJD (Иргэн)",
                   "value": {
                     "type": 1,
+                    "zip_code": "15160",
                     "vehicle": {
                       "plate_number": "1234УБА",
                       "is_chirguul": false
@@ -1982,6 +1983,7 @@
                   "summary": "Create AJD (Компани)",
                   "value": {
                     "type": 2,
+                    "zip_code": "15160",
                     "vehicle": {
                       "plate_number": "1234УБА",
                       "is_chirguul": false
