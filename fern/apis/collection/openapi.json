@@ -185,6 +185,71 @@
         }
       }
     },
+    "/api/broker/contract-lookup": {
+      "post": {
+        "operationId": "postApiBrokerContract-lookup",
+        "summary": "Contract Lookup",
+        "description": "plate_number эсвэл regnum-ээр бүх бүтээгдэхүүн (core_contracts) дундаас гэрээтэй эсэхийг шалгана.\n\nЗаавал:\n- plate_number, regnum-ийн аль нэг нь заавал байх ёстой (хоёуланг нь илгээж болно)\n\nБуцаах бүтэц:\n- has_active_contract (boolean)\n- contracts[]: product_key, contract_number, status, plate_number, contract_created_at, contract_expires_at\n\nАнхаарах зүйл:\n- Зөвхөн иргэний regnum-аар хайна, байгууллагын regnum дэмжигдэхгүй.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContractLookupResponse"
+                },
+                "example": {
+                  "has_active_contract": true,
+                  "contracts": [
+                    {
+                      "product_key": "thd",
+                      "contract_number": "THD-2026-00001",
+                      "status": "insured",
+                      "plate_number": "1234УБА",
+                      "contract_created_at": "2026-05-20",
+                      "contract_expires_at": "2027-05-20"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "common-endpoints"
+        ],
+        "x-fern-sdk-group-name": [
+          "common-endpoints"
+        ],
+        "x-fern-sdk-method-name": "Contract Lookup",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "plate_number": {
+                    "type": "string"
+                  },
+                  "regnum": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "plate_number": "1234УБА",
+                "regnum": ""
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/broker/products": {
       "get": {
         "operationId": "getApiBrokerProducts",
@@ -2227,6 +2292,59 @@
           "made_year": 2018,
           "color": "ЦАГААН",
           "cabin_number": "CABIN123"
+        }
+      },
+      "ContractLookupResponse": {
+        "type": "object",
+        "properties": {
+          "has_active_contract": {
+            "type": "boolean"
+          },
+          "contracts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "product_key": {
+                  "type": "string"
+                },
+                "contract_number": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "plate_number": {
+                  "type": "string"
+                },
+                "contract_created_at": {
+                  "type": "string"
+                },
+                "contract_expires_at": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": true
+            }
+          }
+        },
+        "required": [
+          "has_active_contract",
+          "contracts"
+        ],
+        "additionalProperties": true,
+        "example": {
+          "has_active_contract": true,
+          "contracts": [
+            {
+              "product_key": "thd",
+              "contract_number": "THD-2026-00001",
+              "status": "insured",
+              "plate_number": "1234УБА",
+              "contract_created_at": "2026-05-20",
+              "contract_expires_at": "2027-05-20"
+            }
+          ]
         }
       },
       "ProductsResponse": {
