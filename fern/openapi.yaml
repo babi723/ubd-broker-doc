@@ -1,342 +1,1489 @@
 openapi: 3.1.0
-servers:
-  - url: https://api.plantstore.dev/v3
-    description: Demo server
 info:
-  description: |
-    This is a sample Plant Store Server based on the OpenAPI 3.1 specification. It provides a comprehensive set of endpoints for managing plants, orders, and user authentication.
-    
-    ### Key Features
-    - **Rich API Documentation**: Includes detailed examples and schema definitions.
-    - **Search Functionality**: Search for plants by tags or status.
-    - **User-Friendly Endpoints**: Login, logout, and retrieve user information.
-    - **Error Handling**: Clear and consistent error responses.
-    
-    ### Developer Notes
-    - Use `api_key` for store endpoints requiring authorization.
-    - OAuth2 flow is available for plant-specific operations.
-    
-  version: 1.0.18
-  title: Swagger Plant Store - OpenAPI 3.1
-  termsOfService: "http://buildwithfern.com/tos/"
-  contact:
-    name: Plant Store API Support
-    url: https://support.plantstore.dev
-    email: support@buildwithfern.com
-  license:
-    name: Apache 2.0
-    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+  title: Broker Dynamic API (MN)
+  version: 1.0.0
+  description: |-
+    Broker Dynamic API Postman collection
+
+    === Ерөнхий урсгал ===
+    1. POST /api/broker/get_token
+    - Broker username, password-оор token авна.
+
+    2. POST /api/broker/get-driver
+    - Регистрийн дугаараар жолооч / иргэний мэдээлэл татна.
+    - XYP ашигладаг.
+    - Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.
+
+    3. POST /api/broker/get-vehicle
+    - Улсын дугаараар тээврийн хэрэгслийн мэдээлэл татна.
+    - XYP ашигладаг.
+    - Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.
+
+    4. GET /api/broker/products
+    - Ашиглах боломжтой бүтээгдэхүүний жагсаалт авна.
+    - Product бүр дээр is_active boolean буцна.
+
+    5. GET /api/broker/products/{product_key}/category
+    - Сонгосон product_key-ийн category авна.
+    - category утга:
+      - mashin
+      - oron_suuts
+      - ed_hurungu
+
+    6. GET /api/broker/{product_key}/get_sets
+    - Сонгосон бүтээгдэхүүний багцуудыг авна.
+
+    7. POST /api/broker/{product_key}/create
+    - Сонгосон бүтээгдэхүүний гэрээ үүсгэнэ.
+
+    8. POST /api/broker/{product_key}/upload_photos
+    - Гэрээ үүссэний дараа тээврийн хэрэгслийн зургууд upload хийнэ.
+    - Зөвхөн thd, ht, thd_loan дээр ажиллана.
+
+    9. POST /api/broker/{product_key}/check_pay
+    - Төлбөрийн төлөв шалгана.
+    - Төлөгдсөн бол contract_url буцаана.
+
+    10. POST /api/broker/{product_key}/contract
+    - Нэг гэрээний дэлгэрэнгүй мэдээлэл авна.
+
+    11. POST /api/broker/{product_key}/contracts
+    - Огнооны интервалаар гэрээнүүдийн жагсаалт авна.
+
+    12. POST /api/broker/contract-lookup
+    - plate_number эсвэл regnum-ээр бүх бүтээгдэхүүн дундаас гэрээтэй эсэхийг шалгана.
+    - has_active_contract болон олдсон гэрээнүүдийн жагсаалт буцаана.
+    - Зөвхөн иргэний regnum дэмжигдэнэ, байгууллагын regnum дэмжигдэхгүй.
+
+    === Бүтээгдэхүүний key ===
+    - thd
+    - ht
+    - god
+    - thd_loan
+    - ajd
+    - sgo
+
+    === Нэмэлт тайлбар ===
+    - THD нь хуучин /api/broker/thd/* flow-ийг яг тэр чигээр нь ашиглана.
+    - HT, GOD, THD loan, AJD, SGO нь broker dynamic controller-оор орно.
+    - AJD get_sets нь хоосон жагсаалт буцаана.
+    - THD get_sets нь хуучин THD sets response-ээ яг тэр чигээр нь ашиглана.
+    - GOD, SGO get_sets нь common broker structure дээр insurance_type, protection_amount, price талбаруудыг нэмээд буцаана.
+    - Баталгаажсан token-ийг Authorization: <token> хэлбэрээр protected endpoint бүр дээр дамжуулна.
+    - set утга нь тухайн product-ийн get_sets endpoint-ээс авсан key/id байна.
+servers:
+- url: https://ubd.smartdaatgal.mn
 tags:
-  - name: plant
-    description: Everything about your Plants
-    externalDocs:
-      description: Plant API Documentation
-      url: https://docs.plantstore.dev/plants
-  - name: store
-    description: Access to Plantstore orders
-    externalDocs:
-      description: Order Management Guide
-      url: https://docs.plantstore.dev/orders
-  - name: user
-    description: Operations about user
-    externalDocs:
-      description: User Management API
-      url: https://docs.plantstore.dev/users
+- name: auth
+  description: Broker token авах endpoint.
+- name: commonEndpoints
+  description: Бүх product дээр адилхан хэрэглэгдэх broker API endpoint-үүд.
+- name: thd
+  description: THD нь хуучин broker THD API flow-ийг яг тэр чигээр нь ашиглана.
+- name: ht
+  description: HT нь THD-тэй төстэй request body хүлээж авна. owner талбар driver руу normalize хийгдэнэ.
+- name: god
+  description: GOD broker flow. Зөвхөн иргэний гэрээ дэмжинэ.
+- name: thdLoan
+  description: THD loan нь company + owner + vehicle бүтэцтэй, THD-тэй төстэй payload хүлээнэ.
+- name: ajd
+  description: AJD broker flow. is_limited-ийг backend үргэлж false болгож MIIS рүү явуулна.
+- name: sgo
+  description: SGO broker flow. Зөвхөн суудлын гэнэтийн ослын даатгалын гэрээ үүсгэнэ.
 paths:
-  /plant:
+  /api/broker/get_token:
     post:
       tags:
-        - plant
-      summary: Add a new plant to the store
-      operationId: addPlant
+      - auth
+      summary: Get Token
+      operationId: getToken
+      description: |-
+        Broker token авна.
+
+        Буцаасан token-ийг дараагийн хүсэлтүүд дээр:
+        Authorization: <token>
+        хэлбэрээр дамжуулна.
+      responses:
+        '200':
+          description: Амжилттай хариу
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
       requestBody:
-        description: Details of the plant to add
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Plant"
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
             examples:
-              example1:
-                summary: Add a Fern Plant
+              Get_Token:
+                summary: Get Token
                 value:
-                  name: "Fern"
-                  category: "Indoor"
-                  tags: ["green", "leafy"]
-                  status: "available"
+                  username: your_broker_username
+                  password: your_broker_password
+  /api/broker/get-driver:
+    post:
+      tags:
+      - commonEndpoints
+      summary: Get Driver
+      operationId: getDriver
+      description: |-
+        Регистрийн дугаараар жолооч / иргэний мэдээлэл татна.
+
+        Энэ endpoint нь XYP lookup ашигладаг.
+
+        Анхаарах зүйл:
+        - Broker token-оо Authorization header дээр дамжуулна.
+        - Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.
+        - Энэ endpoint нь create-ийн өмнөх туслах autofill endpoint юм.
       responses:
-        "200":
-          description: Plant successfully added
+        '200':
+          description: Амжилттай хариу
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PlantResponse"
-              examples:
-                exampleResponse:
-                  summary: Successful Plant Addition
-                  value:
-                    id: 101
-                    name: "Fern"
-                    status: "available"
-                    tags: ["green", "leafy"]
-        "405":
-          description: Invalid input
-    put:
-      tags:
-        - plant
-      summary: Update an existing plant
-      operationId: updatePlant
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BrokerToken: []
       requestBody:
-        description: Updated details of the plant
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Plant"
+              type: object
+              properties:
+                regnum:
+                  type: string
             examples:
-              example1:
-                summary: Update plant status
+              Get_Driver:
+                summary: Get Driver
                 value:
-                  name: "Fern"
-                  category: "Indoor"
-                  tags: ["green", "leafy"]
-                  status: "sold"
+                  regnum: АБ12345678
+  /api/broker/get-vehicle:
+    post:
+      tags:
+      - commonEndpoints
+      summary: Get Vehicle
+      operationId: getVehicle
+      description: |-
+        Улсын дугаараар тээврийн хэрэгслийн мэдээлэл татна.
+
+        Энэ endpoint нь XYP lookup ашигладаг.
+
+        Анхаарах зүйл:
+        - Broker token-оо Authorization header дээр дамжуулна.
+        - Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.
+        - Энэ endpoint нь create-ийн өмнөх туслах autofill endpoint юм.
       responses:
-        "200":
-          description: Plant successfully updated
+        '200':
+          description: Амжилттай хариу
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PlantResponse"
-              examples:
-                exampleResponse:
-                  summary: Successful Plant Update
-                  value:
-                    id: 101
-                    name: "Fern"
-                    status: "sold"
-                    tags: ["green", "leafy"]
-        "400":
-          description: Invalid ID supplied
-        "404":
-          description: Plant not found
-  /plant/search/status:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BrokerToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                plate_number:
+                  type: string
+            examples:
+              Get_Vehicle:
+                summary: Get Vehicle
+                value:
+                  plate_number: 1234УБА
+  /api/broker/contract-lookup:
+    post:
+      tags:
+      - commonEndpoints
+      summary: Contract Lookup
+      operationId: contractLookup
+      description: |-
+        plate_number эсвэл regnum-ээр бүх бүтээгдэхүүн (core_contracts) дундаас гэрээтэй эсэхийг шалгана.
+
+        Заавал:
+        - plate_number, regnum-ийн аль нэг нь заавал байх ёстой (хоёуланг нь илгээж болно)
+
+        Буцаах бүтэц:
+        - has_active_contract (boolean)
+        - contracts[]: product_key, contract_number, status, plate_number, contract_created_at, contract_expires_at
+
+        Анхаарах зүйл:
+        - Зөвхөн иргэний regnum-аар хайна, байгууллагын regnum дэмжигдэхгүй.
+      responses:
+        '200':
+          description: Амжилттай хариу
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BrokerToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                plate_number:
+                  type: string
+                regnum:
+                  type: string
+            examples:
+              Contract_Lookup:
+                summary: Contract Lookup
+                value:
+                  plate_number: 1234УБА
+                  regnum: ''
+  /api/broker/products:
     get:
       tags:
-        - plant
-      summary: Search plants by status
-      description: Filter plants based on their current status.
-      operationId: searchPlantsByStatus
+      - commonEndpoints
+      summary: Products
+      operationId: products
+      description: |-
+        Dynamic broker API дээр ашиглах боломжтой бүтээгдэхүүний жагсаалтыг авна.
+
+        Product бүр дээр:
+        - id
+        - key
+        - name
+        - is_active
+
+        Одоогийн байдлаар:
+        - thd
+        - ht
+        - god
+        - thd_loan
+        - ajd
+        - sgo
+      responses:
+        '200':
+          description: Амжилттай хариу
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BrokerToken: []
+  /api/broker/products/{product_key}/category:
+    get:
+      tags:
+      - commonEndpoints
+      summary: Get Category
+      operationId: getCategory
+      description: |-
+        Сонгосон product_key-ийн category-г авна.
+
+        Буцах category утгууд:
+        - mashin
+        - oron_suuts
+        - ed_hurungu
+      responses:
+        '200':
+          description: Амжилттай хариу
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BrokerToken: []
       parameters:
-        - name: status
-          in: query
-          description: The status of plants to search for.
-          required: false
-          schema:
-            type: string
-            enum: [available, pending, sold]
+      - name: product_key
+        in: path
+        required: true
+        schema:
+          type: string
+  /api/broker/{product_key}/get_sets:
+    get:
+      tags:
+      - commonEndpoints
+      summary: Get Sets
+      operationId: getSets
+      description: |-
+        Сонгосон бүтээгдэхүүний багцын мэдээлэл авна.
+
+        Буцаах common бүтэц:
+        - set_name
+        - is_active
+        - protection_percent
+        - own_responsibility
+        - price_percent
+        - is_limited
+        - protected_risks
+
+        Нэмэлт талбарууд:
+        - god, sgo дээр insurance_type
+        - god, sgo дээр protection_amount
+        - god, sgo дээр price
+
+        Тайлбар:
+        - ajd нь [] буцаана
+        - thd нь хуучин THD sets response-ээ яг тэр чигээр нь ашиглана
+        - product_key утгууд: thd, ht, god, thd_loan, ajd, sgo
       responses:
-        "200":
-          description: List of plants matching the status filter
+        '200':
+          description: Амжилттай хариу
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/PlantResponse"
-              examples:
-                exampleResponse:
-                  summary: Plants with status available
-                  value:
-                    - id: 101
-                      name: "Fern"
-                      status: "available"
-                      tags: ["green", "leafy"]
-                    - id: 102
-                      name: "Palm"
-                      status: "available"
-                      tags: ["tropical"]
-  /plant/search/tags:
-    get:
-      tags:
-        - plant
-      summary: Search plants by tags
-      description: Filter plants based on associated tags.
-      operationId: searchPlantsByTags
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BrokerToken: []
       parameters:
-        - name: tags
-          in: query
-          description: Tags to filter plants (comma-separated).
-          schema:
-            type: array
-            items:
-              type: string
+      - name: product_key
+        in: path
+        required: true
+        schema:
+          type: string
+  /api/broker/{product_key}/check_pay:
+    post:
+      tags:
+      - commonEndpoints
+      summary: Check Pay
+      operationId: checkPay
+      description: |-
+        Төлбөрийн төлөв шалгана.
+
+        Төлөгдсөн үед буцаах бүтэц:
+        - code
+        - is_paid
+        - message
+        - contract_url
+
+        contract_show_url буцаахгүй. Хэрэв source endpoint contract_url буцаадаггүй бол broker controller өөрөө contract_url үүсгэнэ.
       responses:
-        "200":
-          description: List of plants matching the tags filter
+        '200':
+          description: Амжилттай хариу
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/PlantResponse"
-              examples:
-                exampleResponse:
-                  summary: Plants filtered by tags
-                  value:
-                    - id: 101
-                      name: "Fern"
-                      status: "available"
-                      tags: ["green", "leafy"]
-                    - id: 103
-                      name: "Cactus"
-                      status: "available"
-                      tags: ["spiky", "desert"]
-  /plant/{plantId}:
-    get:
-      tags:
-        - plant
-      summary: Find plant by ID
-      description: Retrieve a plant's details by its ID.
-      operationId: getPlantById
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BrokerToken: []
       parameters:
-        - name: plantId
-          in: path
-          description: ID of the plant to retrieve
-          required: true
-          schema:
-            type: integer
+      - name: product_key
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contract_number:
+                  type: string
+            examples:
+              Check_Pay:
+                summary: Check Pay
+                value:
+                  contract_number: '{{contract_number}}'
+  /api/broker/test/mark-paid:
+    post:
+      tags:
+      - commonEndpoints
+      summary: Test Mark Paid
+      operationId: testMarkPaid
+      description: |-
+        Тестийн үед broker-ийн өөрийн гэрээг төлөгдсөн, insured төлөвт оруулна.
+
+        Нөхцөл:
+        - Зөвхөн brokers.test_user=true broker ашиглана
+        - Authorization token заавал дамжуулна
+        - Зөвхөн тухайн broker-ийн өөрийн contract_number ажиллана
+        - thd, ht, god, thd_loan, ajd, sgo бүтээгдэхүүн дэмжинэ
+        - Бодит төлбөр шалгахгүй
+        - SMS болон campaign ticket үүсгэхгүй
+        - Давтан дуудахад insured хэвээр success буцаана
+
+        Success response:
+        {
+          "code": 0,
+          "is_paid": 1,
+          "is_insured": 1,
+          "product_key": "ht",
+          "contract_number": "CONTRACT_NUMBER",
+          "message": "Тест төлбөр амжилттай төлөгдөж, гэрээ даатгагдлаа."
+        }
+
+        Test эрхгүй broker дээр HTTP 403 буцаана.
       responses:
-        "200":
-          description: Details of the requested plant
+        '200':
+          description: Амжилттай хариу
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PlantResponse"
-              examples:
-                exampleResponse:
-                  summary: Plant details
-                  value:
-                    id: 101
-                    name: "Fern"
-                    status: "available"
-                    tags: ["green", "leafy"]
-  /user/auth/login:
-    get:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BrokerToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contract_number:
+                  type: string
+            examples:
+              Test_Mark_Paid:
+                summary: Test Mark Paid
+                value:
+                  contract_number: '{{contract_number}}'
+  /api/broker/{product_key}/contract:
+    post:
       tags:
-        - user
-      summary: Logs user into the system
-      operationId: loginUser
+      - commonEndpoints
+      summary: Get Contract
+      operationId: getContract
+      description: Broker-ийн өөрийн үүсгэсэн нэг гэрээний дэлгэрэнгүй мэдээллийг авна.
+      responses:
+        '200':
+          description: Амжилттай хариу
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BrokerToken: []
       parameters:
-        - name: username
-          in: query
-          description: The username for login
-          schema:
-            type: string
-        - name: password
-          in: query
-          description: The password for login
-          schema:
-            type: string
+      - name: product_key
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contract_number:
+                  type: string
+            examples:
+              Get_Contract:
+                summary: Get Contract
+                value:
+                  contract_number: '{{contract_number}}'
+  /api/broker/{product_key}/contracts:
+    post:
+      tags:
+      - commonEndpoints
+      summary: Get Contracts
+      operationId: getContracts
+      description: |-
+        Огнооны интервалаар гэрээнүүдийн жагсаалт авна.
+
+        Дотоод date field:
+        - ajd => contract_created_at
+        - sgo => contract_created_at
+        - бусад нь => created_at
+
+        AJD status нь зөвхөн return дээр THD-style хэлбэрт хөрвөнө:
+        - contract-create-success => insured
+        - miis-invoice-success => pending
+        - pre-contract-create => pending
+        - contract-create-failed => failed
+        - self-cancelled => cancelled
+        - insurer-cancelled => cancelled
+        - contract-expired => expired
       responses:
-        "200":
-          description: Successful login
-          headers:
-            Set-Cookie:
-              description: Session token for user authentication
-              schema:
-                type: string
+        '200':
+          description: Амжилттай хариу
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/UserAuthResponse"
-              examples:
-                exampleResponse:
-                  summary: Successful login response
-                  value:
-                    token: "abc123token"
-                    expiresIn: 3600
-  /user/auth/logout:
-    get:
-      tags:
-        - user
-      summary: Logs out current logged-in user session
-      operationId: logoutUser
-      responses:
-        default:
-          description: Successful logout
-  /user/{username}:
-    get:
-      tags:
-        - user
-      summary: Get user by username
-      description: Retrieve user details using their username.
-      operationId: getUserByName
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BrokerToken: []
       parameters:
-        - name: username
-          in: path
-          description: Username of the user to retrieve
-          required: true
-          schema:
-            type: string
+      - name: product_key
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                start_date:
+                  type: string
+                end_date:
+                  type: string
+            examples:
+              Get_Contracts:
+                summary: Get Contracts
+                value:
+                  start_date: '2026-05-01'
+                  end_date: '2026-05-31'
+  /api/broker/thd/create:
+    post:
+      tags:
+      - thd
+      summary: Create THD (Иргэн) / Create THD (Компани)
+      operationId: createThd
+      description: |-
+        THD гэрээ үүсгэнэ.
+
+        Заавал:
+        - set
+        - evaluation
+        - type
+        - vehicle
+        - type=1 үед driver
+        - type=2 үед company
+
+        Анхаарах зүйл:
+        - set утга нь get_sets-с авсан утга байна
+
+        ---
+
+        Байгууллагын THD гэрээ үүсгэнэ.
       responses:
-        "200":
-          description: User details retrieved successfully
+        '200':
+          description: Амжилттай хариу
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
-              examples:
-                exampleResponse:
-                  summary: User details response
-                  value:
-                    id: 1
-                    username: "john_doe"
-                    email: "john@example.com"
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BrokerToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                set:
+                  type: string
+                evaluation:
+                  type: integer
+                type:
+                  type: integer
+                BeginDate:
+                  type: string
+                vehicle:
+                  type: object
+                  properties:
+                    plate_number:
+                      type: string
+                    color:
+                      type: string
+                    cabin_number:
+                      type: string
+                    mark:
+                      type: string
+                    model:
+                      type: string
+                    made_year:
+                      type: integer
+                    imported_date:
+                      type: string
+                driver:
+                  type: object
+                  properties:
+                    familyname:
+                      type: string
+                    lastname:
+                      type: string
+                    firstname:
+                      type: string
+                    regnum:
+                      type: string
+                    driver_ln:
+                      type: string
+                    driver_ln_date:
+                      type: string
+                    address:
+                      type: string
+                    phone_number:
+                      type: string
+                    email:
+                      type: string
+                    nationality:
+                      type: string
+                    sex:
+                      type: string
+                    born_Date:
+                      type: string
+                    ZipCode:
+                      type: string
+            examples:
+              Create_THD:
+                summary: Create THD (Иргэн)
+                value:
+                  set: '{{set_value}}'
+                  evaluation: 50000000
+                  type: 1
+                  BeginDate: '2026-05-20'
+                  vehicle:
+                    plate_number: 1234УБА
+                    color: ЦАГААН
+                    cabin_number: CABIN123
+                    mark: TOYOTA
+                    model: PRIUS
+                    made_year: 2018
+                    imported_date: '2018-01-01'
+                  driver:
+                    familyname: БАТ
+                    lastname: БАТ
+                    firstname: ДОРЖ
+                    regnum: АБ12345678
+                    driver_ln: '1234567'
+                    driver_ln_date: '2015-01-01'
+                    address: УБ
+                    phone_number: '99112233'
+                    email: test@example.com
+                    nationality: MN
+                    sex: male
+                    born_Date: '1990-01-01'
+                    ZipCode: '15160'
+              Create_THD_2:
+                summary: Create THD (Компани)
+                value:
+                  set: '{{set_value}}'
+                  evaluation: 50000000
+                  type: 2
+                  BeginDate: '2026-05-20'
+                  vehicle:
+                    plate_number: 1234УБА
+                    color: ЦАГААН
+                    cabin_number: CABIN123
+                    mark: TOYOTA
+                    model: PRIUS
+                    made_year: 2018
+                    imported_date: '2018-01-01'
+                  company:
+                    regnum: '1234567'
+                    name: TEST LLC
+                    address: УБ
+                    phone_number: '70112233'
+                    ZipCode: '15160'
+  /api/broker/thd/upload_photos:
+    post:
+      tags:
+      - thd
+      summary: Upload Photos THD
+      operationId: uploadPhotosThd
+      description: THD гэрээнд 4 зураг upload хийнэ.
+      responses:
+        '200':
+          description: Амжилттай хариу
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BrokerToken: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                contract_number:
+                  type: string
+                vehicle_front:
+                  type: string
+                  format: binary
+                vehicle_left:
+                  type: string
+                  format: binary
+                vehicle_back:
+                  type: string
+                  format: binary
+                vehicle_right:
+                  type: string
+                  format: binary
+              required:
+              - contract_number
+              - vehicle_front
+              - vehicle_left
+              - vehicle_back
+              - vehicle_right
+            examples:
+              Upload_Photos_THD:
+                summary: Upload Photos THD
+                value:
+                  contract_number: '{{contract_number}}'
+  /api/broker/ht/create:
+    post:
+      tags:
+      - ht
+      summary: Create HT (1 чиргүүлтэй)
+      operationId: createHt1
+      description: |-
+        1 чиргүүлтэй HT гэрээ үүсгэнэ.
+
+        Тайлбар:
+        - owner илгээвэл driver руу normalize хийгдэнэ
+        - top-level evaluation байвал vehicle.evaluation руу шилжүүлж ашиглана
+      responses:
+        '200':
+          description: Амжилттай хариу
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BrokerToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                set:
+                  type: string
+                evaluation:
+                  type: integer
+                type:
+                  type: integer
+                BeginDate:
+                  type: string
+                vehicle:
+                  type: object
+                  properties:
+                    plate_number:
+                      type: string
+                    color:
+                      type: string
+                    cabin_number:
+                      type: string
+                    mark:
+                      type: string
+                    model:
+                      type: string
+                    made_year:
+                      type: integer
+                    imported_date:
+                      type: string
+                    evaluation:
+                      type: integer
+                owner:
+                  type: object
+                  properties:
+                    familyname:
+                      type: string
+                    lastname:
+                      type: string
+                    firstname:
+                      type: string
+                    regnum:
+                      type: string
+                    driver_ln:
+                      type: string
+                    driver_ln_date:
+                      type: string
+                    address:
+                      type: string
+                    phone_number:
+                      type: string
+                    email:
+                      type: string
+                    nationality:
+                      type: string
+                    sex:
+                      type: string
+                    born_Date:
+                      type: string
+                    ZipCode:
+                      type: string
+                trailers:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      plate_number:
+                        type: string
+                      color:
+                        type: string
+                      cabin_number:
+                        type: string
+                      mark:
+                        type: string
+                      model:
+                        type: string
+                      made_year:
+                        type: integer
+                      imported_date:
+                        type: string
+                      type:
+                        type: string
+                      mass:
+                        type: integer
+                      evaluation:
+                        type: integer
+            examples:
+              Create_HT_1:
+                summary: Create HT (1 чиргүүлтэй)
+                value:
+                  set: '{{set_value}}'
+                  evaluation: 120000000
+                  type: 1
+                  BeginDate: '2026-05-20'
+                  vehicle:
+                    plate_number: 5678УБА
+                    color: ХӨХ
+                    cabin_number: HTCABIN123
+                    mark: HOWO
+                    model: TRUCK
+                    made_year: 2020
+                    imported_date: '2020-01-01'
+                    evaluation: 120000000
+                  owner:
+                    familyname: БАТ
+                    lastname: БАТ
+                    firstname: ДОРЖ
+                    regnum: АБ12345678
+                    driver_ln: '1234567'
+                    driver_ln_date: '2015-01-01'
+                    address: УБ
+                    phone_number: '99112233'
+                    email: test@example.com
+                    nationality: MN
+                    sex: male
+                    born_Date: '1990-01-01'
+                    ZipCode: '15160'
+                  trailers:
+                  - plate_number: 1234УНА
+                    color: ЦАГААН
+                    cabin_number: TRL123456
+                    mark: SCHMITZ
+                    model: SCS24
+                    made_year: 2019
+                    imported_date: '2019-01-01'
+                    type: ЧИРГҮҮЛ
+                    mass: 24000
+                    evaluation: 30000000
+  /api/broker/ht/upload_photos:
+    post:
+      tags:
+      - ht
+      summary: Upload Photos HT
+      operationId: uploadPhotosHt
+      description: HT гэрээнд 4 зураг upload хийнэ.
+      responses:
+        '200':
+          description: Амжилттай хариу
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BrokerToken: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                contract_number:
+                  type: string
+                vehicle_front:
+                  type: string
+                  format: binary
+                vehicle_left:
+                  type: string
+                  format: binary
+                vehicle_back:
+                  type: string
+                  format: binary
+                vehicle_right:
+                  type: string
+                  format: binary
+              required:
+              - contract_number
+              - vehicle_front
+              - vehicle_left
+              - vehicle_back
+              - vehicle_right
+            examples:
+              Upload_Photos_HT:
+                summary: Upload Photos HT
+                value:
+                  contract_number: '{{contract_number}}'
+  /api/broker/god/create:
+    post:
+      tags:
+      - god
+      summary: Create GOD
+      operationId: createGod
+      description: |-
+        GOD гэрээ үүсгэнэ.
+
+        Тайлбар:
+        - Зөвхөн иргэн дэмжинэ
+        - owner илгээвэл driver руу normalize хийгдэнэ
+        - type илгээхгүй бол backend 1 болгож ашиглана
+        - зураг upload endpoint байхгүй
+      responses:
+        '200':
+          description: Амжилттай хариу
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BrokerToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                set:
+                  type: string
+                type:
+                  type: integer
+                BeginDate:
+                  type: string
+                driver:
+                  type: object
+                  properties:
+                    familyname:
+                      type: string
+                    lastname:
+                      type: string
+                    firstname:
+                      type: string
+                    regnum:
+                      type: string
+                    phone_number:
+                      type: string
+                    email:
+                      type: string
+                    nationality:
+                      type: string
+                    sex:
+                      type: string
+                    born_Date:
+                      type: string
+                    ZipCode:
+                      type: string
+            examples:
+              Create_GOD:
+                summary: Create GOD
+                value:
+                  set: '{{set_value}}'
+                  type: 1
+                  BeginDate: '2026-05-20'
+                  driver:
+                    familyname: БАТ
+                    lastname: БАТ
+                    firstname: ДОРЖ
+                    regnum: АБ12345678
+                    phone_number: '99112233'
+                    email: test@example.com
+                    nationality: MN
+                    sex: male
+                    born_Date: '1990-01-01'
+                    ZipCode: '15160'
+  /api/broker/thd_loan/create:
+    post:
+      tags:
+      - thdLoan
+      summary: Create THD Loan
+      operationId: createThdLoan
+      description: |-
+        THD loan гэрээ үүсгэнэ.
+
+        Анхаарах зүйл:
+        - owner илгээхгүй, driver илгээсэн бол backend owner руу normalize хийнэ
+        - top-level evaluation байвал vehicle.evaluation руу шилжүүлж ашиглана
+      responses:
+        '200':
+          description: Амжилттай хариу
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BrokerToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                set:
+                  type: string
+                evaluation:
+                  type: integer
+                type:
+                  type: integer
+                BeginDate:
+                  type: string
+                vehicle:
+                  type: object
+                  properties:
+                    plate_number:
+                      type: string
+                    color:
+                      type: string
+                    cabin_number:
+                      type: string
+                    mark:
+                      type: string
+                    model:
+                      type: string
+                    made_year:
+                      type: integer
+                    imported_date:
+                      type: string
+                company:
+                  type: object
+                  properties:
+                    regnum:
+                      type: string
+                    name:
+                      type: string
+                    address:
+                      type: string
+                    phone_number:
+                      type: string
+                    email:
+                      type: string
+                owner:
+                  type: object
+                  properties:
+                    lastname:
+                      type: string
+                    firstname:
+                      type: string
+                    regnum:
+                      type: string
+                    phone_number:
+                      type: string
+                    driver_ln:
+                      type: string
+                    driver_ln_date:
+                      type: string
+                    address:
+                      type: string
+            examples:
+              Create_THD_Loan:
+                summary: Create THD Loan
+                value:
+                  set: '{{set_value}}'
+                  evaluation: 85000000
+                  type: 2
+                  BeginDate: '2026-05-20'
+                  vehicle:
+                    plate_number: 9999УБА
+                    color: ХАР
+                    cabin_number: LOANCABIN123
+                    mark: TOYOTA
+                    model: PRADO
+                    made_year: 2021
+                    imported_date: '2021-01-01'
+                  company:
+                    regnum: '1234567'
+                    name: TEST BBSB
+                    address: УБ
+                    phone_number: '70112233'
+                    email: bbsb@example.com
+                  owner:
+                    lastname: БАТ
+                    firstname: ДОРЖ
+                    regnum: АБ12345678
+                    phone_number: '99112233'
+                    driver_ln: '1234567'
+                    driver_ln_date: '2015-01-01'
+                    address: УБ
+  /api/broker/thd_loan/upload_photos:
+    post:
+      tags:
+      - thdLoan
+      summary: Upload Photos THD Loan
+      operationId: uploadPhotosThdLoan
+      description: THD loan гэрээнд 4 зураг upload хийнэ.
+      responses:
+        '200':
+          description: Амжилттай хариу
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BrokerToken: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                contract_number:
+                  type: string
+                vehicle_front:
+                  type: string
+                  format: binary
+                vehicle_left:
+                  type: string
+                  format: binary
+                vehicle_back:
+                  type: string
+                  format: binary
+                vehicle_right:
+                  type: string
+                  format: binary
+              required:
+              - contract_number
+              - vehicle_front
+              - vehicle_left
+              - vehicle_back
+              - vehicle_right
+            examples:
+              Upload_Photos_THD_Loan:
+                summary: Upload Photos THD Loan
+                value:
+                  contract_number: '{{contract_number}}'
+  /api/broker/ajd/create:
+    post:
+      tags:
+      - ajd
+      summary: Create AJD (Иргэн) / Create AJD (Компани)
+      operationId: createAjd
+      description: |-
+        Иргэний AJD гэрээ үүсгэнэ.
+
+        Тайлбар:
+        - is_limited request дээрээс авахгүй
+        - backend үргэлж false-аар MIIS рүү явуулна
+        - co_drivers optional
+        - nested driver/vehicle payload-ийг backend normalize хийж top-level request болгон ашиглана
+
+        ---
+
+        Байгууллагын AJD гэрээ үүсгэнэ.
+      responses:
+        '200':
+          description: Амжилттай хариу
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BrokerToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: integer
+                vehicle:
+                  type: object
+                  properties:
+                    plate_number:
+                      type: string
+                    is_chirguul:
+                      type: boolean
+                driver:
+                  type: object
+                  properties:
+                    lastname:
+                      type: string
+                    firstname:
+                      type: string
+                    regnum:
+                      type: string
+                    address:
+                      type: string
+                    phone_number:
+                      type: string
+                    email:
+                      type: string
+                co_drivers:
+                  type: array
+                  items: {}
+            examples:
+              Create_AJD:
+                summary: Create AJD (Иргэн)
+                value:
+                  type: 1
+                  vehicle:
+                    plate_number: 1234УБА
+                    is_chirguul: false
+                  driver:
+                    lastname: БАТ
+                    firstname: ДОРЖ
+                    regnum: АБ12345678
+                    address: УБ
+                    phone_number: '99112233'
+                    email: test@example.com
+                  co_drivers: []
+              Create_AJD_2:
+                summary: Create AJD (Компани)
+                value:
+                  type: 2
+                  vehicle:
+                    plate_number: 1234УБА
+                    is_chirguul: false
+                  company:
+                    regnum: '1234567'
+                    name: TEST COMPANY
+                    address: УБ
+                    phone_number: '70112233'
+                    email: company@example.com
+  /api/broker/sgo/create:
+    post:
+      tags:
+      - sgo
+      summary: Create SGO
+      operationId: createSgo
+      description: |-
+        SGO гэрээ үүсгэнэ.
+
+        Тайлбар:
+        - broker endpoint нь driver.regnum, driver.phone_number, vehicle.plate_number утгуудыг top-level талбар руу normalize хийнэ
+        - insured_seats илгээвэл seat_type руу normalize хийгдэнэ
+        - insured_seats=0 эсвэл хоосон бол нийт суудлаар даатгана
+        - зураг upload endpoint байхгүй
+      responses:
+        '200':
+          description: Амжилттай хариу
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BrokerToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                set:
+                  type: string
+                insured_seats:
+                  type: integer
+                vehicle:
+                  type: object
+                  properties:
+                    plate_number:
+                      type: string
+                driver:
+                  type: object
+                  properties:
+                    regnum:
+                      type: string
+                    phone_number:
+                      type: string
+                    email:
+                      type: string
+            examples:
+              Create_SGO:
+                summary: Create SGO
+                value:
+                  set: '{{set_value}}'
+                  insured_seats: 0
+                  vehicle:
+                    plate_number: 1234УБА
+                  driver:
+                    regnum: АБ12345678
+                    phone_number: '99112233'
+                    email: test@example.com
 components:
+  securitySchemes:
+    BrokerToken:
+      type: apiKey
+      in: header
+      name: Authorization
   schemas:
-    Plant:
+    SuccessResponse:
       type: object
-      properties:
-        name:
-          type: string
-        category:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        status:
-          type: string
-          enum: [available, pending, sold]
-    PlantResponse:
+      additionalProperties: true
+    ErrorResponse:
       type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        status:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-    UserAuthResponse:
-      type: object
-      properties:
-        token:
-          type: string
-          description: Authentication token
-        expiresIn:
-          type: integer
-          description: Token expiration time in seconds
-    User:
-      type: object
-      properties:
-        id:
-          type: integer
-        username:
-          type: string
-        email:
-          type: string
+      additionalProperties: true
