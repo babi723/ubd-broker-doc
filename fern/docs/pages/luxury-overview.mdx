@@ -1,0 +1,19 @@
+---
+title: Overview
+---
+
+Luxury (орон сууцны даатгал)-ийн broker flow. Citizen-ийн OTP урсгал шаардахгүй — broker token-оор шууд `create` хийнэ.
+
+## Endpoint-үүд
+
+- `GET /api/broker/luxury/get_sets`: Боломжтой үнэлгээний багцуудыг (`id`, `code`, `name`, `evaluation`, `monthly_amount`, `yearly_amount`) авна.
+- `POST /api/broker/luxury/create`: Luxury гэрээ үүсгэнэ.
+- `POST /api/broker/luxury/check_pay`: Гэрээний төлбөрийн төлөв шалгана.
+- `POST /api/broker/luxury/contract`: Broker-ийн үүсгэсэн нэг гэрээний дэлгэрэнгүйг авна.
+
+## Тайлбар
+
+- Заавал: `set_id`, `surname`, `name`, `register`, `email`, `phone_number`, `duration` (1/2/3), `hot_id`, `duureg_id`, `horoo`, `bair`, `haalga`, `type`.
+- `set_id` нь `get_sets` endpoint-ээс авсан утга байна.
+- Дүн = `duration` (жил) x сонгосон багцын `yearly_amount`.
+- Зураг upload endpoint байхгүй.

@@ -44,6 +44,12 @@ navigation:
       - sgo:
           title: Суудлын гэнэтийн ослын даатгал
           summary: docs/pages/sgo-overview.mdx
+      - ipotek:
+          title: Ипотекийн даатгал
+          summary: docs/pages/ipotek-overview.mdx
+      - luxury:
+          title: Орон сууцны даатгал (Luxury)
+          summary: docs/pages/luxury-overview.mdx
 colors:
   accent-primary:
     light: "#414099"

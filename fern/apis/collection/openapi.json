@@ -9,7 +9,7 @@
   "info": {
     "title": "Broker Dynamic API (MN)",
     "version": "1.0.0",
-    "description": "Broker Dynamic API Postman collection\n\n=== Ерөнхий урсгал ===\n1. POST /api/broker/get_token\n- Broker username, password-оор token авна.\n\n2. POST /api/broker/get-driver\n- Регистрийн дугаараар жолооч / иргэний мэдээлэл татна.\n- XYP ашигладаг.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n\n3. POST /api/broker/get-vehicle\n- Улсын дугаараар тээврийн хэрэгслийн мэдээлэл татна.\n- XYP ашигладаг.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n\n4. GET /api/broker/products\n- Ашиглах боломжтой бүтээгдэхүүний жагсаалт авна.\n- Product бүр дээр is_active boolean буцна.\n\n5. GET /api/broker/products/{product_key}/category\n- Сонгосон product_key-ийн category авна.\n- category утга:\n  - mashin\n  - oron_suuts\n  - ed_hurungu\n\n6. GET /api/broker/{product_key}/get_sets\n- Сонгосон бүтээгдэхүүний багцуудыг авна.\n\n7. POST /api/broker/{product_key}/create\n- Сонгосон бүтээгдэхүүний гэрээ үүсгэнэ.\n\n8. POST /api/broker/{product_key}/upload_photos\n- Гэрээ үүссэний дараа тээврийн хэрэгслийн зургууд upload хийнэ.\n- Зөвхөн thd, ht, thd_loan дээр ажиллана.\n\n9. POST /api/broker/{product_key}/check_pay\n- Төлбөрийн төлөв шалгана.\n- Төлөгдсөн бол contract_url буцаана.\n\n10. POST /api/broker/{product_key}/contract\n- Нэг гэрээний дэлгэрэнгүй мэдээлэл авна.\n\n11. POST /api/broker/{product_key}/contracts\n- Огнооны интервалаар гэрээнүүдийн жагсаалт авна.\n\n=== Бүтээгдэхүүний key ===\n- thd\n- ht\n- god\n- thd_loan\n- ajd\n- sgo\n\n=== Нэмэлт тайлбар ===\n- THD нь хуучин /api/broker/thd/* flow-ийг яг тэр чигээр нь ашиглана.\n- HT, GOD, THD loan, AJD, SGO нь broker dynamic controller-оор орно.\n- AJD get_sets нь хоосон жагсаалт буцаана.\n- THD get_sets нь хуучин THD sets response-ээ яг тэр чигээр нь ашиглана.\n- GOD, SGO get_sets нь common broker structure дээр insurance_type, protection_amount, price талбаруудыг нэмээд буцаана.\n- Баталгаажсан token-ийг Authorization: <token> хэлбэрээр protected endpoint бүр дээр дамжуулна.\n- set утга нь тухайн product-ийн get_sets endpoint-ээс авсан key/id байна."
+    "description": "Broker Dynamic API Postman collection\n\n=== Ерөнхий урсгал ===\n1. POST /api/broker/get_token\n- Broker username, password-оор token авна.\n\n2. POST /api/broker/get-driver\n- Регистрийн дугаараар жолооч / иргэний мэдээлэл татна.\n- XYP ашигладаг.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n\n3. POST /api/broker/get-vehicle\n- Улсын дугаараар тээврийн хэрэгслийн мэдээлэл татна.\n- XYP ашигладаг.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n\n4. GET /api/broker/products\n- Ашиглах боломжтой бүтээгдэхүүний жагсаалт авна.\n- Product бүр дээр is_active boolean буцна.\n\n5. GET /api/broker/products/{product_key}/category\n- Сонгосон product_key-ийн category авна.\n- category утга:\n  - mashin\n  - oron_suuts\n  - ed_hurungu\n\n6. GET /api/broker/{product_key}/get_sets\n- Сонгосон бүтээгдэхүүний багцуудыг авна.\n\n7. POST /api/broker/{product_key}/create\n- Сонгосон бүтээгдэхүүний гэрээ үүсгэнэ.\n\n8. POST /api/broker/{product_key}/upload_photos\n- Гэрээ үүссэний дараа тээврийн хэрэгслийн зургууд upload хийнэ.\n- Зөвхөн thd, ht, thd_loan дээр ажиллана.\n\n9. POST /api/broker/{product_key}/check_pay\n- Төлбөрийн төлөв шалгана.\n- Төлөгдсөн бол contract_url буцаана.\n\n10. POST /api/broker/{product_key}/contract\n- Нэг гэрээний дэлгэрэнгүй мэдээлэл авна.\n\n11. POST /api/broker/{product_key}/contracts\n- Огнооны интервалаар гэрээнүүдийн жагсаалт авна.\n\n12. POST /api/broker/contract-lookup\n- plate_number эсвэл regnum-ээр бүх бүтээгдэхүүн дундаас зөвхөн insured (баталгаажсан) гэрээг шалгана.\n- has_active_contract болон олдсон insured гэрээнүүдийн жагсаалт буцаана.\n- Зөвхөн иргэний regnum дэмжигдэнэ, байгууллагын regnum дэмжигдэхгүй.\n\n=== Бүтээгдэхүүний key ===\n- thd\n- ht\n- god\n- thd_loan\n- ajd\n- sgo\n- ipotek\n- luxury\n\n=== Нэмэлт тайлбар ===\n- THD нь хуучин /api/broker/thd/* flow-ийг яг тэр чигээр нь ашиглана.\n- HT, GOD, THD loan, AJD, SGO, Ipotek, Luxury нь broker dynamic controller-оор орно.\n- AJD get_sets нь хоосон жагсаалт буцаана.\n- THD get_sets нь хуучин THD sets response-ээ яг тэр чигээр нь ашиглана.\n- GOD, SGO get_sets нь common broker structure дээр insurance_type, protection_amount, price талбаруудыг нэмээд буцаана.\n- Ipotek нь citizen-ийн OTP урсгал (send-otp/verify-otp) шаардахгүй — broker token-оор аль хэдийн баталгаажсан тул set, regnum, firstname, lastname, asset_registry_number, asset_address, property_area, property_used_year, property_market_value зэргийг шууд create хүсэлтэд дамжуулна.\n- Luxury (орон сууцны даатгал) нь мөн citizen-ийн OTP шат шаардахгүй — broker token-оор шууд create хийнэ. Заавал: set_id, surname, name, register, email, phone_number, duration (1/2/3), hot_id, duureg_id, horoo, bair, haalga, type. Багцын (set) evaluation/yearly_amount утгыг get_sets-ээс авна.\n- Баталгаажсан token-ийг Authorization: <token> хэлбэрээр protected endpoint бүр дээр дамжуулна.\n- set утга нь тухайн product-ийн get_sets endpoint-ээс авсан key/id байна."
   },
   "paths": {
     "/api/broker/get_token": {
@@ -130,7 +130,7 @@
       "post": {
         "operationId": "postApiBrokerGet-vehicle",
         "summary": "Get Vehicle",
-        "description": "Улсын дугаараар тээврийн хэрэгслийн мэдээлэл татна.\n\nЭнэ endpoint нь XYP lookup ашигладаг.\n\nАнхаарах зүйл:\n- Broker token-оо Authorization header дээр дамжуулна.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n- Энэ endpoint нь create-ийн өмнөх туслах autofill endpoint юм.",
+        "description": "Улсын дугаараар тээврийн хэрэгслийн мэдээлэл татна.\n\nЭнэ endpoint нь XYP lookup ашигладаг.\n\nАнхаарах зүйл:\n- Broker token-оо Authorization header дээр дамжуулна.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n- Энэ endpoint нь create-ийн өмнөх туслах autofill endpoint юм.\n\nХариу дотор эзэмшигчийн мэдээлэл 'owner' object-оор нэмэгдэв (regnum, lastname, firstname, phone_number, address) — XYP-ийн тээврийн хэрэгслийн хайлтын хариунд шууд ирдэг тул давхар 'Get Driver' дуудах шаардлагагүй. Гэрээ үүсгэх API-ийн 'driver' object луу шууд дамжуулж болно (заавал: regnum, firstname, phone_number). driver_ln/driver_ln_date/nationality/sex/born_Date/ZipCode зэрэг нь энд ирэхгүй тул шаардлагатай бол тусад нь 'Get Driver'-ийг regnum-ээр дуудна.",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -145,7 +145,14 @@
                   "model": "PRIUS",
                   "made_year": 2018,
                   "color": "ЦАГААН",
-                  "cabin_number": "CABIN123"
+                  "cabin_number": "CABIN123",
+                  "owner": {
+                    "regnum": "АБ12345678",
+                    "lastname": "БАТ",
+                    "firstname": "ДОРЖ",
+                    "phone_number": "99112233",
+                    "address": "Улаанбаатар"
+                  }
                 }
               }
             }
@@ -189,7 +196,7 @@
       "post": {
         "operationId": "postApiBrokerContract-lookup",
         "summary": "Contract Lookup",
-        "description": "plate_number эсвэл regnum-ээр бүх бүтээгдэхүүн (core_contracts) дундаас гэрээтэй эсэхийг шалгана.\n\nЗаавал:\n- plate_number, regnum-ийн аль нэг нь заавал байх ёстой (хоёуланг нь илгээж болно)\n\nБуцаах бүтэц:\n- has_active_contract (boolean)\n- contracts[]: product_key, contract_number, status, plate_number, contract_created_at, contract_expires_at\n\nАнхаарах зүйл:\n- Зөвхөн иргэний regnum-аар хайна, байгууллагын regnum дэмжигдэхгүй.",
+        "description": "plate_number эсвэл regnum-ээр бүх бүтээгдэхүүн (core_contracts) дундаас зөвхөн insured (баталгаажсан) гэрээг шалгана. Бусад төлөв (pending, cancelled гэх мэт) буцаахгүй.\n\nЗаавал:\n- plate_number, regnum-ийн аль нэг нь заавал байх ёстой. Хоёуланг нь илгээвэл ЗЭРЭГ таарсан (тухайн улсын дугаар ТУХАЙН регистрийн эзэмшигчийн нэр дээр байгаа) гэрээг л буцаана.\n\nБуцаах бүтэц:\n- has_active_contract (boolean) — insured гэрээний хугацаа дуусаагүй эсэх\n- contracts[]: product_key, contract_number, status (үргэлж insured), plate_number, contract_created_at, contract_expires_at\n\nАнхаарах зүйл:\n- Зөвхөн иргэний regnum-аар хайна, байгууллагын regnum дэмжигдэхгүй.",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -2212,6 +2219,578 @@
           }
         }
       }
+    },
+    "/api/broker/ipotek/create": {
+      "post": {
+        "operationId": "postApiBrokerIpotekCreate",
+        "summary": "Create Ipotek",
+        "description": "Ipotek гэрээ үүсгэнэ.\n\nЗаавал: set (эсвэл set_id), phone_number, regnum, firstname, lastname, asset_registry_number, property_market_value.\n\nАнхаарах зүйл:\n- citizen-ийн OTP send/verify шат ШААРДАГДАХГҮЙ - broker token-оор аль хэдийн баталгаажсан.\n- asset_address, property_area, property_used_year-г ӨГӨХ ШААРДЛАГАГҮЙ болсон — систем regnum + asset_registry_number-ээр ХУР (XYP)-аас автоматаар лукап хийж эдгээрийг өөрөө татаж авна. Хэрэв XYP лукап амжилтгүй болвол (систем унтарсан, мэдээлэл олдоогүй гэх мэт) энэ 3 талбарыг ӨӨРӨӨ гараар дамжуулах шаардлагатай болно (fallback байдлаар).\n- Эдгээр 3 талбарыг ГАРААР дамжуулбал (жишээ: XYP-ийн мэдээлэл буруу үед) тэдгээр нь XYP-ээс ирсэн утгыг үргэлж дарж бичнэ (payload давамгайлна).\n- property_market_value 3,000,000-с доошгүй байх ёстой, мөн ХУР-ын үнэлгээнээс доогуур байж болохгүй.\n- Хамтран даатгуулагч (co_borrower) — БҮГД OPTIONAL, nested объект хэлбэрээр дамжуулна: co_borrower: {lastname, firstname, regnum, phone_number, email, address, share_percent (0-100)}. Хэрэггүй бол co_borrower талбарыг бүрэн хасаж болно. (Хуучин flat co_borrower_* талбаруудыг ч мөн дэмждэг — эдгээрийг шууд илгээвэл co_borrower объектоос давамгайлна.)",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateContractResponse"
+                },
+                "example": {
+                  "code": 200,
+                  "message": "Contract created",
+                  "contract_number": "IPO-2026-00001",
+                  "invoice_id": "INV-2026-00007",
+                  "invoice_link": "https://ubd.insur.mn/pay/INV-2026-00007"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "ipotek"
+        ],
+        "x-fern-sdk-group-name": [
+          "ipotek"
+        ],
+        "x-fern-sdk-method-name": "Create Ipotek",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "set": {
+                    "type": "string"
+                  },
+                  "set_id": {
+                    "type": "string"
+                  },
+                  "phone_number": {
+                    "type": "string"
+                  },
+                  "regnum": {
+                    "type": "string"
+                  },
+                  "firstname": {
+                    "type": "string"
+                  },
+                  "lastname": {
+                    "type": "string"
+                  },
+                  "asset_registry_number": {
+                    "type": "string"
+                  },
+                  "property_market_value": {
+                    "type": "integer"
+                  },
+                  "asset_address": {
+                    "type": "string"
+                  },
+                  "property_area": {
+                    "type": "number"
+                  },
+                  "property_used_year": {
+                    "type": "integer"
+                  },
+                  "co_borrower": {
+                    "type": "object",
+                    "properties": {
+                      "lastname": {
+                        "type": "string"
+                      },
+                      "firstname": {
+                        "type": "string"
+                      },
+                      "regnum": {
+                        "type": "string"
+                      },
+                      "phone_number": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string",
+                        "format": "email"
+                      },
+                      "address": {
+                        "type": "string"
+                      },
+                      "share_percent": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "phone_number",
+                  "regnum",
+                  "firstname",
+                  "lastname",
+                  "asset_registry_number",
+                  "property_market_value"
+                ]
+              },
+              "example": {
+                "set": "{{set_value}}",
+                "phone_number": "99112233",
+                "regnum": "АБ12345678",
+                "firstname": "ДОРЖ",
+                "lastname": "БАТ",
+                "asset_registry_number": "1234567",
+                "property_market_value": 50000000,
+                "co_borrower": {
+                  "lastname": "",
+                  "firstname": "",
+                  "regnum": "",
+                  "phone_number": "",
+                  "email": "",
+                  "address": "",
+                  "share_percent": null
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/broker/ipotek/get_sets": {
+      "get": {
+        "operationId": "getApiBrokerIpotekGet_sets",
+        "summary": "Get Sets Ipotek",
+        "description": "Ipotek-ийн боломжтой багцуудыг авна (available_in_api=true-гоор шүүсэн).\n\nХариу дотор set бүр дээр 'contract_years' (жишээ нь [1], [2], [3]) нэмэгдсэн — тухайн set нь хэдэн жилийн гэрээ үүсгэдгийг заана (IPO-1=1 жил, IPO-2=2 жил, IPO-3=3 жил).",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IpotekSetsResponse"
+                },
+                "example": [
+                  {
+                    "id": "IPO-1",
+                    "key": "IPO-1",
+                    "set_name": "1 жилийн багц",
+                    "is_active": true,
+                    "contract_years": [
+                      1
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "ipotek"
+        ],
+        "x-fern-sdk-group-name": [
+          "ipotek"
+        ],
+        "x-fern-sdk-method-name": "Get Sets Ipotek",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/broker/ipotek/check_pay": {
+      "post": {
+        "operationId": "postApiBrokerIpotekCheck_pay",
+        "summary": "Check Pay Ipotek",
+        "description": "Ipotek гэрээний төлбөрийн төлөв шалгана.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CheckPayResponse"
+                },
+                "example": {
+                  "code": 200,
+                  "is_paid": true,
+                  "message": "Payment confirmed",
+                  "contract_url": "https://ubd.insur.mn/storage/contracts/IPO-2026-00001.pdf"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "ipotek"
+        ],
+        "x-fern-sdk-group-name": [
+          "ipotek"
+        ],
+        "x-fern-sdk-method-name": "Check Pay Ipotek",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "contract_number": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "contract_number"
+                ]
+              },
+              "example": {
+                "contract_number": "{{contract_number}}"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/broker/ipotek/contract": {
+      "post": {
+        "operationId": "postApiBrokerIpotekContract",
+        "summary": "Get Contract Ipotek",
+        "description": "Broker-ийн үүсгэсэн нэг Ipotek гэрээний дэлгэрэнгүйг авна.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContractDetailResponse"
+                },
+                "example": {
+                  "contract_number": "IPO-2026-00001",
+                  "status": "insured",
+                  "product_key": "ipotek",
+                  "premium_amount": 150000,
+                  "contract_url": "https://ubd.insur.mn/storage/contracts/IPO-2026-00001.pdf"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "ipotek"
+        ],
+        "x-fern-sdk-group-name": [
+          "ipotek"
+        ],
+        "x-fern-sdk-method-name": "Get Contract Ipotek",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "contract_number": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "contract_number"
+                ]
+              },
+              "example": {
+                "contract_number": "{{contract_number}}"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/broker/luxury/create": {
+      "post": {
+        "operationId": "postApiBrokerLuxuryCreate",
+        "summary": "Create Luxury",
+        "description": "Luxury орон сууцны даатгалын гэрээ үүсгэнэ.\n\nЗаавал: set_id, surname, name, register, email, phone_number, duration (1/2/3), hot_id, duureg_id, horoo, bair, haalga, type.\n\nАнхаарах зүйл:\n- citizen-ийн OTP send/verify шат ШААРДАГДАХГҮЙ - broker token-оор аль хэдийн баталгаажсан.\n- set_id нь get_sets endpoint-ээс авсан утга байна.\n- Дүн = duration (жил) x сонгосон багцын yearly_amount.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateContractResponse"
+                },
+                "example": {
+                  "code": 200,
+                  "message": "Contract created",
+                  "contract_number": "LUX-2026-00001",
+                  "invoice_id": "INV-2026-00008",
+                  "invoice_link": "https://ubd.insur.mn/pay/INV-2026-00008"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "luxury"
+        ],
+        "x-fern-sdk-group-name": [
+          "luxury"
+        ],
+        "x-fern-sdk-method-name": "Create Luxury",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "set_id": {
+                    "type": "string"
+                  },
+                  "surname": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "register": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "phone_number": {
+                    "type": "string"
+                  },
+                  "duration": {
+                    "type": "integer",
+                    "enum": [
+                      1,
+                      2,
+                      3
+                    ]
+                  },
+                  "hot_id": {
+                    "type": "integer"
+                  },
+                  "duureg_id": {
+                    "type": "integer"
+                  },
+                  "horoo": {
+                    "type": "string"
+                  },
+                  "bair": {
+                    "type": "string"
+                  },
+                  "haalga": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "set_id",
+                  "surname",
+                  "name",
+                  "register",
+                  "email",
+                  "phone_number",
+                  "duration",
+                  "hot_id",
+                  "duureg_id",
+                  "horoo",
+                  "bair",
+                  "haalga",
+                  "type"
+                ]
+              },
+              "example": {
+                "set_id": "{{set_value}}",
+                "surname": "БАТ",
+                "name": "ДОРЖ",
+                "register": "АБ12345678",
+                "email": "test@example.com",
+                "phone_number": "99112233",
+                "duration": 1,
+                "hot_id": 1,
+                "duureg_id": 5,
+                "horoo": "5-р хороо",
+                "bair": "12А",
+                "haalga": "25",
+                "type": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/broker/luxury/get_sets": {
+      "get": {
+        "operationId": "getApiBrokerLuxuryGet_sets",
+        "summary": "Get Sets Luxury",
+        "description": "Luxury-ийн боломжтой үнэлгээний багцуудыг (id, code, name, evaluation, monthly_amount, yearly_amount) авна.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LuxurySetsResponse"
+                },
+                "example": [
+                  {
+                    "id": 1,
+                    "code": "LUX-1",
+                    "name": "Стандарт",
+                    "evaluation": 100000000,
+                    "monthly_amount": 50000,
+                    "yearly_amount": 600000
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "tags": [
+          "luxury"
+        ],
+        "x-fern-sdk-group-name": [
+          "luxury"
+        ],
+        "x-fern-sdk-method-name": "Get Sets Luxury",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/broker/luxury/check_pay": {
+      "post": {
+        "operationId": "postApiBrokerLuxuryCheck_pay",
+        "summary": "Check Pay Luxury",
+        "description": "Luxury гэрээний төлбөрийн төлөв шалгана.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CheckPayResponse"
+                },
+                "example": {
+                  "code": 200,
+                  "is_paid": true,
+                  "message": "Payment confirmed",
+                  "contract_url": "https://ubd.insur.mn/storage/contracts/LUX-2026-00001.pdf"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "luxury"
+        ],
+        "x-fern-sdk-group-name": [
+          "luxury"
+        ],
+        "x-fern-sdk-method-name": "Check Pay Luxury",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "contract_number": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "contract_number"
+                ]
+              },
+              "example": {
+                "contract_number": "{{contract_number}}"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/broker/luxury/contract": {
+      "post": {
+        "operationId": "postApiBrokerLuxuryContract",
+        "summary": "Get Contract Luxury",
+        "description": "Broker-ийн үүсгэсэн нэг Luxury гэрээний дэлгэрэнгүйг авна.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContractDetailResponse"
+                },
+                "example": {
+                  "contract_number": "LUX-2026-00001",
+                  "status": "insured",
+                  "product_key": "luxury",
+                  "premium_amount": 50000,
+                  "contract_url": "https://ubd.insur.mn/storage/contracts/LUX-2026-00001.pdf"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "luxury"
+        ],
+        "x-fern-sdk-group-name": [
+          "luxury"
+        ],
+        "x-fern-sdk-method-name": "Get Contract Luxury",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "contract_number": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "contract_number"
+                ]
+              },
+              "example": {
+                "contract_number": "{{contract_number}}"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -2282,6 +2861,27 @@
           },
           "cabin_number": {
             "type": "string"
+          },
+          "owner": {
+            "type": "object",
+            "properties": {
+              "regnum": {
+                "type": "string"
+              },
+              "lastname": {
+                "type": "string"
+              },
+              "firstname": {
+                "type": "string"
+              },
+              "phone_number": {
+                "type": "string"
+              },
+              "address": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
           }
         },
         "additionalProperties": true,
@@ -2291,7 +2891,14 @@
           "model": "PRIUS",
           "made_year": 2018,
           "color": "ЦАГААН",
-          "cabin_number": "CABIN123"
+          "cabin_number": "CABIN123",
+          "owner": {
+            "regnum": "АБ12345678",
+            "lastname": "БАТ",
+            "firstname": "ДОРЖ",
+            "phone_number": "99112233",
+            "address": "Улаанбаатар"
+          }
         }
       },
       "ContractLookupResponse": {
@@ -2649,6 +3256,88 @@
           "code": 200,
           "message": "Photos uploaded successfully"
         }
+      },
+      "IpotekSetsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "key": {
+              "type": "string"
+            },
+            "set_name": {
+              "type": "string"
+            },
+            "is_active": {
+              "type": "boolean"
+            },
+            "contract_years": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          "additionalProperties": true
+        },
+        "example": [
+          {
+            "id": "IPO-1",
+            "key": "IPO-1",
+            "set_name": "1 жилийн багц",
+            "is_active": true,
+            "contract_years": [
+              1
+            ]
+          }
+        ]
+      },
+      "LuxurySetsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "code": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "evaluation": {
+              "type": "number"
+            },
+            "monthly_amount": {
+              "type": "number"
+            },
+            "yearly_amount": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": true
+        },
+        "example": [
+          {
+            "id": 1,
+            "code": "LUX-1",
+            "name": "Стандарт",
+            "evaluation": 100000000,
+            "monthly_amount": 50000,
+            "yearly_amount": 600000
+          }
+        ]
       }
     },
     "securitySchemes": {
@@ -2697,6 +3386,14 @@
     {
       "name": "sgo",
       "description": "Суудлын гэнэтийн ослын даатгалын broker flow. Зөвхөн суудлын гэнэтийн ослын даатгалын гэрээг үүсгэнэ."
+    },
+    {
+      "name": "ipotek",
+      "description": "Ipotek-ийн даатгалын broker flow. Citizen-ийн OTP урсгал шаардахгүй, broker token-оор шууд create хийнэ."
+    },
+    {
+      "name": "luxury",
+      "description": "Luxury орон сууцны даатгалын broker flow. Citizen-ийн OTP урсгал шаардахгүй, broker token-оор шууд create хийнэ."
     }
   ]
 }

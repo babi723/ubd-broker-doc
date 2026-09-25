@@ -34,6 +34,10 @@ Broker Dynamic API Postman collection
 - Нэг гэрээний дэлгэрэнгүй мэдээллийг авна.
 11. `POST /api/broker/{product_key}/contracts`
 - Огнооны интервалаар гэрээнүүдийн жагсаалтыг авна.
+12. `POST /api/broker/contract-lookup`
+- `plate_number` эсвэл `regnum`-ээр бүх бүтээгдэхүүн дундаас зөвхөн `insured` (баталгаажсан) гэрээг шалгана.
+- `has_active_contract` болон олдсон insured гэрээнүүдийн жагсаалт буцаана.
+- Зөвхөн иргэний `regnum` дэмжигдэнэ, байгууллагын `regnum` дэмжигдэхгүй.
 
 ## Тест төлбөр баталгаажуулах
 
@@ -51,13 +55,17 @@ Broker Dynamic API Postman collection
 - `thd_loan`
 - `ajd`
 - `sgo`
+- `ipotek`
+- `luxury`
 
 ## Нэмэлт тайлбар
 
 - Тээврийн хэрэгслийн даатгал нь хуучин `/api/broker/thd/*` flow-ийг яг тэр чигээр нь ашиглана.
-- Хүнд даацын машины даатгал, Гэнэтийн ослын даатгал, Зээлтэй автомашины даатгал, Албан журмын даатгал, Суудлын гэнэтийн ослын даатгал нь broker dynamic controller-оор дамжина.
+- Хүнд даацын машины даатгал, Гэнэтийн ослын даатгал, Зээлтэй автомашины даатгал, Албан журмын даатгал, Суудлын гэнэтийн ослын даатгал, Ипотекийн даатгал, Luxury орон сууцны даатгал нь broker dynamic controller-оор дамжина.
 - Албан журмын даатгалын `get_sets` нь хоосон жагсаалт буцаана.
 - Тээврийн хэрэгслийн даатгалын `get_sets` нь хуучин THD sets response-ээ яг тэр чигээр нь ашиглана.
 - Гэнэтийн ослын даатгал, Суудлын гэнэтийн ослын даатгалын `get_sets` нь common broker structure дээр `insurance_type`, `protection_amount`, `price` талбаруудыг нэмээд буцаана.
+- Ипотекийн даатгал нь citizen-ийн OTP урсгал (send-otp/verify-otp) шаардахгүй — broker token-оор аль хэдийн баталгаажсан тул `set`, `regnum`, `firstname`, `lastname`, `asset_registry_number`, `asset_address`, `property_area`, `property_used_year`, `property_market_value` зэргийг шууд `create` хүсэлтэд дамжуулна.
+- Luxury (орон сууцны даатгал) нь мөн citizen-ийн OTP шат шаардахгүй — broker token-оор шууд `create` хийнэ. Заавал: `set_id`, `surname`, `name`, `register`, `email`, `phone_number`, `duration` (1/2/3), `hot_id`, `duureg_id`, `horoo`, `bair`, `haalga`, `type`.
 - Баталгаажсан token-ийг `Authorization: <token>` хэлбэрээр protected endpoint бүрд дамжуулна.
 - `set` утга нь тухайн product-ийн `get_sets` endpoint-ээс авсан key/id байна.

@@ -1,0 +1,21 @@
+---
+title: Overview
+---
+
+Ipotek-ийн даатгалын broker flow. Citizen-ийн OTP урсгал (send-otp/verify-otp) шаардахгүй — broker token-оор аль хэдийн баталгаажсан.
+
+## Endpoint-үүд
+
+- `GET /api/broker/ipotek/get_sets`: Боломжтой багцуудыг авна (`available_in_api=true`-гоор шүүсэн). Set бүр дээр `contract_years` талбар нэмэгдсэн (жишээ: `[1]`, `[2]`, `[3]`).
+- `POST /api/broker/ipotek/create`: Ipotek гэрээ үүсгэнэ.
+- `POST /api/broker/ipotek/check_pay`: Гэрээний төлбөрийн төлөв шалгана.
+- `POST /api/broker/ipotek/contract`: Broker-ийн үүсгэсэн нэг гэрээний дэлгэрэнгүйг авна.
+
+## Тайлбар
+
+- Заавал: `set` (эсвэл `set_id`), `phone_number`, `regnum`, `firstname`, `lastname`, `asset_registry_number`, `property_market_value`.
+- `asset_address`, `property_area`, `property_used_year`-г өгөх шаардлагагүй — систем `regnum` + `asset_registry_number`-ээр ХУР (XYP)-аас автоматаар лукап хийж эдгээрийг өөрөө татаж авна.
+- Хэрэв XYP лукап амжилтгүй бол (систем унтарсан, мэдээлэл олдоогүй гэх мэт) эдгээр 3 талбарыг гараар дамжуулах шаардлагатай (fallback). Гараар дамжуулсан утга XYP-ээс ирсэн утгыг үргэлж дарж бичнэ.
+- `property_market_value` 3,000,000-с доошгүй байх ёстой, мөн ХУР-ын үнэлгээнээс доогуур байж болохгүй.
+- Хамтран даатгуулагч (`co_borrower`) бүгд OPTIONAL, nested объект хэлбэрээр дамжуулна: `{lastname, firstname, regnum, phone_number, email, address, share_percent (0-100)}`. Хуучин flat `co_borrower_*` талбарууд ч дэмжигдэнэ, шууд илгээвэл `co_borrower` объектоос давамгайлна.
+- Зураг upload endpoint байхгүй.
