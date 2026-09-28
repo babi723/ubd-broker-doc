@@ -1,0 +1,18 @@
+---
+title: Overview
+---
+
+Барьцаа хөрөнгийн даатгал (BHD)-ийн broker flow. Citizen-ийн OTP шат шаардахгүй боловч XYP-ээс хөрөнгийн мэдээлэл автоматаар лукап хийгдэнэ.
+
+## Endpoint-үүд
+
+- `GET /api/broker/bhd/get_sets`: Боломжтой багцуудыг авна. Багц бүрт `loan_type` (`loan_value` эсвэл `loan_amount`) орно.
+- `POST /api/broker/bhd/create`: BHD гэрээ үүсгэнэ.
+- `POST /api/broker/bhd/check_pay`: Гэрээний төлбөрийн төлөв шалгана.
+- `POST /api/broker/bhd/contract`: Broker-ийн үүсгэсэн нэг гэрээний дэлгэрэнгүйг авна.
+
+## Тайлбар
+
+- Заавал: `set` (эсвэл `set_id`), `contract_type` (1=иргэн, 2=байгууллага), `regnum` (`contract_type=1` үед) эсвэл `company_id` (`contract_type=2` үед, шинэ байгууллага үүсгэх дэмжлэггүй, бэлэн id шаардана), `asset_registry_number`, `phone_number`, `evaluation`.
+- `evaluation` талбарыг илгээхэд хангалттай — систем сонгосон set-ийн `loan_type`-аас шалтгаалж `loan_value` (зах зээлийн үнэ) эсвэл `loan_amount` (зээлийн дүн) руу автоматаар хөрвүүлнэ. Хүсвэл `loan_value`/`loan_amount`-ийг шууд нэрээр нь ч илгээж болно (тэр үед `evaluation` үл хэрэгсэгдэнэ).
+- Системд `regnum` + `asset_registry_number`-ээр ХУР (XYP)-аас хөрөнгийн мэдээллийг автоматаар лукап хийнэ. Лукап амжилтгүй бол (хөрөнгө олдоогүй гэх мэт) гэрээ үүсэхгүй, алдаа буцна.

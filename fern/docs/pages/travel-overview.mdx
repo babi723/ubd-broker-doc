@@ -1,0 +1,19 @@
+---
+title: Overview
+---
+
+Гадаад зорчигчийн даатгал (Travel)-ын broker flow. Citizen-ийн OTP шат шаардахгүй — broker token-оор шууд `create` хийнэ.
+
+## Endpoint-үүд
+
+- `GET /api/broker/travel/get_sets`: Боломжтой (борлуулж болох) багцуудыг авна — зөвхөн `TI-3`, `TI-4`, `TI-5`.
+- `POST /api/broker/travel/create`: Travel гэрээ үүсгэнэ.
+- `POST /api/broker/travel/check_pay`: Гэрээний төлбөрийн төлөв шалгана.
+- `POST /api/broker/travel/contract`: Broker-ийн үүсгэсэн нэг гэрээний дэлгэрэнгүйг авна.
+
+## Тайлбар
+
+- Заавал: `set` (эсвэл `set_id`), `travel_begin_date`, `travel_end_date`, `country`, `travellers[]` (тус бүр дээр `firstname`, `lastname`, `passport_id`, `birthdate`, `regnum` заавал).
+- Нэг гэрээнд 10 хvртэл зорчигч байж болно. Олон зорчигчтой үед хариу дотор `contracts` массивт бүгд орж ирнэ, эхний зорчигчийн гэрээ `contract_number`-т байна.
+- `get_sets` хариу дотор `area`, `countries`, `covid`, `addend_days` талбарууд нэмэгдсэн — 3 багцыг ялгахад ашиглана (нэр нь бүгд "Standart").
+- `price_usd` талбар нь хувь (%) биш — өдрийн интервал тус бүрийн ам.долларын үнэ (тухайн өдрийн ханшаар MNT болж хөрвүүлэгдэнэ).

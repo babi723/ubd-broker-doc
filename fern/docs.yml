@@ -50,6 +50,18 @@ navigation:
       - luxury:
           title: Орон сууцны даатгал (Luxury)
           summary: docs/pages/luxury-overview.mdx
+      - travel:
+          title: Гадаад зорчигчийн даатгал
+          summary: docs/pages/travel-overview.mdx
+      - uhd:
+          title: Өмгөөлөгчийн хариуцлагын даатгал
+          summary: docs/pages/uhd-overview.mdx
+      - machinery:
+          title: Машин механизмын даатгал
+          summary: docs/pages/machinery-overview.mdx
+      - bhd:
+          title: Барьцаа хөрөнгийн даатгал
+          summary: docs/pages/bhd-overview.mdx
 colors:
   accent-primary:
     light: "#414099"

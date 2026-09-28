@@ -1,0 +1,19 @@
+---
+title: Overview
+---
+
+Машин механизмын даатгал (Machinery)-ийн broker flow. Citizen-ийн OTP шат шаардахгүй. Зөвхөн `M` ангиллын тээврийн хэрэгсэл дэмжигдэнэ.
+
+## Endpoint-үүд
+
+- `GET /api/broker/machinery/get_sets`: Боломжтой багцуудыг авна.
+- `POST /api/broker/machinery/create`: Machinery гэрээ үүсгэнэ.
+- `POST /api/broker/machinery/check_pay`: Гэрээний төлбөрийн төлөв шалгана.
+- `POST /api/broker/machinery/contract`: Broker-ийн үүсгэсэн нэг гэрээний дэлгэрэнгүйг авна.
+
+## Тайлбар
+
+- Заавал: `set` (эсвэл `set_id`), `contract_type` (1=иргэн, 2=байгууллага).
+- Иргэн бол `owner{regnum, firstname, lastname, phone_number}` (эсвэл flat `regnum`/`firstname`/`lastname`/`phone_number`), байгууллага бол `company{regnum, name, address, phone_number}` (эсвэл flat `company_regnum`/`company_name`/`company_address`/`company_phone_number`), мөн `address` (иргэний хаяг).
+- `vehicle{plate_number, cabin_number, vendor, model, vehicle_class_name, market_evaluation}` (эсвэл flat талбарууд) заавал. `vehicle_class_name` нь `M` байх ёстой.
+- `owner`/`vehicle`/`company` nested объект илгээвэл автоматаар харгалзах flat талбарууд руу normalize хийгдэнэ (HT-ийн create-тэй ижил хэлбэр).

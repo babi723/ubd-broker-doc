@@ -1,0 +1,18 @@
+---
+title: Overview
+---
+
+Өмгөөлөгчийн хариуцлагын даатгал (UHD)-ын broker flow. Citizen-ийн OTP шат шаардахгүй.
+
+## Endpoint-үүд
+
+- `GET /api/broker/uhd/get_sets`: Боломжтой багцуудыг авна.
+- `GET /api/broker/uhd/specializations`: Даатгуулах өмгөөлөгчийн мэргэшсэн чиглэлийн жагсаалтыг (`id`, `name`) авна.
+- `POST /api/broker/uhd/create`: UHD гэрээ үүсгэнэ.
+- `POST /api/broker/uhd/check_pay`: Гэрээний төлбөрийн төлөв шалгана.
+- `POST /api/broker/uhd/contract`: Broker-ийн үүсгэсэн нэг гэрээний дэлгэрэнгүйг авна.
+
+## Тайлбар
+
+- Заавал: `set` (эсвэл `set_id`), `regnum`, `firstname`, `lastname`, `address`, `phone_number`, `types`.
+- `types` талбарт `Get Specializations UHD`-ээс авсан мэргэшсэн чиглэлийн `id`-нуудын жагсаалтыг (доод тал нь 1) дамжуулна.

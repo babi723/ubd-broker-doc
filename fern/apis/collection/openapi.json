@@ -9,7 +9,7 @@
   "info": {
     "title": "Broker Dynamic API (MN)",
     "version": "1.0.0",
-    "description": "Broker Dynamic API Postman collection\n\n=== Ерөнхий урсгал ===\n1. POST /api/broker/get_token\n- Broker username, password-оор token авна.\n\n2. POST /api/broker/get-driver\n- Регистрийн дугаараар жолооч / иргэний мэдээлэл татна.\n- XYP ашигладаг.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n\n3. POST /api/broker/get-vehicle\n- Улсын дугаараар тээврийн хэрэгслийн мэдээлэл татна.\n- XYP ашигладаг.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n\n4. GET /api/broker/products\n- Ашиглах боломжтой бүтээгдэхүүний жагсаалт авна.\n- Product бүр дээр is_active boolean буцна.\n\n5. GET /api/broker/products/{product_key}/category\n- Сонгосон product_key-ийн category авна.\n- category утга:\n  - mashin\n  - oron_suuts\n  - ed_hurungu\n\n6. GET /api/broker/{product_key}/get_sets\n- Сонгосон бүтээгдэхүүний багцуудыг авна.\n\n7. POST /api/broker/{product_key}/create\n- Сонгосон бүтээгдэхүүний гэрээ үүсгэнэ.\n\n8. POST /api/broker/{product_key}/upload_photos\n- Гэрээ үүссэний дараа тээврийн хэрэгслийн зургууд upload хийнэ.\n- Зөвхөн thd, ht, thd_loan дээр ажиллана.\n\n9. POST /api/broker/{product_key}/check_pay\n- Төлбөрийн төлөв шалгана.\n- Төлөгдсөн бол contract_url буцаана.\n\n10. POST /api/broker/{product_key}/contract\n- Нэг гэрээний дэлгэрэнгүй мэдээлэл авна.\n\n11. POST /api/broker/{product_key}/contracts\n- Огнооны интервалаар гэрээнүүдийн жагсаалт авна.\n\n12. POST /api/broker/contract-lookup\n- plate_number эсвэл regnum-ээр бүх бүтээгдэхүүн дундаас зөвхөн insured (баталгаажсан) гэрээг шалгана.\n- has_active_contract болон олдсон insured гэрээнүүдийн жагсаалт буцаана.\n- Зөвхөн иргэний regnum дэмжигдэнэ, байгууллагын regnum дэмжигдэхгүй.\n\n=== Бүтээгдэхүүний key ===\n- thd\n- ht\n- god\n- thd_loan\n- ajd\n- sgo\n- ipotek\n- luxury\n\n=== Нэмэлт тайлбар ===\n- THD нь хуучин /api/broker/thd/* flow-ийг яг тэр чигээр нь ашиглана.\n- HT, GOD, THD loan, AJD, SGO, Ipotek, Luxury нь broker dynamic controller-оор орно.\n- AJD get_sets нь хоосон жагсаалт буцаана.\n- THD get_sets нь хуучин THD sets response-ээ яг тэр чигээр нь ашиглана.\n- GOD, SGO get_sets нь common broker structure дээр insurance_type, protection_amount, price талбаруудыг нэмээд буцаана.\n- Ipotek нь citizen-ийн OTP урсгал (send-otp/verify-otp) шаардахгүй — broker token-оор аль хэдийн баталгаажсан тул set, regnum, firstname, lastname, asset_registry_number, asset_address, property_area, property_used_year, property_market_value зэргийг шууд create хүсэлтэд дамжуулна.\n- Luxury (орон сууцны даатгал) нь мөн citizen-ийн OTP шат шаардахгүй — broker token-оор шууд create хийнэ. Заавал: set_id, surname, name, register, email, phone_number, duration (1/2/3), hot_id, duureg_id, horoo, bair, haalga, type. Багцын (set) evaluation/yearly_amount утгыг get_sets-ээс авна.\n- Баталгаажсан token-ийг Authorization: <token> хэлбэрээр protected endpoint бүр дээр дамжуулна.\n- set утга нь тухайн product-ийн get_sets endpoint-ээс авсан key/id байна."
+    "description": "Broker Dynamic API Postman collection\n\n=== Ерөнхий урсгал ===\n1. POST /api/broker/get_token\n- Broker username, password-оор token авна.\n\n2. POST /api/broker/get-driver\n- Регистрийн дугаараар жолооч / иргэний мэдээлэл татна.\n- XYP ашигладаг.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n\n3. POST /api/broker/get-vehicle\n- Улсын дугаараар тээврийн хэрэгслийн мэдээлэл татна.\n- XYP ашигладаг.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n\n4. GET /api/broker/products\n- Ашиглах боломжтой бүтээгдэхүүний жагсаалт авна.\n- Product бүр дээр is_active boolean буцна.\n\n5. GET /api/broker/products/{product_key}/category\n- Сонгосон product_key-ийн category авна.\n- category утга:\n  - mashin\n  - oron_suuts\n  - ed_hurungu\n\n6. GET /api/broker/{product_key}/get_sets\n- Сонгосон бүтээгдэхүүний багцуудыг авна.\n\n7. POST /api/broker/{product_key}/create\n- Сонгосон бүтээгдэхүүний гэрээ үүсгэнэ.\n\n8. POST /api/broker/{product_key}/upload_photos\n- Гэрээ үүссэний дараа тээврийн хэрэгслийн зургууд upload хийнэ.\n- Зөвхөн thd, ht, thd_loan дээр ажиллана.\n\n9. POST /api/broker/{product_key}/check_pay\n- Төлбөрийн төлөв шалгана.\n- Төлөгдсөн бол contract_url буцаана.\n\n10. POST /api/broker/{product_key}/contract\n- Нэг гэрээний дэлгэрэнгүй мэдээлэл авна.\n\n11. POST /api/broker/{product_key}/contracts\n- Огнооны интервалаар гэрээнүүдийн жагсаалт авна.\n\n12. POST /api/broker/contract-lookup\n- plate_number эсвэл regnum-ээр бүх бүтээгдэхүүн дундаас зөвхөн insured (баталгаажсан) гэрээг шалгана.\n- product_key (сонголттой) илгээвэл зөвхөн тухайн бүтээгдэхүүн дээрх гэрээг шалгана.\n- has_active_contract болон олдсон insured гэрээнүүдийн жагсаалт буцаана.\n- Зөвхөн иргэний regnum дэмжигдэнэ, байгууллагын regnum дэмжигдэхгүй.\n\n=== Бүтээгдэхүүний key ===\n- thd\n- ht\n- god\n- thd_loan\n- ajd\n- sgo\n- ipotek\n- luxury\n- travel\n- uhd\n- machinery\n- bhd\n\n=== Нэмэлт тайлбар ===\n- THD нь хуучин /api/broker/thd/* flow-ийг яг тэр чигээр нь ашиглана.\n- HT, GOD, THD loan, AJD, SGO, Ipotek, Luxury, Travel, UHD, Machinery, BHD нь broker dynamic controller-оор орно.\n- AJD get_sets нь хоосон жагсаалт буцаана.\n- THD get_sets нь хуучин THD sets response-ээ яг тэр чигээр нь ашиглана.\n- GOD, SGO get_sets нь common broker structure дээр insurance_type, protection_amount, price талбаруудыг нэмээд буцаана.\n- Ipotek нь citizen-ийн OTP урсгал (send-otp/verify-otp) шаардахгүй — broker token-оор аль хэдийн баталгаажсан тул set, regnum, firstname, lastname, asset_registry_number, asset_address, property_area, property_used_year, property_market_value зэргийг шууд create хүсэлтэд дамжуулна.\n- Luxury (орон сууцны даатгал) нь мөн citizen-ийн OTP шат шаардахгүй — broker token-оор шууд create хийнэ. Заавал: set_id, surname, name, register, email, phone_number, duration (1/2/3), hot_id, duureg_id, horoo, bair, haalga, type. Багцын (set) evaluation/yearly_amount утгыг get_sets-ээс авна.\n- Travel (гадаад зорчигчийн даатгал) нь citizen-ийн OTP шат шаардахгүй. Нэг гэрээнд 10 хүртэл зорчигч (travellers[]) багтаж болно, эхний зорчигчийн гэрээ contract_number-т, бүгд contracts массивт буцна. get_sets нь зөвхөн TI-3/TI-4/TI-5 багцыг буцаана, price_usd нь хувь биш ам.долларын үнэ.\n- UHD (Өмгөөлөгчийн хариуцлагын даатгал) нь citizen-ийн OTP шат шаардахгүй. types талбарт Get Specializations UHD-ээс авсан мэргэшсэн чиглэлийн id-нуудыг дамжуулна.\n- Machinery (машин механизмын даатгал) нь citizen-ийн OTP шат шаардахгүй, зөвхөн 'M' ангиллын тээврийн хэрэгсэл дэмжинэ. owner/vehicle/company nested объект илгээвэл автоматаар flat талбар руу normalize хийгдэнэ (HT-ийн create-тэй ижил).\n- BHD (Барьцаа хөрөнгийн даатгал) нь citizen-ийн OTP шат шаардахгүй боловч regnum + asset_registry_number-ээр ХУР (XYP)-аас хөрөнгийн мэдээллийг автоматаар лукап хийнэ. evaluation талбарыг илгээхэд систем сонгосон set-ийн loan_type-аас хамаарч loan_value эсвэл loan_amount руу хөрвүүлнэ (эсвэл эдгээрийг шууд нэрээр нь илгээж болно). Байгууллагын гэрээнд бэлэн company_id шаардлагатай.\n- Get Vehicle хариу дотор 'owner' object нэмэгдэв (регистр, эзэмшигчийн мэдээлэл), мөн 'seat_number' (суудлын тоо) талбар нэмэгдсэн — machinery/sgo зэрэг суудлын тоо шаарддаг бүтээгдэхүүнд ашиглана.\n- Баталгаажсан token-ийг Authorization: <token> хэлбэрээр protected endpoint бүр дээр дамжуулна.\n- set утга нь тухайн product-ийн get_sets endpoint-ээс авсан key/id байна."
   },
   "paths": {
     "/api/broker/get_token": {
@@ -130,7 +130,7 @@
       "post": {
         "operationId": "postApiBrokerGet-vehicle",
         "summary": "Get Vehicle",
-        "description": "Улсын дугаараар тээврийн хэрэгслийн мэдээлэл татна.\n\nЭнэ endpoint нь XYP lookup ашигладаг.\n\nАнхаарах зүйл:\n- Broker token-оо Authorization header дээр дамжуулна.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n- Энэ endpoint нь create-ийн өмнөх туслах autofill endpoint юм.\n\nХариу дотор эзэмшигчийн мэдээлэл 'owner' object-оор нэмэгдэв (regnum, lastname, firstname, phone_number, address) — XYP-ийн тээврийн хэрэгслийн хайлтын хариунд шууд ирдэг тул давхар 'Get Driver' дуудах шаардлагагүй. Гэрээ үүсгэх API-ийн 'driver' object луу шууд дамжуулж болно (заавал: regnum, firstname, phone_number). driver_ln/driver_ln_date/nationality/sex/born_Date/ZipCode зэрэг нь энд ирэхгүй тул шаардлагатай бол тусад нь 'Get Driver'-ийг regnum-ээр дуудна.",
+        "description": "Улсын дугаараар тээврийн хэрэгслийн мэдээлэл татна.\n\nЭнэ endpoint нь XYP lookup ашигладаг.\n\nАнхаарах зүйл:\n- Broker token-оо Authorization header дээр дамжуулна.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n- Энэ endpoint нь create-ийн өмнөх туслах autofill endpoint юм.\n\nХариу дотор эзэмшигчийн мэдээлэл 'owner' object-оор нэмэгдэв (regnum, lastname, firstname, phone_number, address) — XYP-ийн тээврийн хэрэгслийн хайлтын хариунд шууд ирдэг тул давхар 'Get Driver' дуудах шаардлагагүй. Гэрээ үүсгэх API-ийн 'driver' object луу шууд дамжуулж болно.\n\n'seat_number' (суудлын тоо) талбар нэмэгдсэн — machinery/sgo зэрэг суудлын тоо шаарддаг бүтээгдэхүүнд ашиглана.",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -146,6 +146,7 @@
                   "made_year": 2018,
                   "color": "ЦАГААН",
                   "cabin_number": "CABIN123",
+                  "seat_number": 5,
                   "owner": {
                     "regnum": "АБ12345678",
                     "lastname": "БАТ",
@@ -196,7 +197,7 @@
       "post": {
         "operationId": "postApiBrokerContract-lookup",
         "summary": "Contract Lookup",
-        "description": "plate_number эсвэл regnum-ээр бүх бүтээгдэхүүн (core_contracts) дундаас зөвхөн insured (баталгаажсан) гэрээг шалгана. Бусад төлөв (pending, cancelled гэх мэт) буцаахгүй.\n\nЗаавал:\n- plate_number, regnum-ийн аль нэг нь заавал байх ёстой. Хоёуланг нь илгээвэл ЗЭРЭГ таарсан (тухайн улсын дугаар ТУХАЙН регистрийн эзэмшигчийн нэр дээр байгаа) гэрээг л буцаана.\n\nБуцаах бүтэц:\n- has_active_contract (boolean) — insured гэрээний хугацаа дуусаагүй эсэх\n- contracts[]: product_key, contract_number, status (үргэлж insured), plate_number, contract_created_at, contract_expires_at\n\nАнхаарах зүйл:\n- Зөвхөн иргэний regnum-аар хайна, байгууллагын regnum дэмжигдэхгүй.",
+        "description": "plate_number эсвэл regnum-ээр бүх бүтээгдэхүүн (core_contracts) дундаас зөвхөн insured (баталгаажсан) гэрээг шалгана. Бусад төлөв (pending, cancelled гэх мэт) буцаахгүй.\n\nЗаавал:\n- plate_number, regnum-ийн аль нэг нь заавал байх ёстой. Хоёуланг нь илгээвэл ЗЭРЭГ таарсан (тухайн улсын дугаар ТУХАЙН регистрийн эзэмшигчийн нэр дээр байгаа) гэрээг л буцаана.\n\nСонголт:\n- product_key (сонголттой) — илгээвэл зөвхөн тухайн бүтээгдэхүүн дээрх гэрээг шалгана (жишээ нь 'thd', 'ht', 'machinery' гэх мэт). Илгээхгүй бол бүх бүтээгдэхүүн дундаас хайна.\n\nБуцаах бүтэц:\n- has_active_contract (boolean) — insured гэрээний хугацаа дуусаагүй эсэх\n- contracts[]: product_key, contract_number, status (үргэлж insured), plate_number, contract_created_at, contract_expires_at\n\nАнхаарах зүйл:\n- Зөвхөн иргэний regnum-аар хайна, байгууллагын regnum дэмжигдэхгүй.",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -245,12 +246,16 @@
                   },
                   "regnum": {
                     "type": "string"
+                  },
+                  "product_key": {
+                    "type": "string"
                   }
                 }
               },
               "example": {
                 "plate_number": "1234УБА",
-                "regnum": ""
+                "regnum": "",
+                "product_key": ""
               }
             }
           }
@@ -2791,6 +2796,1281 @@
           }
         }
       }
+    },
+    "/api/broker/travel/create": {
+      "post": {
+        "post": {
+          "operationId": "postApiBrokerTravelCreate",
+          "summary": "Create Travel",
+          "description": "Travel гэрээ үүсгэнэ (1-с олон зорчигч байж болно, дээд тал нь 10).\n\nЗаавал: set (эсвэл set_id), travel_begin_date, travel_end_date, country, travellers[] (тус бүр дээр firstname/lastname/passport_id/birthdate/regnum заавал).\n\nОлон зорчигчтой үед хариу дотор 'contracts' массивт бүгд орж ирнэ, эхний зорчигчийн гэрээ 'contract_number'-т байна.",
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateContractResponse"
+                  },
+                  "example": {
+                    "code": 200,
+                    "message": "Contract created",
+                    "contract_number": "TI-2026-00001",
+                    "invoice_id": "INV-2026-00009",
+                    "invoice_link": "https://ubd.insur.mn/pay/INV-2026-00009"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "travel"
+          ],
+          "x-fern-sdk-group-name": [
+            "travel"
+          ],
+          "x-fern-sdk-method-name": "Create Travel",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "set": {
+                      "type": "string"
+                    },
+                    "set_id": {
+                      "type": "string"
+                    },
+                    "travel_begin_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "travel_end_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "country": {
+                      "type": "string"
+                    },
+                    "travellers": {
+                      "type": "array",
+                      "maxItems": 10,
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "firstname": {
+                            "type": "string"
+                          },
+                          "lastname": {
+                            "type": "string"
+                          },
+                          "passport_id": {
+                            "type": "string"
+                          },
+                          "birthdate": {
+                            "type": "string",
+                            "format": "date"
+                          },
+                          "regnum": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "firstname",
+                          "lastname",
+                          "passport_id",
+                          "birthdate",
+                          "regnum"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "travel_begin_date",
+                    "travel_end_date",
+                    "country",
+                    "travellers"
+                  ]
+                },
+                "example": {
+                  "set": "{{set_value}}",
+                  "travel_begin_date": "2026-10-01",
+                  "travel_end_date": "2026-10-10",
+                  "country": "Turkey",
+                  "travellers": [
+                    {
+                      "firstname": "ДОРЖ",
+                      "lastname": "БАТ",
+                      "passport_id": "P1234567",
+                      "birthdate": "1990-01-01",
+                      "regnum": "АБ12345678"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/broker/travel/get_sets": {
+      "get": {
+        "get": {
+          "operationId": "getApiBrokerTravelGet_sets",
+          "summary": "Get Sets Travel",
+          "description": "Travel-ийн боломжтой (борлуулж болох) багцуудыг авна — TI-3, TI-4, TI-5 гурав л (TI-1/TI-2 энэ API-д ороогүй).\n\nХариу дотор set бүр дээр area (бүс), countries (хамрагдах орон), covid (Ковид-19 хамгаалалттай эсэх), addend_days (аяллын дуусах огнооноос хойших нэмэлт хамгаалалтын хоног) нэмэгдсэн — эдгээрээр 3 багцыг ялгана (нэр нь бүгд \"Standart\" тул ялгаагүй харагдана).\n\nАнхаарах: price_usd талбар нь ХУВЬ (%) БИШ — өдрийн интервал тус бүрийн ам.долларын үнэ (тухайн өдрийн ханшаар MNT болж хөрвүүлэгдэнэ).",
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/TravelSetsResponse"
+                  },
+                  "example": [
+                    {
+                      "id": "TI-3",
+                      "key": "TI-3",
+                      "set_name": "Standart",
+                      "is_active": true,
+                      "area": "Europe",
+                      "countries": [
+                        "Turkey",
+                        "Germany"
+                      ],
+                      "covid": true,
+                      "addend_days": 3,
+                      "price_usd": 1.5
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "tags": [
+            "travel"
+          ],
+          "x-fern-sdk-group-name": [
+            "travel"
+          ],
+          "x-fern-sdk-method-name": "Get Sets Travel",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      }
+    },
+    "/api/broker/travel/check_pay": {
+      "post": {
+        "post": {
+          "operationId": "postApiBrokerTravelCheck_pay",
+          "summary": "Check Pay Travel",
+          "description": "Travel гэрээний төлбөрийн төлөв шалгана.",
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CheckPayResponse"
+                  },
+                  "example": {
+                    "code": 200,
+                    "is_paid": true,
+                    "message": "Payment confirmed",
+                    "contract_url": "https://ubd.insur.mn/storage/contracts/TI-2026-00001.pdf"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "travel"
+          ],
+          "x-fern-sdk-group-name": [
+            "travel"
+          ],
+          "x-fern-sdk-method-name": "Check Pay Travel",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "contract_number": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "contract_number"
+                  ]
+                },
+                "example": {
+                  "contract_number": "{{contract_number}}"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/broker/travel/contract": {
+      "post": {
+        "post": {
+          "operationId": "postApiBrokerTravelContract",
+          "summary": "Get Contract Travel",
+          "description": "Broker-ийн үүсгэсэн нэг Travel гэрээний дэлгэрэнгүйг авна.",
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ContractDetailResponse"
+                  },
+                  "example": {
+                    "contract_number": "TI-2026-00001",
+                    "status": "insured",
+                    "product_key": "travel",
+                    "premium_amount": 150000,
+                    "contract_url": "https://ubd.insur.mn/storage/contracts/TI-2026-00001.pdf"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "travel"
+          ],
+          "x-fern-sdk-group-name": [
+            "travel"
+          ],
+          "x-fern-sdk-method-name": "Get Contract Travel",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "contract_number": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "contract_number"
+                  ]
+                },
+                "example": {
+                  "contract_number": "{{contract_number}}"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/broker/uhd/create": {
+      "post": {
+        "post": {
+          "operationId": "postApiBrokerUhdCreate",
+          "summary": "Create UHD",
+          "description": "UHD гэрээ үүсгэнэ.\n\nЗаавал: set (эсвэл set_id), regnum, firstname, lastname, address, phone_number, types.\n\ntypes: даатгуулагч өмгөөлөгчийн мэргэшсэн чиглэлүүдийн id-н жагсаалт (доор хаяж 1). Боломжит утгыг Get Specializations UHD хариултаас авна (жишээ нь 1=Эрүүгийн, 2=Иргэний, 3=Захиргааны).",
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateContractResponse"
+                  },
+                  "example": {
+                    "code": 200,
+                    "message": "Contract created",
+                    "contract_number": "UHD-2026-00001",
+                    "invoice_id": "INV-2026-00010",
+                    "invoice_link": "https://ubd.insur.mn/pay/INV-2026-00010"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "uhd"
+          ],
+          "x-fern-sdk-group-name": [
+            "uhd"
+          ],
+          "x-fern-sdk-method-name": "Create UHD",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "set": {
+                      "type": "string"
+                    },
+                    "set_id": {
+                      "type": "string"
+                    },
+                    "regnum": {
+                      "type": "string"
+                    },
+                    "firstname": {
+                      "type": "string"
+                    },
+                    "lastname": {
+                      "type": "string"
+                    },
+                    "address": {
+                      "type": "string"
+                    },
+                    "phone_number": {
+                      "type": "string"
+                    },
+                    "types": {
+                      "type": "array",
+                      "minItems": 1,
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "regnum",
+                    "firstname",
+                    "lastname",
+                    "address",
+                    "phone_number",
+                    "types"
+                  ]
+                },
+                "example": {
+                  "set": "{{set_value}}",
+                  "regnum": "АБ12345678",
+                  "firstname": "ДОРЖ",
+                  "lastname": "БАТ",
+                  "address": "УБ хот, БЗД",
+                  "phone_number": "99112233",
+                  "types": [
+                    1,
+                    2
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/broker/uhd/get_sets": {
+      "get": {
+        "get": {
+          "operationId": "getApiBrokerUhdGet_sets",
+          "summary": "Get Sets UHD",
+          "description": "UHD-ийн боломжтой багцуудыг (sets) авна.",
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UhdSetsResponse"
+                  },
+                  "example": [
+                    {
+                      "id": "UHD-1",
+                      "key": "UHD-1",
+                      "set_name": "Стандарт",
+                      "is_active": true
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "tags": [
+            "uhd"
+          ],
+          "x-fern-sdk-group-name": [
+            "uhd"
+          ],
+          "x-fern-sdk-method-name": "Get Sets UHD",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      }
+    },
+    "/api/broker/uhd/specializations": {
+      "get": {
+        "get": {
+          "operationId": "getApiBrokerUhdSpecializations",
+          "summary": "Get Specializations UHD",
+          "description": "UHD-д даатгуулах өмгөөлөгчийн мэргэшсэн чиглэлийн жагсаалтыг (id, name) авна. Ирсэн id-г Create UHD-ийн types массивт дамжуулна.",
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UhdSpecializationsResponse"
+                  },
+                  "example": [
+                    {
+                      "id": 1,
+                      "name": "Эрүүгийн"
+                    },
+                    {
+                      "id": 2,
+                      "name": "Иргэний"
+                    },
+                    {
+                      "id": 3,
+                      "name": "Захиргааны"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "tags": [
+            "uhd"
+          ],
+          "x-fern-sdk-group-name": [
+            "uhd"
+          ],
+          "x-fern-sdk-method-name": "Get Specializations UHD",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      }
+    },
+    "/api/broker/uhd/check_pay": {
+      "post": {
+        "post": {
+          "operationId": "postApiBrokerUhdCheck_pay",
+          "summary": "Check Pay UHD",
+          "description": "UHD гэрээний төлбөрийн төлөв шалгана.",
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CheckPayResponse"
+                  },
+                  "example": {
+                    "code": 200,
+                    "is_paid": true,
+                    "message": "Payment confirmed",
+                    "contract_url": "https://ubd.insur.mn/storage/contracts/UHD-2026-00001.pdf"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "uhd"
+          ],
+          "x-fern-sdk-group-name": [
+            "uhd"
+          ],
+          "x-fern-sdk-method-name": "Check Pay UHD",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "contract_number": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "contract_number"
+                  ]
+                },
+                "example": {
+                  "contract_number": "{{contract_number}}"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/broker/uhd/contract": {
+      "post": {
+        "post": {
+          "operationId": "postApiBrokerUhdContract",
+          "summary": "Get Contract UHD",
+          "description": "Broker-ийн үүсгэсэн нэг UHD гэрээний дэлгэрэнгүйг авна.",
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ContractDetailResponse"
+                  },
+                  "example": {
+                    "contract_number": "UHD-2026-00001",
+                    "status": "insured",
+                    "product_key": "uhd",
+                    "premium_amount": 150000,
+                    "contract_url": "https://ubd.insur.mn/storage/contracts/UHD-2026-00001.pdf"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "uhd"
+          ],
+          "x-fern-sdk-group-name": [
+            "uhd"
+          ],
+          "x-fern-sdk-method-name": "Get Contract UHD",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "contract_number": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "contract_number"
+                  ]
+                },
+                "example": {
+                  "contract_number": "{{contract_number}}"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/broker/machinery/get_sets": {
+      "get": {
+        "get": {
+          "operationId": "getApiBrokerMachineryGet_sets",
+          "summary": "Get Sets Machinery",
+          "description": "Machinery-ийн боломжтой багцуудыг авна.",
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/MachinerySetsResponse"
+                  },
+                  "example": [
+                    {
+                      "id": "MACHINERY-1",
+                      "key": "MACHINERY-1",
+                      "set_name": "Стандарт",
+                      "is_active": true
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "tags": [
+            "machinery"
+          ],
+          "x-fern-sdk-group-name": [
+            "machinery"
+          ],
+          "x-fern-sdk-method-name": "Get Sets Machinery",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      }
+    },
+    "/api/broker/machinery/create": {
+      "post": {
+        "post": {
+          "operationId": "postApiBrokerMachineryCreate",
+          "summary": "Create Machinery",
+          "description": "Machinery гэрээ үүсгэнэ.\n\nЗаавал: set (эсвэл set_id), contract_type (1=иргэн, 2=байгууллага).\nИргэн бол owner{regnum, firstname, lastname, phone_number} (эсвэл flat regnum/firstname/lastname/phone_number), байгууллага бол company{regnum, name, address, phone_number} (эсвэл flat company_regnum/company_name/company_address/company_phone_number), мөн address (иргэний хаяг).\nvehicle{plate_number, cabin_number, vendor, model, vehicle_class_name, market_evaluation} (эсвэл flat талбарууд) заавал, vehicle_class_name нь 'M' байх ёстой (зөвхөн машин механизмын ангилал дэмжигдэнэ).\n\nОнцлог: owner/vehicle/company nested объект илгээвэл автоматаар харгалзах flat талбарууд руу normalize хийгдэнэ (HT-ийн create-тэй ижил хэлбэр).",
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateContractResponse"
+                  },
+                  "example": {
+                    "code": 200,
+                    "message": "Contract created",
+                    "contract_number": "MACHINERY-2026-00001",
+                    "invoice_id": "INV-2026-00011",
+                    "invoice_link": "https://ubd.insur.mn/pay/INV-2026-00011"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "machinery"
+          ],
+          "x-fern-sdk-group-name": [
+            "machinery"
+          ],
+          "x-fern-sdk-method-name": "Create Machinery",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "set": {
+                          "type": "string"
+                        },
+                        "contract_type": {
+                          "type": "integer",
+                          "enum": [
+                            1
+                          ]
+                        },
+                        "address": {
+                          "type": "string"
+                        },
+                        "owner": {
+                          "type": "object",
+                          "properties": {
+                            "regnum": {
+                              "type": "string"
+                            },
+                            "firstname": {
+                              "type": "string"
+                            },
+                            "lastname": {
+                              "type": "string"
+                            },
+                            "phone_number": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "regnum",
+                            "firstname",
+                            "lastname",
+                            "phone_number"
+                          ]
+                        },
+                        "vehicle": {
+                          "type": "object",
+                          "properties": {
+                            "plate_number": {
+                              "type": "string"
+                            },
+                            "cabin_number": {
+                              "type": "string"
+                            },
+                            "vendor": {
+                              "type": "string"
+                            },
+                            "model": {
+                              "type": "string"
+                            },
+                            "vehicle_class_name": {
+                              "type": "string",
+                              "enum": [
+                                "M"
+                              ]
+                            },
+                            "market_evaluation": {
+                              "type": "integer"
+                            }
+                          },
+                          "required": [
+                            "plate_number",
+                            "cabin_number",
+                            "vendor",
+                            "model",
+                            "vehicle_class_name",
+                            "market_evaluation"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "contract_type",
+                        "address",
+                        "owner",
+                        "vehicle"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "set": {
+                          "type": "string"
+                        },
+                        "contract_type": {
+                          "type": "integer",
+                          "enum": [
+                            2
+                          ]
+                        },
+                        "company": {
+                          "type": "object",
+                          "properties": {
+                            "regnum": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "address": {
+                              "type": "string"
+                            },
+                            "phone_number": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "regnum",
+                            "name",
+                            "address",
+                            "phone_number"
+                          ]
+                        },
+                        "vehicle": {
+                          "type": "object",
+                          "properties": {
+                            "plate_number": {
+                              "type": "string"
+                            },
+                            "cabin_number": {
+                              "type": "string"
+                            },
+                            "vendor": {
+                              "type": "string"
+                            },
+                            "model": {
+                              "type": "string"
+                            },
+                            "vehicle_class_name": {
+                              "type": "string",
+                              "enum": [
+                                "M"
+                              ]
+                            },
+                            "market_evaluation": {
+                              "type": "integer"
+                            }
+                          },
+                          "required": [
+                            "plate_number",
+                            "cabin_number",
+                            "vendor",
+                            "model",
+                            "vehicle_class_name",
+                            "market_evaluation"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "contract_type",
+                        "company",
+                        "vehicle"
+                      ]
+                    }
+                  ]
+                },
+                "example": {
+                  "contract_type": 1,
+                  "owner": {
+                    "regnum": "АБ12345678",
+                    "firstname": "ДОРЖ",
+                    "lastname": "БАТ",
+                    "phone_number": "99112233"
+                  },
+                  "address": "УБ хот, БЗД",
+                  "vehicle": {
+                    "plate_number": "1234УБВ",
+                    "cabin_number": "VIN1234567890",
+                    "vendor": "Caterpillar",
+                    "model": "D6",
+                    "vehicle_class_name": "M",
+                    "market_evaluation": 50000000
+                  },
+                  "set": "{{set_value}}"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/broker/machinery/check_pay": {
+      "post": {
+        "post": {
+          "operationId": "postApiBrokerMachineryCheck_pay",
+          "summary": "Check Pay Machinery",
+          "description": "Machinery гэрээний төлбөрийн төлөв шалгана.",
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CheckPayResponse"
+                  },
+                  "example": {
+                    "code": 200,
+                    "is_paid": true,
+                    "message": "Payment confirmed",
+                    "contract_url": "https://ubd.insur.mn/storage/contracts/MACHINERY-2026-00001.pdf"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "machinery"
+          ],
+          "x-fern-sdk-group-name": [
+            "machinery"
+          ],
+          "x-fern-sdk-method-name": "Check Pay Machinery",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "contract_number": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "contract_number"
+                  ]
+                },
+                "example": {
+                  "contract_number": "{{contract_number}}"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/broker/machinery/contract": {
+      "post": {
+        "post": {
+          "operationId": "postApiBrokerMachineryContract",
+          "summary": "Get Contract Machinery",
+          "description": "Broker-ийн үүсгэсэн нэг Machinery гэрээний дэлгэрэнгүйг авна.",
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ContractDetailResponse"
+                  },
+                  "example": {
+                    "contract_number": "MACHINERY-2026-00001",
+                    "status": "insured",
+                    "product_key": "machinery",
+                    "premium_amount": 150000,
+                    "contract_url": "https://ubd.insur.mn/storage/contracts/MACHINERY-2026-00001.pdf"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "machinery"
+          ],
+          "x-fern-sdk-group-name": [
+            "machinery"
+          ],
+          "x-fern-sdk-method-name": "Get Contract Machinery",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "contract_number": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "contract_number"
+                  ]
+                },
+                "example": {
+                  "contract_number": "{{contract_number}}"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/broker/bhd/create": {
+      "post": {
+        "post": {
+          "operationId": "postApiBrokerBhdCreate",
+          "summary": "Create BHD",
+          "description": "BHD гэрээ үүсгэнэ.\n\nЗаавал: set (эсвэл set_id), contract_type (1=иргэн, 2=байгууллага), regnum (contract_type=1 үед), asset_registry_number, phone_number, evaluation (хөрөнгийн үнэлгээний дүн, ₮).\n\nevaluation талбарыг л илгээхэд хангалттай — систем сонгосон set-ийн loan_type-оос шалтгаалж дотроо loan_value (зах зээлийн үнэ) эсвэл loan_amount (зээлийн дүн) руу автоматаар хөрвүүлнэ. Хүсвэл loan_value/loan_amount-ийг шууд нэрээр нь ч илгээж болно (тэр үед evaluation талбар үл хэрэгсэгдэнэ).\n\ncontract_type=2 (байгууллага) үед одоогийн API нь бэлэн company_id (систем дэх байгууллагын id) шаардана — шинэ байгууллага regnum/name-ээр үүсгэх дэмжлэг одоогоор алга.\n\nОнцлог: citizen-ийн OTP send/verify шат ШААРДАГДАХГүй, гэхдээ систем regnum + asset_registry_number-ээр ХУР (XYP)-аас хөрөнгийн мэдээллийг автоматаар лукап хийж, кэшлээд гэрээг үүсгэнэ. XYP лукап амжилтгүй бол (хөрөнгө олдоогүй гэх мэт) гэрээ үүсэхгүй, алдаа буцна.",
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateContractResponse"
+                  },
+                  "example": {
+                    "code": 200,
+                    "message": "Contract created",
+                    "contract_number": "BHD-2026-00001",
+                    "invoice_id": "INV-2026-00012",
+                    "invoice_link": "https://ubd.insur.mn/pay/INV-2026-00012"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "bhd"
+          ],
+          "x-fern-sdk-group-name": [
+            "bhd"
+          ],
+          "x-fern-sdk-method-name": "Create BHD",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "set": {
+                          "type": "string"
+                        },
+                        "contract_type": {
+                          "type": "integer",
+                          "enum": [
+                            1
+                          ]
+                        },
+                        "regnum": {
+                          "type": "string"
+                        },
+                        "asset_registry_number": {
+                          "type": "string"
+                        },
+                        "phone_number": {
+                          "type": "string"
+                        },
+                        "evaluation": {
+                          "type": "integer"
+                        },
+                        "loan_value": {
+                          "type": "integer"
+                        },
+                        "loan_amount": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "contract_type",
+                        "regnum",
+                        "asset_registry_number",
+                        "phone_number"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "set": {
+                          "type": "string"
+                        },
+                        "contract_type": {
+                          "type": "integer",
+                          "enum": [
+                            2
+                          ]
+                        },
+                        "company_id": {
+                          "type": "integer"
+                        },
+                        "asset_registry_number": {
+                          "type": "string"
+                        },
+                        "phone_number": {
+                          "type": "string"
+                        },
+                        "evaluation": {
+                          "type": "integer"
+                        },
+                        "loan_value": {
+                          "type": "integer"
+                        },
+                        "loan_amount": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "contract_type",
+                        "company_id",
+                        "asset_registry_number",
+                        "phone_number"
+                      ]
+                    }
+                  ]
+                },
+                "example": {
+                  "set": "{{set_value}}",
+                  "contract_type": 1,
+                  "regnum": "АБ12345678",
+                  "asset_registry_number": "1234567",
+                  "phone_number": "99112233",
+                  "evaluation": 50000000
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/broker/bhd/get_sets": {
+      "get": {
+        "get": {
+          "operationId": "getApiBrokerBhdGet_sets",
+          "summary": "Get Sets BHD",
+          "description": "BHD-ийн боломжтой багцуудыг авна. Хариултын багц бүрт loan_type ('loan_value' эсвэл 'loan_amount') орно — гэхдээ Create BHD дээр ерөнхий 'evaluation' талбарыг л илгээвэл систем автоматаар зөв loan_type руу хөрвүүлнэ.",
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/BhdSetsResponse"
+                  },
+                  "example": [
+                    {
+                      "id": "BHD-1",
+                      "key": "BHD-1",
+                      "set_name": "Стандарт",
+                      "is_active": true,
+                      "loan_type": "loan_value"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "tags": [
+            "bhd"
+          ],
+          "x-fern-sdk-group-name": [
+            "bhd"
+          ],
+          "x-fern-sdk-method-name": "Get Sets BHD",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      }
+    },
+    "/api/broker/bhd/check_pay": {
+      "post": {
+        "post": {
+          "operationId": "postApiBrokerBhdCheck_pay",
+          "summary": "Check Pay BHD",
+          "description": "BHD гэрээний төлбөрийн төлөв шалгана.",
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CheckPayResponse"
+                  },
+                  "example": {
+                    "code": 200,
+                    "is_paid": true,
+                    "message": "Payment confirmed",
+                    "contract_url": "https://ubd.insur.mn/storage/contracts/BHD-2026-00001.pdf"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "bhd"
+          ],
+          "x-fern-sdk-group-name": [
+            "bhd"
+          ],
+          "x-fern-sdk-method-name": "Check Pay BHD",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "contract_number": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "contract_number"
+                  ]
+                },
+                "example": {
+                  "contract_number": "{{contract_number}}"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/broker/bhd/contract": {
+      "post": {
+        "post": {
+          "operationId": "postApiBrokerBhdContract",
+          "summary": "Get Contract BHD",
+          "description": "Broker-ийн үүсгэсэн нэг BHD гэрээний дэлгэрэнгүйг авна.",
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ContractDetailResponse"
+                  },
+                  "example": {
+                    "contract_number": "BHD-2026-00001",
+                    "status": "insured",
+                    "product_key": "bhd",
+                    "premium_amount": 150000,
+                    "contract_url": "https://ubd.insur.mn/storage/contracts/BHD-2026-00001.pdf"
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "bhd"
+          ],
+          "x-fern-sdk-group-name": [
+            "bhd"
+          ],
+          "x-fern-sdk-method-name": "Get Contract BHD",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "contract_number": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "contract_number"
+                  ]
+                },
+                "example": {
+                  "contract_number": "{{contract_number}}"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -2882,6 +4162,9 @@
               }
             },
             "additionalProperties": true
+          },
+          "seat_number": {
+            "type": "integer"
           }
         },
         "additionalProperties": true,
@@ -2898,7 +4181,8 @@
             "firstname": "ДОРЖ",
             "phone_number": "99112233",
             "address": "Улаанбаатар"
-          }
+          },
+          "seat_number": 5
         }
       },
       "ContractLookupResponse": {
@@ -3338,6 +4622,217 @@
             "yearly_amount": 600000
           }
         ]
+      },
+      "TravelSetsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "key": {
+              "type": "string"
+            },
+            "set_name": {
+              "type": "string"
+            },
+            "is_active": {
+              "type": "boolean"
+            },
+            "area": {
+              "type": "string"
+            },
+            "countries": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "covid": {
+              "type": "boolean"
+            },
+            "addend_days": {
+              "type": "integer"
+            },
+            "price_usd": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": true
+        },
+        "example": [
+          {
+            "id": "TI-3",
+            "key": "TI-3",
+            "set_name": "Standart",
+            "is_active": true,
+            "area": "Europe",
+            "countries": [
+              "Turkey",
+              "Germany"
+            ],
+            "covid": true,
+            "addend_days": 3,
+            "price_usd": 1.5
+          }
+        ]
+      },
+      "UhdSetsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "key": {
+              "type": "string"
+            },
+            "set_name": {
+              "type": "string"
+            },
+            "is_active": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": true
+        },
+        "example": [
+          {
+            "id": "UHD-1",
+            "key": "UHD-1",
+            "set_name": "Стандарт",
+            "is_active": true
+          }
+        ]
+      },
+      "UhdSpecializationsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "name"
+          ],
+          "additionalProperties": true
+        },
+        "example": [
+          {
+            "id": 1,
+            "name": "Эрүүгийн"
+          },
+          {
+            "id": 2,
+            "name": "Иргэний"
+          },
+          {
+            "id": 3,
+            "name": "Захиргааны"
+          }
+        ]
+      },
+      "MachinerySetsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "key": {
+              "type": "string"
+            },
+            "set_name": {
+              "type": "string"
+            },
+            "is_active": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": true
+        },
+        "example": [
+          {
+            "id": "MACHINERY-1",
+            "key": "MACHINERY-1",
+            "set_name": "Стандарт",
+            "is_active": true
+          }
+        ]
+      },
+      "BhdSetsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "key": {
+              "type": "string"
+            },
+            "set_name": {
+              "type": "string"
+            },
+            "is_active": {
+              "type": "boolean"
+            },
+            "loan_type": {
+              "type": "string",
+              "enum": [
+                "loan_value",
+                "loan_amount"
+              ]
+            }
+          },
+          "additionalProperties": true
+        },
+        "example": [
+          {
+            "id": "BHD-1",
+            "key": "BHD-1",
+            "set_name": "Стандарт",
+            "is_active": true,
+            "loan_type": "loan_value"
+          }
+        ]
       }
     },
     "securitySchemes": {
@@ -3394,6 +4889,22 @@
     {
       "name": "luxury",
       "description": "Luxury орон сууцны даатгалын broker flow. Citizen-ийн OTP урсгал шаардахгүй, broker token-оор шууд create хийнэ."
+    },
+    {
+      "name": "travel",
+      "description": "Гадаад зорчигчийн даатгалын (Travel) broker flow. Citizen-ийн OTP шат шаардахгүй."
+    },
+    {
+      "name": "uhd",
+      "description": "Өмгөөлөгчийн хариуцлагын даатгалын (UHD) broker flow. Citizen-ийн OTP шат шаардахгүй."
+    },
+    {
+      "name": "machinery",
+      "description": "Машин механизмын даатгалын (Machinery) broker flow. Зөвхөн 'M' ангиллын тээврийн хэрэгсэл дэмжигдэнэ."
+    },
+    {
+      "name": "bhd",
+      "description": "Барьцаа хөрөнгийн даатгалын (BHD) broker flow. XYP-ээс хөрөнгийн мэдээлэл автоматаар лукап хийгдэнэ."
     }
   ]
 }
