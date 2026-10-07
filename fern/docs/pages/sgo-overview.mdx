@@ -10,7 +10,10 @@ title: Overview
 
 ## Тайлбар
 
-- `phone_number`, `regnum`, `plate_number`, `seat_type` талбаруудыг top-level дээр илгээнэ.
-- `vehicle` талбарт тээврийн хэрэгслийн дэлгэрэнгүй мэдээлэл илгээнэ.
-- `driver` талбарт жолоочийн дэлгэрэнгүй мэдээлэл илгээнэ.
+- broker endpoint нь `driver.regnum`, `driver.phone_number`, `vehicle.plate_number` утгуудыг top-level талбар руу normalize хийнэ.
+- `seat_type`: `"1"` бол ганц суудал (жолооч), `"2"` бол `vehicle.seat_number` дэх машины бүх суудлаар даатгана.
+- `seat_type`-ийн оронд `insured_seats` (тоо) явуулж болно — `insured_seats=1` бол `seat_type="1"`, бусад бүх утга (0, хоосон, эсвэл 1-ээс өөр) бол `seat_type="2"` болж normalize хийгдэнэ; `seat_type` шууд илгээвэл энэ давамгайлна.
+- `vehicle` огт илгээхгүй бол улсын дугаараар XYP-ээс автоматаар татаж авна (ингэж илгээвэл `vehicle.mark`/`model`/`seat_number` шаардлагагүй).
+- `vehicle` илгээвэл `mark`, `model`, `seat_number` заавал байх ёстой (`vehicle.plate_number` зөвхөн давхардал шалгахад ашиглагдана).
+- `driver.regnum`-аар эхлээд XYP-ээс жолоочийг автоматаар lookup хийж үзнэ; амжилтгүй бол `driver.firstname`/`lastname` заавал байх ёстой (`license_number`, `driver_date` сонголттой — гэрээнд ашиглагддаггүй).
 - Зураг upload endpoint байхгүй.

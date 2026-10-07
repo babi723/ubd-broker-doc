@@ -13,7 +13,9 @@ title: Overview
 
 ## Тайлбар
 
-- Заавал: `set` (эсвэл `set_id`), `travel_begin_date`, `travel_end_date`, `country`, `travellers[]` (тус бүр дээр `firstname`, `lastname`, `passport_id`, `birthdate`, `regnum` заавал).
-- Нэг гэрээнд 10 хvртэл зорчигч байж болно. Олон зорчигчтой үед хариу дотор `contracts` массивт бүгд орж ирнэ, эхний зорчигчийн гэрээ `contract_number`-т байна.
+- Хүн бүрт тусдаа гэрээ үүсч, нэг нийт дүнгийн нэхэмжлэх (QPAY) бүгдэд нь хуваалцагдана.
+- Заавал: `set` (эсвэл `set_id`), `travel_begin_date`, `travel_end_date`, `country`.
+- Ганц зорчигч (бусад бүтээгдэхүүний адил): `firstname`, `lastname`, `passport_id`, `birthdate`, `regnum` (бас `phone_number`)-ийг шууд top-level талбар болгон явуулж болно.
+- Олон зорчигч (дээд тал нь 10): дээрх талбаруудын оронд `travellers[]` array явуулна (тус бүр дээр `firstname`, `lastname`, `passport_id`, `birthdate`, `regnum` заавал) — хариу дотор `contracts` массивт бүгд орж ирнэ, эхний зорчигчийн гэрээ `contract_number`-т давхар гарна.
 - `get_sets` хариу дотор `area`, `countries`, `covid`, `addend_days` талбарууд нэмэгдсэн — 3 багцыг ялгахад ашиглана (нэр нь бүгд "Standart").
 - `price_usd` талбар нь хувь (%) биш — өдрийн интервал тус бүрийн ам.долларын үнэ (тухайн өдрийн ханшаар MNT болж хөрвүүлэгдэнэ).

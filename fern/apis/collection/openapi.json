@@ -1348,7 +1348,7 @@
       "post": {
         "operationId": "postApiBrokerGodCreate",
         "summary": "Create GOD",
-        "description": "GOD гэрээ үүсгэнэ.\n\nТайлбар:\n- Зөвхөн иргэн дэмжинэ\n- owner илгээвэл driver руу normalize хийгдэнэ\n- type илгээхгүй бол backend 1 болгож ашиглана\n- зураг upload endpoint байхгүй",
+        "description": "GOD гэрээ үүсгэнэ.\n\nТайлбар:\n- Зөвхөн иргэн дэмжинэ, type сонголттой (илгээхгүй бол 1/иргэн гэж үзнэ; 1-ээс өөр утга илгээвэл 405 алдаа буцна)\n- owner илгээвэл driver руу normalize хийгдэнэ\n- зураг upload endpoint байхгүй",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -1421,13 +1421,11 @@
                 },
                 "required": [
                   "set",
-                  "type",
                   "driver"
                 ]
               },
               "example": {
-                "set": "GOD-01",
-                "type": 1,
+                "set": "{{set_value}}",
                 "driver": {
                   "lastname": "БАТ",
                   "firstname": "ДОРЖ",
@@ -1486,9 +1484,6 @@
                     "type": "string"
                   },
                   "evaluation": {
-                    "type": "integer"
-                  },
-                  "type": {
                     "type": "integer"
                   },
                   "vehicle": {
@@ -1576,7 +1571,6 @@
                 "required": [
                   "set",
                   "evaluation",
-                  "type",
                   "vehicle",
                   "company",
                   "owner"
@@ -1585,7 +1579,6 @@
               "example": {
                 "set": "THD-LOAN-13",
                 "evaluation": 85000000,
-                "type": 2,
                 "vehicle": {
                   "plate_number": "9999УБА",
                   "color": "ХАР",
@@ -1895,7 +1888,7 @@
       "post": {
         "operationId": "postApiBrokerSgoCreate",
         "summary": "Create SGO",
-        "description": "SGO гэрээ үүсгэнэ.\n\nТайлбар:\n- phone_number, regnum, plate_number, seat_type талбаруудыг top-level дээр илгээнэ\n- vehicle талбарт тээврийн хэрэгслийн дэлгэрэнгүй мэдээлэл илгээнэ\n- driver талбарт жолоочийн дэлгэрэнгүй мэдээлэл илгээнэ\n- зураг upload endpoint байхгүй",
+        "description": "SGO гэрээ үүсгэнэ.\n\nТайлбар:\n- broker endpoint нь driver.regnum, driver.phone_number, vehicle.plate_number утгуудыг top-level талбар руу normalize хийнэ\n- seat_type: \"1\" бол ганц суудал (жолооч), \"2\" бол vehicle.seat_number дэх машины бүх суудлаар даатгана\n- seat_type-ийн оронд insured_seats (тоо) явуулж болно — insured_seats=1 бол seat_type=\"1\", бусад бүх утга (0, хоосон, эсвэл 1-ээс өөр) бол seat_type=\"2\" болж normalize хийгдэнэ; seat_type шууд илгээвэл энэ давамгайлна\n- vehicle огт илгээхгүй бол улсын дугаараар XYP-ээс автоматаар татаж авна (ингэж илгээвэл vehicle.mark/model/seat_number шаардлагагүй)\n- vehicle илгээвэл mark, model, seat_number заавал байх ёстой (vehicle.plate_number зөвхөн давхардал шалгахад ашиглагдана, бүрэн мэдээлэл ирэхгүй бол XYP lookup ажиллахгүй)\n- driver.regnum-аар эхлээд XYP-ээс жолоочийг автоматаар lookup хийж үзнэ; амжилтгүй бол driver.firstname/lastname заавал байх ёстой (license_number, driver_date сонголттой — гэрээнд ашиглагддаггүй)\n- зураг upload endpoint байхгүй",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -1936,22 +1929,13 @@
                   "set": {
                     "type": "string"
                   },
-                  "phone_number": {
-                    "type": "string"
-                  },
-                  "regnum": {
-                    "type": "string"
-                  },
-                  "plate_number": {
-                    "type": "string"
-                  },
                   "seat_type": {
                     "type": "string"
                   },
                   "vehicle": {
                     "type": "object",
                     "properties": {
-                      "cabin_number": {
+                      "plate_number": {
                         "type": "string"
                       },
                       "mark": {
@@ -1965,7 +1949,6 @@
                       }
                     },
                     "required": [
-                      "cabin_number",
                       "mark",
                       "model",
                       "seat_number"
@@ -1974,10 +1957,16 @@
                   "driver": {
                     "type": "object",
                     "properties": {
+                      "lastname": {
+                        "type": "string"
+                      },
                       "firstname": {
                         "type": "string"
                       },
-                      "lastname": {
+                      "regnum": {
+                        "type": "string"
+                      },
+                      "phone_number": {
                         "type": "string"
                       },
                       "license_number": {
@@ -1993,42 +1982,30 @@
                       }
                     },
                     "required": [
-                      "firstname",
-                      "lastname",
-                      "license_number",
-                      "driver_date",
-                      "email"
+                      "phone_number"
                     ]
                   }
                 },
                 "required": [
                   "set",
-                  "phone_number",
-                  "regnum",
-                  "plate_number",
                   "seat_type",
-                  "vehicle",
                   "driver"
                 ]
               },
               "example": {
-                "set": "SGO-2",
-                "phone_number": "88112233",
-                "regnum": "УБ12345678",
-                "plate_number": "1234УБА",
+                "set": "{{set_value}}",
                 "seat_type": "2",
                 "vehicle": {
-                  "cabin_number": "JTDBT123456789012",
+                  "plate_number": "1234УБА",
                   "mark": "TOYOTA",
                   "model": "PRIUS",
                   "seat_number": 5
                 },
                 "driver": {
-                  "firstname": "Бат",
-                  "lastname": "Болд",
-                  "license_number": "12345678",
-                  "driver_date": "2015-05-01",
-                  "email": "bat@example.mn"
+                  "lastname": "БАТ",
+                  "firstname": "ДОРЖ",
+                  "regnum": "АБ12345678",
+                  "phone_number": "99112233"
                 }
               }
             }
@@ -2600,7 +2577,7 @@
       "post": {
         "operationId": "postApiBrokerTravelCreate",
         "summary": "Create Travel",
-        "description": "Travel гэрээ үүсгэнэ (1-с олон зорчигч байж болно, дээд тал нь 10).\n\nЗаавал: set (эсвэл set_id), travel_begin_date, travel_end_date, country, travellers[] (тус бүр дээр firstname/lastname/passport_id/birthdate/regnum заавал).\n\nОлон зорчигчтой үед хариу дотор 'contracts' массивт бүгд орж ирнэ, эхний зорчигчийн гэрээ 'contract_number'-т байна.",
+        "description": "Travel гэрээ үүсгэнэ. Хүн бүрт тусдаа гэрээ үүсч, нэг нийт дүнгийн нэхэмжлэх (QPAY) бүгдэд нь хуваалцагдана.\n\nЗаавал: set (эсвэл set_id), travel_begin_date, travel_end_date, country.\n\nГанц зорчигч (бусад бүтээгдэхүүний адил): firstname, lastname, passport_id, birthdate, regnum (бас phone_number) -ийг шууд top-level талбар болгон явуулж болно.\n\nОлон зорчигч (дээд тал нь 10): дээрх талбаруудын оронд travellers[] array явуулна (тус бүр дээр firstname/lastname/passport_id/birthdate/regnum заавал) — хариу дотор 'contracts' массивт бүгд орж ирнэ, эхний зорчигчийн гэрээ 'contract_number'-т давхар гарна.",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -2636,60 +2613,112 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "set": {
-                    "type": "string"
-                  },
-                  "travel_begin_date": {
-                    "type": "string",
-                    "format": "date"
-                  },
-                  "travel_end_date": {
-                    "type": "string",
-                    "format": "date"
-                  },
-                  "country": {
-                    "type": "string"
-                  },
-                  "travellers": {
-                    "type": "array",
-                    "maxItems": 10,
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "firstname": {
-                          "type": "string"
-                        },
-                        "lastname": {
-                          "type": "string"
-                        },
-                        "passport_id": {
-                          "type": "string"
-                        },
-                        "birthdate": {
-                          "type": "string",
-                          "format": "date"
-                        },
-                        "regnum": {
-                          "type": "string"
-                        }
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "set": {
+                        "type": "string"
                       },
-                      "required": [
-                        "firstname",
-                        "lastname",
-                        "passport_id",
-                        "birthdate",
-                        "regnum"
-                      ]
-                    }
+                      "travel_begin_date": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "travel_end_date": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "country": {
+                        "type": "string"
+                      },
+                      "firstname": {
+                        "type": "string"
+                      },
+                      "lastname": {
+                        "type": "string"
+                      },
+                      "passport_id": {
+                        "type": "string"
+                      },
+                      "birthdate": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "regnum": {
+                        "type": "string"
+                      },
+                      "phone_number": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "travel_begin_date",
+                      "travel_end_date",
+                      "country",
+                      "firstname",
+                      "lastname",
+                      "passport_id",
+                      "birthdate",
+                      "regnum"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "set": {
+                        "type": "string"
+                      },
+                      "travel_begin_date": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "travel_end_date": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "country": {
+                        "type": "string"
+                      },
+                      "travellers": {
+                        "type": "array",
+                        "maxItems": 10,
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "firstname": {
+                              "type": "string"
+                            },
+                            "lastname": {
+                              "type": "string"
+                            },
+                            "passport_id": {
+                              "type": "string"
+                            },
+                            "birthdate": {
+                              "type": "string",
+                              "format": "date"
+                            },
+                            "regnum": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "firstname",
+                            "lastname",
+                            "passport_id",
+                            "birthdate",
+                            "regnum"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "travel_begin_date",
+                      "travel_end_date",
+                      "country",
+                      "travellers"
+                    ]
                   }
-                },
-                "required": [
-                  "travel_begin_date",
-                  "travel_end_date",
-                  "country",
-                  "travellers"
                 ]
               },
               "example": {
@@ -2697,15 +2726,12 @@
                 "travel_begin_date": "2026-10-01",
                 "travel_end_date": "2026-10-10",
                 "country": "Turkey",
-                "travellers": [
-                  {
-                    "firstname": "ДОРЖ",
-                    "lastname": "БАТ",
-                    "passport_id": "P1234567",
-                    "birthdate": "1990-01-01",
-                    "regnum": "АБ12345678"
-                  }
-                ]
+                "firstname": "ДОРЖ",
+                "lastname": "БАТ",
+                "passport_id": "P1234567",
+                "birthdate": "1990-01-01",
+                "regnum": "АБ12345678",
+                "phone_number": "99112233"
               }
             }
           }

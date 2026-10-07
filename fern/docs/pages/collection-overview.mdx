@@ -80,5 +80,9 @@ Broker Dynamic API Postman collection
 - Машин механизмын даатгал (Machinery) нь citizen-ийн OTP шат шаардахгүй, зөвхөн `M` ангиллын тээврийн хэрэгсэл дэмжинэ. `owner`/`vehicle`/`company` nested объект илгээвэл автоматаар flat талбар руу normalize хийгдэнэ (HT-ийн create-тэй ижил).
 - Барьцаа хөрөнгийн даатгал (BHD) нь citizen-ийн OTP шат шаардахгүй боловч `regnum` + `asset_registry_number`-ээр ХУР (XYP)-аас хөрөнгийн мэдээллийг автоматаар лукап хийнэ. `evaluation` талбарыг илгээхэд систем сонгосон set-ийн `loan_type`-аас хамаарч `loan_value` эсвэл `loan_amount` руу хөрвүүлнэ (эсвэл эдгээрийг шууд нэрээр нь илгээж болно). Байгууллагын гэрээнд бэлэн `company_id` шаардлагатай.
 - Get Vehicle хариу дотор `seat_number` (суудлын тоо) талбар нэмэгдсэн — machinery/sgo зэрэг суудлын тоо шаарддаг бүтээгдэхүүнд ашиглана.
+- GOD create дээр `type` сонголттой боллоо — илгээхгүй бол `1` (иргэн) гэж үзнэ.
+- THD Loan create дээр `type` талбар байхгүй, `company.address` сонголттой.
+- SGO create бүрэн шинэчлэгдсэн: `seat_type` (эсвэл хуучин `insured_seats`), `vehicle{plate_number, mark, model, seat_number}` (огт илгээхгүй бол XYP-ээс автомат татна), `driver{lastname, firstname, regnum, phone_number}` (regnum-аар автомат lookup хийнэ).
+- Travel create дээр ганц зорчигчийг `travellers[]` array биш шууд top-level талбараар (`firstname`, `lastname`, `passport_id`, `birthdate`, `regnum`, `phone_number`) явуулж болно; олон зорчигчид зориулж `travellers[]` хэвээр дэмжигдэнэ.
 - Баталгаажсан token-ийг `Authorization: <token>` хэлбэрээр protected endpoint бүрд дамжуулна.
 - `set` утга нь тухайн product-ийн `get_sets` endpoint-ээс авсан key/id байна.
