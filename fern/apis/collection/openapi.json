@@ -779,10 +779,6 @@
                           1
                         ]
                       },
-                      "BeginDate": {
-                        "type": "string",
-                        "format": "date"
-                      },
                       "vehicle": {
                         "type": "object",
                         "properties": {
@@ -822,9 +818,6 @@
                       "driver": {
                         "type": "object",
                         "properties": {
-                          "familyname": {
-                            "type": "string"
-                          },
                           "lastname": {
                             "type": "string"
                           },
@@ -834,51 +827,15 @@
                           "regnum": {
                             "type": "string"
                           },
-                          "driver_ln": {
-                            "type": "string"
-                          },
-                          "driver_ln_date": {
-                            "type": "string",
-                            "format": "date"
-                          },
-                          "address": {
-                            "type": "string"
-                          },
                           "phone_number": {
-                            "type": "string"
-                          },
-                          "email": {
-                            "type": "string",
-                            "format": "email"
-                          },
-                          "nationality": {
-                            "type": "string"
-                          },
-                          "sex": {
-                            "type": "string"
-                          },
-                          "born_Date": {
-                            "type": "string",
-                            "format": "date"
-                          },
-                          "ZipCode": {
                             "type": "string"
                           }
                         },
                         "required": [
-                          "familyname",
                           "lastname",
                           "firstname",
                           "regnum",
-                          "driver_ln",
-                          "driver_ln_date",
-                          "address",
-                          "phone_number",
-                          "email",
-                          "nationality",
-                          "sex",
-                          "born_Date",
-                          "ZipCode"
+                          "phone_number"
                         ]
                       }
                     },
@@ -886,7 +843,6 @@
                       "set",
                       "evaluation",
                       "type",
-                      "BeginDate",
                       "vehicle",
                       "driver"
                     ]
@@ -905,10 +861,6 @@
                         "enum": [
                           2
                         ]
-                      },
-                      "BeginDate": {
-                        "type": "string",
-                        "format": "date"
                       },
                       "vehicle": {
                         "type": "object",
@@ -960,17 +912,13 @@
                           },
                           "phone_number": {
                             "type": "string"
-                          },
-                          "ZipCode": {
-                            "type": "string"
                           }
                         },
                         "required": [
                           "regnum",
                           "name",
                           "address",
-                          "phone_number",
-                          "ZipCode"
+                          "phone_number"
                         ]
                       }
                     },
@@ -978,7 +926,6 @@
                       "set",
                       "evaluation",
                       "type",
-                      "BeginDate",
                       "vehicle",
                       "company"
                     ]
@@ -992,7 +939,6 @@
                     "set": "THD-13",
                     "evaluation": 50000000,
                     "type": 1,
-                    "BeginDate": "2026-05-20",
                     "vehicle": {
                       "plate_number": "1234УБА",
                       "color": "ЦАГААН",
@@ -1003,19 +949,10 @@
                       "imported_date": "2018-01-01"
                     },
                     "driver": {
-                      "familyname": "БАТ",
                       "lastname": "БАТ",
                       "firstname": "ДОРЖ",
                       "regnum": "АБ12345678",
-                      "driver_ln": "1234567",
-                      "driver_ln_date": "2015-01-01",
-                      "address": "УБ",
-                      "phone_number": "99112233",
-                      "email": "test@example.com",
-                      "nationality": "MN",
-                      "sex": "male",
-                      "born_Date": "1990-01-01",
-                      "ZipCode": "15160"
+                      "phone_number": "99112233"
                     }
                   }
                 },
@@ -1025,7 +962,6 @@
                     "set": "THD-13",
                     "evaluation": 50000000,
                     "type": 2,
-                    "BeginDate": "2026-05-20",
                     "vehicle": {
                       "plate_number": "1234УБА",
                       "color": "ЦАГААН",
@@ -1039,8 +975,7 @@
                       "regnum": "1234567",
                       "name": "TEST LLC",
                       "address": "УБ",
-                      "phone_number": "70112233",
-                      "ZipCode": "15160"
+                      "phone_number": "70112233"
                     }
                   }
                 }
@@ -1173,10 +1108,6 @@
                   "type": {
                     "type": "integer"
                   },
-                  "BeginDate": {
-                    "type": "string",
-                    "format": "date"
-                  },
                   "vehicle": {
                     "type": "object",
                     "properties": {
@@ -1220,9 +1151,6 @@
                   "owner": {
                     "type": "object",
                     "properties": {
-                      "familyname": {
-                        "type": "string"
-                      },
                       "lastname": {
                         "type": "string"
                       },
@@ -1232,51 +1160,15 @@
                       "regnum": {
                         "type": "string"
                       },
-                      "driver_ln": {
-                        "type": "string"
-                      },
-                      "driver_ln_date": {
-                        "type": "string",
-                        "format": "date"
-                      },
-                      "address": {
-                        "type": "string"
-                      },
                       "phone_number": {
-                        "type": "string"
-                      },
-                      "email": {
-                        "type": "string",
-                        "format": "email"
-                      },
-                      "nationality": {
-                        "type": "string"
-                      },
-                      "sex": {
-                        "type": "string"
-                      },
-                      "born_Date": {
-                        "type": "string",
-                        "format": "date"
-                      },
-                      "ZipCode": {
                         "type": "string"
                       }
                     },
                     "required": [
-                      "familyname",
                       "lastname",
                       "firstname",
                       "regnum",
-                      "driver_ln",
-                      "driver_ln_date",
-                      "address",
-                      "phone_number",
-                      "email",
-                      "nationality",
-                      "sex",
-                      "born_Date",
-                      "ZipCode"
+                      "phone_number"
                     ]
                   },
                   "trailers": {
@@ -1335,7 +1227,6 @@
                   "set",
                   "evaluation",
                   "type",
-                  "BeginDate",
                   "vehicle",
                   "owner",
                   "trailers"
@@ -1345,7 +1236,6 @@
                 "set": "HT-13",
                 "evaluation": 120000000,
                 "type": 1,
-                "BeginDate": "2026-05-20",
                 "vehicle": {
                   "plate_number": "5678УБА",
                   "color": "ХӨХ",
@@ -1357,19 +1247,10 @@
                   "evaluation": 120000000
                 },
                 "owner": {
-                  "familyname": "БАТ",
                   "lastname": "БАТ",
                   "firstname": "ДОРЖ",
                   "regnum": "АБ12345678",
-                  "driver_ln": "1234567",
-                  "driver_ln_date": "2015-01-01",
-                  "address": "УБ",
-                  "phone_number": "99112233",
-                  "email": "test@example.com",
-                  "nationality": "MN",
-                  "sex": "male",
-                  "born_Date": "1990-01-01",
-                  "ZipCode": "15160"
+                  "phone_number": "99112233"
                 },
                 "trailers": [
                   {
@@ -1514,16 +1395,9 @@
                       1
                     ]
                   },
-                  "BeginDate": {
-                    "type": "string",
-                    "format": "date"
-                  },
                   "driver": {
                     "type": "object",
                     "properties": {
-                      "familyname": {
-                        "type": "string"
-                      },
                       "lastname": {
                         "type": "string"
                       },
@@ -1535,61 +1409,30 @@
                       },
                       "phone_number": {
                         "type": "string"
-                      },
-                      "email": {
-                        "type": "string",
-                        "format": "email"
-                      },
-                      "nationality": {
-                        "type": "string"
-                      },
-                      "sex": {
-                        "type": "string"
-                      },
-                      "born_Date": {
-                        "type": "string",
-                        "format": "date"
-                      },
-                      "ZipCode": {
-                        "type": "string"
                       }
                     },
                     "required": [
-                      "familyname",
                       "lastname",
                       "firstname",
                       "regnum",
-                      "phone_number",
-                      "email",
-                      "nationality",
-                      "sex",
-                      "born_Date",
-                      "ZipCode"
+                      "phone_number"
                     ]
                   }
                 },
                 "required": [
                   "set",
                   "type",
-                  "BeginDate",
                   "driver"
                 ]
               },
               "example": {
                 "set": "GOD-01",
                 "type": 1,
-                "BeginDate": "2026-05-20",
                 "driver": {
-                  "familyname": "БАТ",
                   "lastname": "БАТ",
                   "firstname": "ДОРЖ",
                   "regnum": "АБ12345678",
-                  "phone_number": "99112233",
-                  "email": "test@example.com",
-                  "nationality": "MN",
-                  "sex": "male",
-                  "born_Date": "1990-01-01",
-                  "ZipCode": "15160"
+                  "phone_number": "99112233"
                 }
               }
             }
@@ -1648,10 +1491,6 @@
                   "type": {
                     "type": "integer"
                   },
-                  "BeginDate": {
-                    "type": "string",
-                    "format": "date"
-                  },
                   "vehicle": {
                     "type": "object",
                     "properties": {
@@ -1697,15 +1536,11 @@
                       "name": {
                         "type": "string"
                       },
-                      "address": {
-                        "type": "string"
-                      },
                       "phone_number": {
                         "type": "string"
                       },
-                      "email": {
-                        "type": "string",
-                        "format": "email"
+                      "address": {
+                        "type": "string"
                       }
                     },
                     "required": [
@@ -1728,26 +1563,13 @@
                       },
                       "phone_number": {
                         "type": "string"
-                      },
-                      "driver_ln": {
-                        "type": "string"
-                      },
-                      "driver_ln_date": {
-                        "type": "string",
-                        "format": "date"
-                      },
-                      "address": {
-                        "type": "string"
                       }
                     },
                     "required": [
                       "lastname",
                       "firstname",
                       "regnum",
-                      "phone_number",
-                      "driver_ln",
-                      "driver_ln_date",
-                      "address"
+                      "phone_number"
                     ]
                   }
                 },
@@ -1755,7 +1577,6 @@
                   "set",
                   "evaluation",
                   "type",
-                  "BeginDate",
                   "vehicle",
                   "company",
                   "owner"
@@ -1765,7 +1586,6 @@
                 "set": "THD-LOAN-13",
                 "evaluation": 85000000,
                 "type": 2,
-                "BeginDate": "2026-05-20",
                 "vehicle": {
                   "plate_number": "9999УБА",
                   "color": "ХАР",
@@ -1784,10 +1604,7 @@
                   "lastname": "БАТ",
                   "firstname": "ДОРЖ",
                   "regnum": "АБ12345678",
-                  "phone_number": "99112233",
-                  "driver_ln": "1234567",
-                  "driver_ln_date": "2015-01-01",
-                  "address": "УБ"
+                  "phone_number": "99112233"
                 }
               }
             }
@@ -1944,24 +1761,24 @@
                           "regnum": {
                             "type": "string"
                           },
-                          "address": {
-                            "type": "string"
-                          },
                           "phone_number": {
                             "type": "string"
                           },
                           "email": {
                             "type": "string",
                             "format": "email"
+                          },
+                          "ZipCode": {
+                            "type": "string"
                           }
                         },
                         "required": [
                           "lastname",
                           "firstname",
                           "regnum",
-                          "address",
                           "phone_number",
-                          "email"
+                          "email",
+                          "ZipCode"
                         ]
                       }
                     },
@@ -2004,23 +1821,23 @@
                           "name": {
                             "type": "string"
                           },
-                          "address": {
-                            "type": "string"
-                          },
                           "phone_number": {
                             "type": "string"
                           },
                           "email": {
                             "type": "string",
                             "format": "email"
+                          },
+                          "ZipCode": {
+                            "type": "string"
                           }
                         },
                         "required": [
                           "regnum",
                           "name",
-                          "address",
                           "phone_number",
-                          "email"
+                          "email",
+                          "ZipCode"
                         ]
                       }
                     },
@@ -2037,7 +1854,6 @@
                   "summary": "Create AJD (Иргэн)",
                   "value": {
                     "type": 1,
-                    "zip_code": "15160",
                     "vehicle": {
                       "plate_number": "1234УБА",
                       "is_chirguul": false
@@ -2046,9 +1862,9 @@
                       "lastname": "БАТ",
                       "firstname": "ДОРЖ",
                       "regnum": "АБ12345678",
-                      "address": "УБ",
                       "phone_number": "99112233",
-                      "email": "test@example.com"
+                      "email": "test@example.com",
+                      "ZipCode": "15160"
                     }
                   }
                 },
@@ -2056,7 +1872,6 @@
                   "summary": "Create AJD (Компани)",
                   "value": {
                     "type": 2,
-                    "zip_code": "15160",
                     "vehicle": {
                       "plate_number": "1234УБА",
                       "is_chirguul": false
@@ -2064,9 +1879,9 @@
                     "company": {
                       "regnum": "1234567",
                       "name": "TEST COMPANY",
-                      "address": "УБ",
                       "phone_number": "70112233",
-                      "email": "company@example.com"
+                      "email": "company@example.com",
+                      "ZipCode": "15160"
                     }
                   }
                 }
@@ -2266,9 +2081,6 @@
                   "set": {
                     "type": "string"
                   },
-                  "set_id": {
-                    "type": "string"
-                  },
                   "phone_number": {
                     "type": "string"
                   },
@@ -2285,15 +2097,6 @@
                     "type": "string"
                   },
                   "property_market_value": {
-                    "type": "integer"
-                  },
-                  "asset_address": {
-                    "type": "string"
-                  },
-                  "property_area": {
-                    "type": "number"
-                  },
-                  "property_used_year": {
                     "type": "integer"
                   },
                   "co_borrower": {
@@ -2838,9 +2641,6 @@
                   "set": {
                     "type": "string"
                   },
-                  "set_id": {
-                    "type": "string"
-                  },
                   "travel_begin_date": {
                     "type": "string",
                     "format": "date"
@@ -3117,9 +2917,6 @@
                 "type": "object",
                 "properties": {
                   "set": {
-                    "type": "string"
-                  },
-                  "set_id": {
                     "type": "string"
                   },
                   "regnum": {
@@ -3449,163 +3246,78 @@
           "content": {
             "application/json": {
               "schema": {
-                "oneOf": [
-                  {
+                "type": "object",
+                "properties": {
+                  "set": {
+                    "type": "string"
+                  },
+                  "contract_type": {
+                    "type": "integer"
+                  },
+                  "owner": {
                     "type": "object",
                     "properties": {
-                      "set": {
+                      "regnum": {
                         "type": "string"
                       },
-                      "contract_type": {
-                        "type": "integer",
-                        "enum": [
-                          1
-                        ]
-                      },
-                      "address": {
+                      "firstname": {
                         "type": "string"
                       },
-                      "owner": {
-                        "type": "object",
-                        "properties": {
-                          "regnum": {
-                            "type": "string"
-                          },
-                          "firstname": {
-                            "type": "string"
-                          },
-                          "lastname": {
-                            "type": "string"
-                          },
-                          "phone_number": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "regnum",
-                          "firstname",
-                          "lastname",
-                          "phone_number"
-                        ]
+                      "lastname": {
+                        "type": "string"
                       },
-                      "vehicle": {
-                        "type": "object",
-                        "properties": {
-                          "plate_number": {
-                            "type": "string"
-                          },
-                          "cabin_number": {
-                            "type": "string"
-                          },
-                          "vendor": {
-                            "type": "string"
-                          },
-                          "model": {
-                            "type": "string"
-                          },
-                          "vehicle_class_name": {
-                            "type": "string",
-                            "enum": [
-                              "M"
-                            ]
-                          },
-                          "market_evaluation": {
-                            "type": "integer"
-                          }
-                        },
-                        "required": [
-                          "plate_number",
-                          "cabin_number",
-                          "vendor",
-                          "model",
-                          "vehicle_class_name",
-                          "market_evaluation"
-                        ]
+                      "phone_number": {
+                        "type": "string"
                       }
                     },
                     "required": [
-                      "contract_type",
-                      "address",
-                      "owner",
-                      "vehicle"
+                      "regnum",
+                      "firstname",
+                      "lastname",
+                      "phone_number"
                     ]
                   },
-                  {
+                  "address": {
+                    "type": "string"
+                  },
+                  "vehicle": {
                     "type": "object",
                     "properties": {
-                      "set": {
+                      "plate_number": {
                         "type": "string"
                       },
-                      "contract_type": {
-                        "type": "integer",
-                        "enum": [
-                          2
-                        ]
+                      "cabin_number": {
+                        "type": "string"
                       },
-                      "company": {
-                        "type": "object",
-                        "properties": {
-                          "regnum": {
-                            "type": "string"
-                          },
-                          "name": {
-                            "type": "string"
-                          },
-                          "address": {
-                            "type": "string"
-                          },
-                          "phone_number": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "regnum",
-                          "name",
-                          "address",
-                          "phone_number"
-                        ]
+                      "vendor": {
+                        "type": "string"
                       },
-                      "vehicle": {
-                        "type": "object",
-                        "properties": {
-                          "plate_number": {
-                            "type": "string"
-                          },
-                          "cabin_number": {
-                            "type": "string"
-                          },
-                          "vendor": {
-                            "type": "string"
-                          },
-                          "model": {
-                            "type": "string"
-                          },
-                          "vehicle_class_name": {
-                            "type": "string",
-                            "enum": [
-                              "M"
-                            ]
-                          },
-                          "market_evaluation": {
-                            "type": "integer"
-                          }
-                        },
-                        "required": [
-                          "plate_number",
-                          "cabin_number",
-                          "vendor",
-                          "model",
-                          "vehicle_class_name",
-                          "market_evaluation"
-                        ]
+                      "model": {
+                        "type": "string"
+                      },
+                      "vehicle_class_name": {
+                        "type": "string"
+                      },
+                      "market_evaluation": {
+                        "type": "integer"
                       }
                     },
                     "required": [
-                      "contract_type",
-                      "company",
-                      "vehicle"
+                      "plate_number",
+                      "cabin_number",
+                      "vendor",
+                      "model",
+                      "vehicle_class_name",
+                      "market_evaluation"
                     ]
                   }
+                },
+                "required": [
+                  "contract_type",
+                  "owner",
+                  "address",
+                  "vehicle",
+                  "set"
                 ]
               },
               "example": {
@@ -3787,83 +3499,34 @@
           "content": {
             "application/json": {
               "schema": {
-                "oneOf": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "set": {
-                        "type": "string"
-                      },
-                      "contract_type": {
-                        "type": "integer",
-                        "enum": [
-                          1
-                        ]
-                      },
-                      "regnum": {
-                        "type": "string"
-                      },
-                      "asset_registry_number": {
-                        "type": "string"
-                      },
-                      "phone_number": {
-                        "type": "string"
-                      },
-                      "evaluation": {
-                        "type": "integer"
-                      },
-                      "loan_value": {
-                        "type": "integer"
-                      },
-                      "loan_amount": {
-                        "type": "integer"
-                      }
-                    },
-                    "required": [
-                      "contract_type",
-                      "regnum",
-                      "asset_registry_number",
-                      "phone_number"
-                    ]
+                "type": "object",
+                "properties": {
+                  "set": {
+                    "type": "string"
                   },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "set": {
-                        "type": "string"
-                      },
-                      "contract_type": {
-                        "type": "integer",
-                        "enum": [
-                          2
-                        ]
-                      },
-                      "company_id": {
-                        "type": "integer"
-                      },
-                      "asset_registry_number": {
-                        "type": "string"
-                      },
-                      "phone_number": {
-                        "type": "string"
-                      },
-                      "evaluation": {
-                        "type": "integer"
-                      },
-                      "loan_value": {
-                        "type": "integer"
-                      },
-                      "loan_amount": {
-                        "type": "integer"
-                      }
-                    },
-                    "required": [
-                      "contract_type",
-                      "company_id",
-                      "asset_registry_number",
-                      "phone_number"
-                    ]
+                  "contract_type": {
+                    "type": "integer"
+                  },
+                  "regnum": {
+                    "type": "string"
+                  },
+                  "asset_registry_number": {
+                    "type": "string"
+                  },
+                  "phone_number": {
+                    "type": "string"
+                  },
+                  "evaluation": {
+                    "type": "integer"
                   }
+                },
+                "required": [
+                  "set",
+                  "contract_type",
+                  "regnum",
+                  "asset_registry_number",
+                  "phone_number",
+                  "evaluation"
                 ]
               },
               "example": {
