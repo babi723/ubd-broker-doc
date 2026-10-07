@@ -39,6 +39,9 @@ Broker Dynamic API Postman collection
 - `product_key` (сонголттой) илгээвэл зөвхөн тухайн бүтээгдэхүүн дээрх гэрээг шалгана.
 - `has_active_contract` болон олдсон insured гэрээнүүдийн жагсаалт буцаана.
 - Зөвхөн иргэний `regnum` дэмжигдэнэ, байгууллагын `regnum` дэмжигдэхгүй.
+13. `POST /api/broker/blacklist-check`
+- Тухайн `regnum` blacklist (хар жагсаалт)-д байгаа эсэхийг шалгана.
+- Хариу: `result.is_blacklisted` (boolean).
 
 ## Тест төлбөр баталгаажуулах
 

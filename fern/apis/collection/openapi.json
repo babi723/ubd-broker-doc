@@ -9,7 +9,7 @@
   "info": {
     "title": "Broker Dynamic API (MN)",
     "version": "1.0.0",
-    "description": "Broker Dynamic API Postman collection\n\n=== Ерөнхий урсгал ===\n1. POST /api/broker/get_token\n- Broker username, password-оор token авна.\n\n2. POST /api/broker/get-driver\n- Регистрийн дугаараар жолооч / иргэний мэдээлэл татна.\n- XYP ашигладаг.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n\n3. POST /api/broker/get-vehicle\n- Улсын дугаараар тээврийн хэрэгслийн мэдээлэл татна.\n- XYP ашигладаг.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n\n4. GET /api/broker/products\n- Ашиглах боломжтой бүтээгдэхүүний жагсаалт авна.\n- Product бүр дээр is_active boolean буцна.\n\n5. GET /api/broker/products/{product_key}/category\n- Сонгосон product_key-ийн category авна.\n- category утга:\n  - mashin\n  - oron_suuts\n  - ed_hurungu\n\n6. GET /api/broker/{product_key}/get_sets\n- Сонгосон бүтээгдэхүүний багцуудыг авна.\n\n7. POST /api/broker/{product_key}/create\n- Сонгосон бүтээгдэхүүний гэрээ үүсгэнэ.\n\n8. POST /api/broker/{product_key}/upload_photos\n- Гэрээ үүссэний дараа тээврийн хэрэгслийн зургууд upload хийнэ.\n- Зөвхөн thd, ht, thd_loan дээр ажиллана.\n\n9. POST /api/broker/{product_key}/check_pay\n- Төлбөрийн төлөв шалгана.\n- Төлөгдсөн бол contract_url буцаана.\n\n10. POST /api/broker/{product_key}/contract\n- Нэг гэрээний дэлгэрэнгүй мэдээлэл авна.\n\n11. POST /api/broker/{product_key}/contracts\n- Огнооны интервалаар гэрээнүүдийн жагсаалт авна.\n\n12. POST /api/broker/contract-lookup\n- plate_number эсвэл regnum-ээр бүх бүтээгдэхүүн дундаас зөвхөн insured (баталгаажсан) гэрээг шалгана.\n- product_key (сонголттой) илгээвэл зөвхөн тухайн бүтээгдэхүүн дээрх гэрээг шалгана.\n- has_active_contract болон олдсон insured гэрээнүүдийн жагсаалт буцаана.\n- Зөвхөн иргэний regnum дэмжигдэнэ, байгууллагын regnum дэмжигдэхгүй.\n\n=== Бүтээгдэхүүний key ===\n- thd\n- ht\n- god\n- thd_loan\n- ajd\n- sgo\n- ipotek\n- luxury\n- travel\n- uhd\n- machinery\n- bhd\n\n=== Нэмэлт тайлбар ===\n- THD нь хуучин /api/broker/thd/* flow-ийг яг тэр чигээр нь ашиглана.\n- HT, GOD, THD loan, AJD, SGO, Ipotek, Luxury, Travel, UHD, Machinery, BHD нь broker dynamic controller-оор орно.\n- AJD get_sets нь хоосон жагсаалт буцаана.\n- THD get_sets нь хуучин THD sets response-ээ яг тэр чигээр нь ашиглана.\n- GOD, SGO get_sets нь common broker structure дээр insurance_type, protection_amount, price талбаруудыг нэмээд буцаана.\n- Ipotek нь citizen-ийн OTP урсгал (send-otp/verify-otp) шаардахгүй — broker token-оор аль хэдийн баталгаажсан тул set, regnum, firstname, lastname, asset_registry_number, asset_address, property_area, property_used_year, property_market_value зэргийг шууд create хүсэлтэд дамжуулна.\n- Luxury (орон сууцны даатгал) нь мөн citizen-ийн OTP шат шаардахгүй — broker token-оор шууд create хийнэ. Заавал: set_id, surname, name, register, email, phone_number, duration (1/2/3), hot_id, duureg_id, horoo, bair, haalga, type. Багцын (set) evaluation/yearly_amount утгыг get_sets-ээс авна.\n- Travel (гадаад зорчигчийн даатгал) нь citizen-ийн OTP шат шаардахгүй. Нэг гэрээнд 10 хүртэл зорчигч (travellers[]) багтаж болно, эхний зорчигчийн гэрээ contract_number-т, бүгд contracts массивт буцна. get_sets нь зөвхөн TI-3/TI-4/TI-5 багцыг буцаана, price_usd нь хувь биш ам.долларын үнэ.\n- UHD (Өмгөөлөгчийн хариуцлагын даатгал) нь citizen-ийн OTP шат шаардахгүй. types талбарт Get Specializations UHD-ээс авсан мэргэшсэн чиглэлийн id-нуудыг дамжуулна.\n- Machinery (машин механизмын даатгал) нь citizen-ийн OTP шат шаардахгүй, зөвхөн 'M' ангиллын тээврийн хэрэгсэл дэмжинэ. owner/vehicle/company nested объект илгээвэл автоматаар flat талбар руу normalize хийгдэнэ (HT-ийн create-тэй ижил).\n- BHD (Барьцаа хөрөнгийн даатгал) нь citizen-ийн OTP шат шаардахгүй боловч regnum + asset_registry_number-ээр ХУР (XYP)-аас хөрөнгийн мэдээллийг автоматаар лукап хийнэ. evaluation талбарыг илгээхэд систем сонгосон set-ийн loan_type-аас хамаарч loan_value эсвэл loan_amount руу хөрвүүлнэ (эсвэл эдгээрийг шууд нэрээр нь илгээж болно). Байгууллагын гэрээнд бэлэн company_id шаардлагатай.\n- Get Vehicle хариу дотор 'owner' object нэмэгдэв (регистр, эзэмшигчийн мэдээлэл), мөн 'seat_number' (суудлын тоо) талбар нэмэгдсэн — machinery/sgo зэрэг суудлын тоо шаарддаг бүтээгдэхүүнд ашиглана.\n- Баталгаажсан token-ийг Authorization: <token> хэлбэрээр protected endpoint бүр дээр дамжуулна.\n- set утга нь тухайн product-ийн get_sets endpoint-ээс авсан key/id байна."
+    "description": "Broker Dynamic API Postman collection\n\n=== Ерөнхий урсгал ===\n1. POST /api/broker/get_token\n- Broker username, password-оор token авна.\n\n2. POST /api/broker/get-driver\n- Регистрийн дугаараар жолооч / иргэний мэдээлэл татна.\n- XYP ашигладаг.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n\n3. POST /api/broker/get-vehicle\n- Улсын дугаараар тээврийн хэрэгслийн мэдээлэл татна.\n- XYP ашигладаг.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n\n4. GET /api/broker/products\n- Ашиглах боломжтой бүтээгдэхүүний жагсаалт авна.\n- Product бүр дээр is_active boolean буцна.\n\n5. GET /api/broker/products/{product_key}/category\n- Сонгосон product_key-ийн category авна.\n- category утга:\n  - mashin\n  - oron_suuts\n  - ed_hurungu\n\n6. GET /api/broker/{product_key}/get_sets\n- Сонгосон бүтээгдэхүүний багцуудыг авна.\n\n7. POST /api/broker/{product_key}/create\n- Сонгосон бүтээгдэхүүний гэрээ үүсгэнэ.\n\n8. POST /api/broker/{product_key}/upload_photos\n- Гэрээ үүссэний дараа тээврийн хэрэгслийн зургууд upload хийнэ.\n- Зөвхөн thd, ht, thd_loan дээр ажиллана.\n\n9. POST /api/broker/{product_key}/check_pay\n- Төлбөрийн төлөв шалгана.\n- Төлөгдсөн бол contract_url буцаана.\n\n10. POST /api/broker/{product_key}/contract\n- Нэг гэрээний дэлгэрэнгүй мэдээлэл авна.\n\n11. POST /api/broker/{product_key}/contracts\n- Огнооны интервалаар гэрээнүүдийн жагсаалт авна.\n\n12. POST /api/broker/contract-lookup\n- plate_number эсвэл regnum-ээр бүх бүтээгдэхүүн дундаас зөвхөн insured (баталгаажсан) гэрээг шалгана.\n- product_key (сонголттой) илгээвэл зөвхөн тухайн бүтээгдэхүүн дээрх гэрээг шалгана.\n- has_active_contract болон олдсон insured гэрээнүүдийн жагсаалт буцаана.\n- Зөвхөн иргэний regnum дэмжигдэнэ, байгууллагын regnum дэмжигдэхгүй.\n\n13. POST /api/broker/blacklist-check\n- Тухайн regnum blacklist (хар жагсаалт)-д байгаа эсэхийг шалгана.\n- Хариу: result.is_blacklisted (boolean).\n\n=== Бүтээгдэхүүний key ===\n- thd\n- ht\n- god\n- thd_loan\n- ajd\n- sgo\n- ipotek\n- luxury\n- travel\n- uhd\n- machinery\n- bhd\n\n=== Нэмэлт тайлбар ===\n- THD нь хуучин /api/broker/thd/* flow-ийг яг тэр чигээр нь ашиглана.\n- HT, GOD, THD loan, AJD, SGO, Ipotek, Luxury, Travel, UHD, Machinery, BHD нь broker dynamic controller-оор орно.\n- AJD get_sets нь хоосон жагсаалт буцаана.\n- THD get_sets нь хуучин THD sets response-ээ яг тэр чигээр нь ашиглана.\n- GOD, SGO get_sets нь common broker structure дээр insurance_type, protection_amount, price талбаруудыг нэмээд буцаана.\n- Ipotek нь citizen-ийн OTP урсгал (send-otp/verify-otp) шаардахгүй — broker token-оор аль хэдийн баталгаажсан тул set, regnum, firstname, lastname, asset_registry_number, asset_address, property_area, property_used_year, property_market_value зэргийг шууд create хүсэлтэд дамжуулна.\n- Luxury (орон сууцны даатгал) нь мөн citizen-ийн OTP шат шаардахгүй — broker token-оор шууд create хийнэ. Заавал: set_id, surname, name, register, email, phone_number, duration (1/2/3), hot_id, duureg_id, horoo, bair, haalga, type. Багцын (set) evaluation/yearly_amount утгыг get_sets-ээс авна.\n- Travel (гадаад зорчигчийн даатгал) нь citizen-ийн OTP шат шаардахгүй. Нэг гэрээнд 10 хүртэл зорчигч (travellers[]) багтаж болно, эхний зорчигчийн гэрээ contract_number-т, бүгд contracts массивт буцна. get_sets нь зөвхөн TI-3/TI-4/TI-5 багцыг буцаана, price_usd нь хувь биш ам.долларын үнэ.\n- UHD (Өмгөөлөгчийн хариуцлагын даатгал) нь citizen-ийн OTP шат шаардахгүй. types талбарт Get Specializations UHD-ээс авсан мэргэшсэн чиглэлийн id-нуудыг дамжуулна.\n- Machinery (машин механизмын даатгал) нь citizen-ийн OTP шат шаардахгүй, зөвхөн 'M' ангиллын тээврийн хэрэгсэл дэмжинэ. owner/vehicle/company nested объект илгээвэл автоматаар flat талбар руу normalize хийгдэнэ (HT-ийн create-тэй ижил).\n- BHD (Барьцаа хөрөнгийн даатгал) нь citizen-ийн OTP шат шаардахгүй боловч regnum + asset_registry_number-ээр ХУР (XYP)-аас хөрөнгийн мэдээллийг автоматаар лукап хийнэ. evaluation талбарыг илгээхэд систем сонгосон set-ийн loan_type-аас хамаарч loan_value эсвэл loan_amount руу хөрвүүлнэ (эсвэл эдгээрийг шууд нэрээр нь илгээж болно). Байгууллагын гэрээнд бэлэн company_id шаардлагатай.\n- Get Vehicle хариу дотор 'owner' object нэмэгдэв (регистр, эзэмшигчийн мэдээлэл), мөн 'seat_number' (суудлын тоо) талбар нэмэгдсэн — machinery/sgo зэрэг суудлын тоо шаарддаг бүтээгдэхүүнд ашиглана.\n- Баталгаажсан token-ийг Authorization: <token> хэлбэрээр protected endpoint бүр дээр дамжуулна.\n- set утга нь тухайн product-ийн get_sets endpoint-ээс авсан key/id байна."
   },
   "paths": {
     "/api/broker/get_token": {
@@ -1601,7 +1601,7 @@
       "post": {
         "operationId": "postApiBrokerThd_loanCreate",
         "summary": "Create THD Loan",
-        "description": "THD loan гэрээ үүсгэнэ.\n\nАнхаарах зүйл:\n- owner илгээхгүй, driver илгээсэн бол backend owner руу normalize хийнэ\n- top-level evaluation байвал vehicle.evaluation руу шилжүүлж ашиглана",
+        "description": "THD loan гэрээ үүсгэнэ.\n\nАнхаарах зүйл:\n- owner илгээхгүй, driver илгээсэн бол backend owner руу normalize хийнэ\n- top-level evaluation байвал vehicle.evaluation руу шилжүүлж ашиглана\n- company.address сонголттой (гэрээнд ашиглагддаггүй, зөвхөн илгээвэл хадгална)",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -1711,9 +1711,7 @@
                     "required": [
                       "regnum",
                       "name",
-                      "address",
-                      "phone_number",
-                      "email"
+                      "phone_number"
                     ]
                   },
                   "owner": {
@@ -1780,9 +1778,7 @@
                 "company": {
                   "regnum": "1234567",
                   "name": "TEST BBSB",
-                  "address": "УБ",
-                  "phone_number": "70112233",
-                  "email": "bbsb@example.com"
+                  "phone_number": "70112233"
                 },
                 "owner": {
                   "lastname": "БАТ",
@@ -4037,6 +4033,62 @@
           }
         }
       }
+    },
+    "/api/broker/blacklist-check": {
+      "post": {
+        "operationId": "postApiBrokerBlacklist-check",
+        "summary": "Blacklist Check",
+        "description": "Тухайн regnum blacklist-д (хар жагсаалт) байгаа эсэхийг шалгана.\n\nЗаавал: regnum.\n\nХариу: result.is_blacklisted (boolean).",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BlacklistCheckResponse"
+                },
+                "example": {
+                  "result": {
+                    "is_blacklisted": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "common-endpoints"
+        ],
+        "x-fern-sdk-group-name": [
+          "common-endpoints"
+        ],
+        "x-fern-sdk-method-name": "Blacklist Check",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "regnum": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "regnum"
+                ]
+              },
+              "example": {
+                "regnum": "АБ12345678"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -4799,6 +4851,32 @@
             "loan_type": "loan_value"
           }
         ]
+      },
+      "BlacklistCheckResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "object",
+            "properties": {
+              "is_blacklisted": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "is_blacklisted"
+            ],
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "additionalProperties": true,
+        "example": {
+          "result": {
+            "is_blacklisted": false
+          }
+        }
       }
     },
     "securitySchemes": {
