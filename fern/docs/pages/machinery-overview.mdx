@@ -17,3 +17,4 @@ title: Overview
 - Иргэн бол `owner{regnum, firstname, lastname, phone_number}` (эсвэл flat `regnum`/`firstname`/`lastname`/`phone_number`), байгууллага бол `company{regnum, name, address, phone_number}` (эсвэл flat `company_regnum`/`company_name`/`company_address`/`company_phone_number`), мөн `address` (иргэний хаяг).
 - `vehicle{plate_number, cabin_number, vendor, model, vehicle_class_name, market_evaluation}` (эсвэл flat талбарууд) заавал. `vehicle_class_name` нь `M` байх ёстой.
 - `owner`/`vehicle`/`company` nested объект илгээвэл автоматаар харгалзах flat талбарууд руу normalize хийгдэнэ (HT-ийн create-тэй ижил хэлбэр).
+- `discount_id` (сонголттой, `get_sets`-ийн хажуугийн `/machinery/discounts`-ээс авсан утга) дэмжигдэнэ. `callback_url` дэмжигдэхгүй.

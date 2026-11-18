@@ -13,6 +13,7 @@ title: Overview
 - `GET /api/broker/products`: Ашиглах боломжтой бүтээгдэхүүний жагсаалт авна. Response дээр `id`, `key`, `name`, `is_active` талбарууд ирнэ.
 - `GET /api/broker/products/{product_key}/category`: Бүтээгдэхүүний category-г авна. Боломжит утгууд нь `mashin`, `oron_suuts`, `ed_hurungu`.
 - `GET /api/broker/{product_key}/get_sets`: Сонгосон бүтээгдэхүүний багцуудыг авна.
+- `GET /api/broker/{product_key}/discounts`: Broker/BBSB/product-д идэвхтэй хөнгөлөлтийн жагсаалт авна (`id`, `code`, `percent`, `set_id`, `starts_at`, `ends_at`). Буцаасан `id`-г create хүсэлтэд `discount_id` болгон ашиглана.
 - `POST /api/broker/{product_key}/check_pay`: Төлбөрийн төлөв шалгана. Төлөгдсөн үед `contract_url` буцна.
 - `POST /api/broker/test/mark-paid`: Test эрхтэй broker-ийн өөрийн гэрээг бодит төлбөр шалгахгүйгээр `insured` төлөвт оруулна.
 - `POST /api/broker/{product_key}/contract`: Нэг гэрээний дэлгэрэнгүй мэдээлэл авна.
@@ -25,3 +26,5 @@ title: Overview
 - `ajd` бүтээгдэхүүний `get_sets` нь хоосон жагсаалт буцаана.
 - `god`, `sgo` бүтээгдэхүүний `get_sets` response нь common бүтэц дээр `insurance_type`, `protection_amount`, `price` талбар нэмээд ирнэ.
 - `contracts` endpoint дээр `ajd`, `sgo` нь `contract_created_at`, бусад нь `created_at` field-ээр шүүнэ.
+- Брокерт тухайн product ашиглах эрх байхгүй бол `discounts` алдаа биш, хоосон жагсаалт (`data: []`) буцаана.
+- `discount_id`-г create дээр ОДООГООР зөвхөн `thd`, `travel`, `machinery` дэмждэг, бусад product дээр үл хэрэгсэгдэнэ.

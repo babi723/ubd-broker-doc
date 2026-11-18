@@ -9,7 +9,7 @@
   "info": {
     "title": "Broker Dynamic API (MN)",
     "version": "1.0.0",
-    "description": "Broker Dynamic API Postman collection\n\n=== Ерөнхий урсгал ===\n1. POST /api/broker/get_token\n- Broker username, password-оор token авна.\n\n2. POST /api/broker/get-driver\n- Регистрийн дугаараар жолооч / иргэний мэдээлэл татна.\n- XYP ашигладаг.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n\n3. POST /api/broker/get-vehicle\n- Улсын дугаараар тээврийн хэрэгслийн мэдээлэл татна.\n- XYP ашигладаг.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n\n4. GET /api/broker/products\n- Ашиглах боломжтой бүтээгдэхүүний жагсаалт авна.\n- Product бүр дээр is_active boolean буцна.\n\n5. GET /api/broker/products/{product_key}/category\n- Сонгосон product_key-ийн category авна.\n- category утга:\n  - mashin\n  - oron_suuts\n  - ed_hurungu\n\n6. GET /api/broker/{product_key}/get_sets\n- Сонгосон бүтээгдэхүүний багцуудыг авна.\n\n7. POST /api/broker/{product_key}/create\n- Сонгосон бүтээгдэхүүний гэрээ үүсгэнэ.\n\n8. POST /api/broker/{product_key}/upload_photos\n- Гэрээ үүссэний дараа тээврийн хэрэгслийн зургууд upload хийнэ.\n- Зөвхөн thd, ht, thd_loan дээр ажиллана.\n\n9. POST /api/broker/{product_key}/check_pay\n- Төлбөрийн төлөв шалгана.\n- Төлөгдсөн бол contract_url буцаана.\n\n10. POST /api/broker/{product_key}/contract\n- Нэг гэрээний дэлгэрэнгүй мэдээлэл авна.\n\n11. POST /api/broker/{product_key}/contracts\n- Огнооны интервалаар гэрээнүүдийн жагсаалт авна.\n\n12. POST /api/broker/contract-lookup\n- plate_number эсвэл regnum-ээр бүх бүтээгдэхүүн дундаас зөвхөн insured (баталгаажсан) гэрээг шалгана.\n- product_key (сонголттой) илгээвэл зөвхөн тухайн бүтээгдэхүүн дээрх гэрээг шалгана.\n- has_active_contract болон олдсон insured гэрээнүүдийн жагсаалт буцаана.\n- Зөвхөн иргэний regnum дэмжигдэнэ, байгууллагын regnum дэмжигдэхгүй.\n\n13. POST /api/broker/blacklist-check\n- Тухайн regnum blacklist (хар жагсаалт)-д байгаа эсэхийг шалгана.\n- Хариу: result.is_blacklisted (boolean).\n\n=== Бүтээгдэхүүний key ===\n- thd\n- ht\n- god\n- thd_loan\n- ajd\n- sgo\n- ipotek\n- luxury\n- travel\n- uhd\n- machinery\n- bhd\n\n=== Нэмэлт тайлбар ===\n- THD нь хуучин /api/broker/thd/* flow-ийг яг тэр чигээр нь ашиглана.\n- HT, GOD, THD loan, AJD, SGO, Ipotek, Luxury, Travel, UHD, Machinery, BHD нь broker dynamic controller-оор орно.\n- AJD get_sets нь хоосон жагсаалт буцаана.\n- THD get_sets нь хуучин THD sets response-ээ яг тэр чигээр нь ашиглана.\n- GOD, SGO get_sets нь common broker structure дээр insurance_type, protection_amount, price талбаруудыг нэмээд буцаана.\n- Ipotek нь citizen-ийн OTP урсгал (send-otp/verify-otp) шаардахгүй — broker token-оор аль хэдийн баталгаажсан тул set, regnum, firstname, lastname, asset_registry_number, asset_address, property_area, property_used_year, property_market_value зэргийг шууд create хүсэлтэд дамжуулна.\n- Luxury (орон сууцны даатгал) нь мөн citizen-ийн OTP шат шаардахгүй — broker token-оор шууд create хийнэ. Заавал: set_id, surname, name, register, email, phone_number, duration (1/2/3), hot_id, duureg_id, horoo, bair, haalga, type. Багцын (set) evaluation/yearly_amount утгыг get_sets-ээс авна.\n- Travel (гадаад зорчигчийн даатгал) нь citizen-ийн OTP шат шаардахгүй. Нэг гэрээнд 10 хүртэл зорчигч (travellers[]) багтаж болно, эхний зорчигчийн гэрээ contract_number-т, бүгд contracts массивт буцна. get_sets нь зөвхөн TI-3/TI-4/TI-5 багцыг буцаана, price_usd нь хувь биш ам.долларын үнэ.\n- UHD (Өмгөөлөгчийн хариуцлагын даатгал) нь citizen-ийн OTP шат шаардахгүй. types талбарт Get Specializations UHD-ээс авсан мэргэшсэн чиглэлийн id-нуудыг дамжуулна.\n- Machinery (машин механизмын даатгал) нь citizen-ийн OTP шат шаардахгүй, зөвхөн 'M' ангиллын тээврийн хэрэгсэл дэмжинэ. owner/vehicle/company nested объект илгээвэл автоматаар flat талбар руу normalize хийгдэнэ (HT-ийн create-тэй ижил).\n- BHD (Барьцаа хөрөнгийн даатгал) нь citizen-ийн OTP шат шаардахгүй боловч regnum + asset_registry_number-ээр ХУР (XYP)-аас хөрөнгийн мэдээллийг автоматаар лукап хийнэ. evaluation талбарыг илгээхэд систем сонгосон set-ийн loan_type-аас хамаарч loan_value эсвэл loan_amount руу хөрвүүлнэ (эсвэл эдгээрийг шууд нэрээр нь илгээж болно). Байгууллагын гэрээнд бэлэн company_id шаардлагатай.\n- Get Vehicle хариу дотор 'owner' object нэмэгдэв (регистр, эзэмшигчийн мэдээлэл), мөн 'seat_number' (суудлын тоо) талбар нэмэгдсэн — machinery/sgo зэрэг суудлын тоо шаарддаг бүтээгдэхүүнд ашиглана.\n- Баталгаажсан token-ийг Authorization: <token> хэлбэрээр protected endpoint бүр дээр дамжуулна.\n- set утга нь тухайн product-ийн get_sets endpoint-ээс авсан key/id байна."
+    "description": "Broker Dynamic API Postman collection\n\n=== Ерөнхий урсгал ===\n1. POST /api/broker/get_token\n- Broker username, password-оор token авна.\n\n2. POST /api/broker/get-driver\n- Регистрийн дугаараар жолооч / иргэний мэдээлэл татна.\n- XYP ашигладаг.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n\n3. POST /api/broker/get-vehicle\n- Улсын дугаараар тээврийн хэрэгслийн мэдээлэл татна.\n- XYP ашигладаг.\n- Зөвхөн XYP ашиглах эрхтэй хэрэглэгч ашиглана.\n\n4. GET /api/broker/products\n- Ашиглах боломжтой бүтээгдэхүүний жагсаалт авна.\n- Product бүр дээр is_active boolean буцна.\n\n5. GET /api/broker/products/{product_key}/category\n- Сонгосон product_key-ийн category авна.\n- category утга:\n  - mashin\n  - oron_suuts\n  - ed_hurungu\n\n6. GET /api/broker/{product_key}/get_sets\n- Сонгосон бүтээгдэхүүний багцуудыг авна.\n\n7. POST /api/broker/{product_key}/create\n- Сонгосон бүтээгдэхүүний гэрээ үүсгэнэ.\n\n8. POST /api/broker/{product_key}/upload_photos\n- Гэрээ үүссэний дараа тээврийн хэрэгслийн зургууд upload хийнэ.\n- Зөвхөн thd, ht, thd_loan дээр ажиллана.\n\n9. POST /api/broker/{product_key}/check_pay\n- Төлбөрийн төлөв шалгана.\n- Төлөгдсөн бол contract_url буцаана.\n\n10. POST /api/broker/{product_key}/contract\n- Нэг гэрээний дэлгэрэнгүй мэдээлэл авна.\n\n11. POST /api/broker/{product_key}/contracts\n- Огнооны интервалаар гэрээнүүдийн жагсаалт авна.\n\n12. POST /api/broker/contract-lookup\n- plate_number эсвэл regnum-ээр бүх бүтээгдэхүүн дундаас зөвхөн insured (баталгаажсан) гэрээг шалгана.\n- product_key (сонголттой) илгээвэл зөвхөн тухайн бүтээгдэхүүн дээрх гэрээг шалгана.\n- has_active_contract болон олдсон insured гэрээнүүдийн жагсаалт буцаана.\n- Зөвхөн иргэний regnum дэмжигдэнэ, байгууллагын regnum дэмжигдэхгүй.\n\n13. POST /api/broker/blacklist-check\n- Тухайн regnum blacklist (хар жагсаалт)-д байгаа эсэхийг шалгана.\n- Хариу: result.is_blacklisted (boolean).\n\n14. GET /api/broker/{product_key}/discounts\n- Broker/BBSB/product-д идэвхтэй хөнгөлөлтийн (discount) жагсаалт авна.\n- Буцаасан id-г create хүсэлтэд discount_id болгон ашиглана.\n\n=== Бүтээгдэхүүний key ===\n- thd\n- ht\n- god\n- thd_loan\n- ajd\n- sgo\n- ipotek\n- luxury\n- travel\n- uhd\n- machinery\n- bhd\n\n=== Нэмэлт тайлбар ===\n- THD нь хуучин /api/broker/thd/* flow-ийг яг тэр чигээр нь ашиглана.\n- HT, GOD, THD loan, AJD, SGO, Ipotek, Luxury, Travel, UHD, Machinery, BHD нь broker dynamic controller-оор орно.\n- AJD get_sets нь хоосон жагсаалт буцаана.\n- THD get_sets нь хуучин THD sets response-ээ яг тэр чигээр нь ашиглана.\n- GOD, SGO get_sets нь common broker structure дээр insurance_type, protection_amount, price талбаруудыг нэмээд буцаана.\n- Ipotek нь citizen-ийн OTP урсгал (send-otp/verify-otp) шаардахгүй — broker token-оор аль хэдийн баталгаажсан тул set, regnum, firstname, lastname, asset_registry_number, asset_address, property_area, property_used_year, property_market_value зэргийг шууд create хүсэлтэд дамжуулна.\n- Luxury (орон сууцны даатгал) нь мөн citizen-ийн OTP шат шаардахгүй — broker token-оор шууд create хийнэ. Заавал: set_id, surname, name, register, email, phone_number, duration (1/2/3), hot_id, duureg_id, horoo, bair, haalga, type. Багцын (set) evaluation/yearly_amount утгыг get_sets-ээс авна.\n- Travel (гадаад зорчигчийн даатгал) нь citizen-ийн OTP шат шаардахгүй. Нэг гэрээнд 10 хүртэл зорчигч (travellers[]) багтаж болно, эхний зорчигчийн гэрээ contract_number-т, бүгд contracts массивт буцна. get_sets нь зөвхөн TI-3/TI-4/TI-5 багцыг буцаана, price_usd нь хувь биш ам.долларын үнэ.\n- UHD (Өмгөөлөгчийн хариуцлагын даатгал) нь citizen-ийн OTP шат шаардахгүй. types талбарт Get Specializations UHD-ээс авсан мэргэшсэн чиглэлийн id-нуудыг дамжуулна.\n- Machinery (машин механизмын даатгал) нь citizen-ийн OTP шат шаардахгүй, зөвхөн 'M' ангиллын тээврийн хэрэгсэл дэмжинэ. owner/vehicle/company nested объект илгээвэл автоматаар flat талбар руу normalize хийгдэнэ (HT-ийн create-тэй ижил).\n- BHD (Барьцаа хөрөнгийн даатгал) нь citizen-ийн OTP шат шаардахгүй боловч regnum + asset_registry_number-ээр ХУР (XYP)-аас хөрөнгийн мэдээллийг автоматаар лукап хийнэ. evaluation талбарыг илгээхэд систем сонгосон set-ийн loan_type-аас хамаарч loan_value эсвэл loan_amount руу хөрвүүлнэ (эсвэл эдгээрийг шууд нэрээр нь илгээж болно). Байгууллагын гэрээнд бэлэн company_id шаардлагатай.\n- Get Vehicle хариу дотор 'owner' object нэмэгдэв (регистр, эзэмшигчийн мэдээлэл), мөн 'seat_number' (суудлын тоо) талбар нэмэгдсэн — machinery/sgo зэрэг суудлын тоо шаарддаг бүтээгдэхүүнд ашиглана.\n- Баталгаажсан token-ийг Authorization: <token> хэлбэрээр protected endpoint бүр дээр дамжуулна.\n- set утга нь тухайн product-ийн get_sets endpoint-ээс авсан key/id байна.\n- create хүсэлт бүр дээр callback_url (сонголттой) дамжуулж болно — гэрээ insured төлөвт шилжихэд энэ URL руу нэг удаа GET хүсэлт илгээнэ.\n- discount_id create дээр ОДООГООР зөвхөн thd, travel, machinery дээр л дэмжигдэнэ (бусад product дээр илгээсэн ч үл хэрэгсэгдэнэ)."
   },
   "paths": {
     "/api/broker/get_token": {
@@ -727,7 +727,7 @@
       "post": {
         "operationId": "postApiBrokerThdCreate2",
         "summary": "Create THD",
-        "description": "THD гэрээ үүсгэнэ.\n\nЗаавал:\n- set\n- evaluation\n- type\n- vehicle\n- type=1 үед driver\n- type=2 үед company\n\nАнхаарах зүйл:\n- set утга нь get_sets-с авсан утга байна",
+        "description": "THD гэрээ үүсгэнэ.\n\nЗаавал:\n- set\n- evaluation\n- type\n- vehicle\n- type=1 үед driver\n- type=2 үед company\n\nАнхаарах зүйл:\n- set утга нь get_sets-с авсан утга байна\n\ncallback_url (сонголттой): гэрээ 'insured' төлөвт шилжихэд (QPay төлбөр баталгаажих эсвэл backoffice-оор гараар баталгаажуулахад) систем энэ URL руу нэг удаа GET хүсэлт илгээнэ.\n\ndiscount_id (сонголттой): /{{product_key}}/discounts endpoint-ээс авсан хөнгөлөлтийн id-г дамжуулж болно. Broker/BBSB/сонгосон set тухайн хөнгөлөлтийг ашиглах эрхгүй бол create хүсэлт алдаатай буцна. Зайлсхийвэл (эсвэл null) хямдралгүйгээр үргэлжилнэ.",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -837,6 +837,17 @@
                           "regnum",
                           "phone_number"
                         ]
+                      },
+                      "callback_url": {
+                        "type": "string",
+                        "format": "uri"
+                      },
+                      "discount_id": {
+                        "type": [
+                          "integer",
+                          "string",
+                          "null"
+                        ]
                       }
                     },
                     "required": [
@@ -920,6 +931,17 @@
                           "address",
                           "phone_number"
                         ]
+                      },
+                      "callback_url": {
+                        "type": "string",
+                        "format": "uri"
+                      },
+                      "discount_id": {
+                        "type": [
+                          "integer",
+                          "string",
+                          "null"
+                        ]
                       }
                     },
                     "required": [
@@ -953,7 +975,9 @@
                       "firstname": "ДОРЖ",
                       "regnum": "АБ12345678",
                       "phone_number": "99112233"
-                    }
+                    },
+                    "callback_url": "https://example.com/webhook",
+                    "discount_id": null
                   }
                 },
                 "company": {
@@ -976,7 +1000,9 @@
                       "name": "TEST LLC",
                       "address": "УБ",
                       "phone_number": "70112233"
-                    }
+                    },
+                    "callback_url": "https://example.com/webhook",
+                    "discount_id": null
                   }
                 }
               }
@@ -1061,7 +1087,7 @@
       "post": {
         "operationId": "postApiBrokerHtCreate",
         "summary": "Create HT (1 чиргүүлтэй)",
-        "description": "1 чиргүүлтэй HT гэрээ үүсгэнэ.\n\nТайлбар:\n- owner илгээвэл driver руу normalize хийгдэнэ\n- top-level evaluation байвал vehicle.evaluation руу шилжүүлж ашиглана",
+        "description": "1 чиргүүлтэй HT гэрээ үүсгэнэ.\n\nТайлбар:\n- owner илгээвэл driver руу normalize хийгдэнэ\n- top-level evaluation байвал vehicle.evaluation руу шилжүүлж ашиглана\n\ncallback_url (сонголттой): гэрээ 'insured' төлөвт шилжихэд (QPay төлбөр баталгаажих эсвэл backoffice-оор гараар баталгаажуулахад) систем энэ URL руу нэг удаа GET хүсэлт илгээнэ.",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -1221,6 +1247,10 @@
                         "evaluation"
                       ]
                     }
+                  },
+                  "callback_url": {
+                    "type": "string",
+                    "format": "uri"
                   }
                 },
                 "required": [
@@ -1265,7 +1295,8 @@
                     "mass": 24000,
                     "evaluation": 30000000
                   }
-                ]
+                ],
+                "callback_url": "https://example.com/webhook"
               }
             }
           }
@@ -1348,7 +1379,7 @@
       "post": {
         "operationId": "postApiBrokerGodCreate",
         "summary": "Create GOD",
-        "description": "GOD гэрээ үүсгэнэ.\n\nТайлбар:\n- Зөвхөн иргэн дэмжинэ, type сонголттой (илгээхгүй бол 1/иргэн гэж үзнэ; 1-ээс өөр утга илгээвэл 405 алдаа буцна)\n- owner илгээвэл driver руу normalize хийгдэнэ\n- зураг upload endpoint байхгүй",
+        "description": "GOD гэрээ үүсгэнэ.\n\nТайлбар:\n- Зөвхөн иргэн дэмжинэ, type сонголттой (илгээхгүй бол 1/иргэн гэж үзнэ; 1-ээс өөр утга илгээвэл 405 алдаа буцна)\n- owner илгээвэл driver руу normalize хийгдэнэ\n- зураг upload endpoint байхгүй\n\ncallback_url (сонголттой): гэрээ 'insured' төлөвт шилжихэд (QPay төлбөр баталгаажих эсвэл backoffice-оор гараар баталгаажуулахад) систем энэ URL руу нэг удаа GET хүсэлт илгээнэ.",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -1417,6 +1448,10 @@
                       "regnum",
                       "phone_number"
                     ]
+                  },
+                  "callback_url": {
+                    "type": "string",
+                    "format": "uri"
                   }
                 },
                 "required": [
@@ -1431,7 +1466,8 @@
                   "firstname": "ДОРЖ",
                   "regnum": "АБ12345678",
                   "phone_number": "99112233"
-                }
+                },
+                "callback_url": "https://example.com/webhook"
               }
             }
           }
@@ -1442,7 +1478,7 @@
       "post": {
         "operationId": "postApiBrokerThd_loanCreate",
         "summary": "Create THD Loan",
-        "description": "THD loan гэрээ үүсгэнэ.\n\nАнхаарах зүйл:\n- owner илгээхгүй, driver илгээсэн бол backend owner руу normalize хийнэ\n- top-level evaluation байвал vehicle.evaluation руу шилжүүлж ашиглана\n- company.address сонголттой (гэрээнд ашиглагддаггүй, зөвхөн илгээвэл хадгална)",
+        "description": "THD loan гэрээ үүсгэнэ.\n\nАнхаарах зүйл:\n- owner илгээхгүй, driver илгээсэн бол backend owner руу normalize хийнэ\n- top-level evaluation байвал vehicle.evaluation руу шилжүүлж ашиглана\n- company.address сонголттой (гэрээнд ашиглагддаггүй, зөвхөн илгээвэл хадгална)\n\ncallback_url (сонголттой): гэрээ 'insured' төлөвт шилжихэд (QPay төлбөр баталгаажих эсвэл backoffice-оор гараар баталгаажуулахад) систем энэ URL руу нэг удаа GET хүсэлт илгээнэ.",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -1566,6 +1602,10 @@
                       "regnum",
                       "phone_number"
                     ]
+                  },
+                  "callback_url": {
+                    "type": "string",
+                    "format": "uri"
                   }
                 },
                 "required": [
@@ -1598,7 +1638,8 @@
                   "firstname": "ДОРЖ",
                   "regnum": "АБ12345678",
                   "phone_number": "99112233"
-                }
+                },
+                "callback_url": "https://example.com/webhook"
               }
             }
           }
@@ -1681,7 +1722,7 @@
       "post": {
         "operationId": "postApiBrokerAjdCreate2",
         "summary": "Create AJD",
-        "description": "Иргэний AJD гэрээ үүсгэнэ.\n\nТайлбар:\n- is_limited request дээрээс авахгүй\n- backend үргэлж false-аар MIIS рүү явуулна\n- co_drivers optional\n- nested driver/vehicle payload-ийг backend normalize хийж top-level request болгон ашиглана",
+        "description": "Иргэний AJD гэрээ үүсгэнэ.\n\nТайлбар:\n- is_limited request дээрээс авахгүй\n- backend үргэлж false-аар MIIS рүү явуулна\n- co_drivers optional\n- nested driver/vehicle payload-ийг backend normalize хийж top-level request болгон ашиглана\n\ncallback_url (сонголттой): гэрээ 'insured' төлөвт шилжихэд (QPay төлбөр баталгаажих эсвэл backoffice-оор гараар баталгаажуулахад) систем энэ URL руу нэг удаа GET хүсэлт илгээнэ.",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -1773,6 +1814,10 @@
                           "email",
                           "ZipCode"
                         ]
+                      },
+                      "callback_url": {
+                        "type": "string",
+                        "format": "uri"
                       }
                     },
                     "required": [
@@ -1832,6 +1877,10 @@
                           "email",
                           "ZipCode"
                         ]
+                      },
+                      "callback_url": {
+                        "type": "string",
+                        "format": "uri"
                       }
                     },
                     "required": [
@@ -1858,7 +1907,8 @@
                       "phone_number": "99112233",
                       "email": "test@example.com",
                       "ZipCode": "15160"
-                    }
+                    },
+                    "callback_url": "https://example.com/webhook"
                   }
                 },
                 "company": {
@@ -1875,7 +1925,8 @@
                       "phone_number": "70112233",
                       "email": "company@example.com",
                       "ZipCode": "15160"
-                    }
+                    },
+                    "callback_url": "https://example.com/webhook"
                   }
                 }
               }
@@ -1888,7 +1939,7 @@
       "post": {
         "operationId": "postApiBrokerSgoCreate",
         "summary": "Create SGO",
-        "description": "SGO гэрээ үүсгэнэ.\n\nТайлбар:\n- broker endpoint нь driver.regnum, driver.phone_number, vehicle.plate_number утгуудыг top-level талбар руу normalize хийнэ\n- seat_type: \"1\" бол ганц суудал (жолооч), \"2\" бол vehicle.seat_number дэх машины бүх суудлаар даатгана\n- seat_type-ийн оронд insured_seats (тоо) явуулж болно — insured_seats=1 бол seat_type=\"1\", бусад бүх утга (0, хоосон, эсвэл 1-ээс өөр) бол seat_type=\"2\" болж normalize хийгдэнэ; seat_type шууд илгээвэл энэ давамгайлна\n- vehicle огт илгээхгүй бол улсын дугаараар XYP-ээс автоматаар татаж авна (ингэж илгээвэл vehicle.mark/model/seat_number шаардлагагүй)\n- vehicle илгээвэл mark, model, seat_number заавал байх ёстой (vehicle.plate_number зөвхөн давхардал шалгахад ашиглагдана, бүрэн мэдээлэл ирэхгүй бол XYP lookup ажиллахгүй)\n- driver.regnum-аар эхлээд XYP-ээс жолоочийг автоматаар lookup хийж үзнэ; амжилтгүй бол driver.firstname/lastname заавал байх ёстой (license_number, driver_date сонголттой — гэрээнд ашиглагддаггүй)\n- зураг upload endpoint байхгүй",
+        "description": "SGO гэрээ үүсгэнэ.\n\nТайлбар:\n- broker endpoint нь driver.regnum, driver.phone_number, vehicle.plate_number утгуудыг top-level талбар руу normalize хийнэ\n- seat_type: \"1\" бол ганц суудал (жолооч), \"2\" бол vehicle.seat_number дэх машины бүх суудлаар даатгана\n- seat_type-ийн оронд insured_seats (тоо) явуулж болно — insured_seats=1 бол seat_type=\"1\", бусад бүх утга (0, хоосон, эсвэл 1-ээс өөр) бол seat_type=\"2\" болж normalize хийгдэнэ; seat_type шууд илгээвэл энэ давамгайлна\n- vehicle огт илгээхгүй бол улсын дугаараар XYP-ээс автоматаар татаж авна (ингэж илгээвэл vehicle.mark/model/seat_number шаардлагагүй)\n- vehicle илгээвэл mark, model, seat_number заавал байх ёстой (vehicle.plate_number зөвхөн давхардал шалгахад ашиглагдана, бүрэн мэдээлэл ирэхгүй бол XYP lookup ажиллахгүй)\n- driver.regnum-аар эхлээд XYP-ээс жолоочийг автоматаар lookup хийж үзнэ; амжилтгүй бол driver.firstname/lastname заавал байх ёстой (license_number, driver_date сонголттой — гэрээнд ашиглагддаггүй)\n- зураг upload endpoint байхгүй\n\ncallback_url (сонголттой): гэрээ 'insured' төлөвт шилжихэд (QPay төлбөр баталгаажих эсвэл backoffice-оор гараар баталгаажуулахад) систем энэ URL руу нэг удаа GET хүсэлт илгээнэ.",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -1984,6 +2035,10 @@
                     "required": [
                       "phone_number"
                     ]
+                  },
+                  "callback_url": {
+                    "type": "string",
+                    "format": "uri"
                   }
                 },
                 "required": [
@@ -2006,7 +2061,8 @@
                   "firstname": "ДОРЖ",
                   "regnum": "АБ12345678",
                   "phone_number": "99112233"
-                }
+                },
+                "callback_url": "https://example.com/webhook"
               }
             }
           }
@@ -2017,7 +2073,7 @@
       "post": {
         "operationId": "postApiBrokerIpotekCreate",
         "summary": "Create Ipotek",
-        "description": "Ipotek гэрээ үүсгэнэ.\n\nЗаавал: set (эсвэл set_id), phone_number, regnum, firstname, lastname, asset_registry_number, property_market_value.\n\nАнхаарах зүйл:\n- citizen-ийн OTP send/verify шат ШААРДАГДАХГҮЙ - broker token-оор аль хэдийн баталгаажсан.\n- asset_address, property_area, property_used_year-г ӨГӨХ ШААРДЛАГАГҮЙ болсон — систем regnum + asset_registry_number-ээр ХУР (XYP)-аас автоматаар лукап хийж эдгээрийг өөрөө татаж авна. Хэрэв XYP лукап амжилтгүй болвол (систем унтарсан, мэдээлэл олдоогүй гэх мэт) энэ 3 талбарыг ӨӨРӨӨ гараар дамжуулах шаардлагатай болно (fallback байдлаар).\n- Эдгээр 3 талбарыг ГАРААР дамжуулбал (жишээ: XYP-ийн мэдээлэл буруу үед) тэдгээр нь XYP-ээс ирсэн утгыг үргэлж дарж бичнэ (payload давамгайлна).\n- property_market_value 3,000,000-с доошгүй байх ёстой, мөн ХУР-ын үнэлгээнээс доогуур байж болохгүй.\n- Хамтран даатгуулагч (co_borrower) — БҮГД OPTIONAL, nested объект хэлбэрээр дамжуулна: co_borrower: {lastname, firstname, regnum, phone_number, email, address, share_percent (0-100)}. Хэрэггүй бол co_borrower талбарыг бүрэн хасаж болно. (Хуучин flat co_borrower_* талбаруудыг ч мөн дэмждэг — эдгээрийг шууд илгээвэл co_borrower объектоос давамгайлна.)",
+        "description": "Ipotek гэрээ үүсгэнэ.\n\nЗаавал: set (эсвэл set_id), phone_number, regnum, firstname, lastname, asset_registry_number, property_market_value.\n\nАнхаарах зүйл:\n- citizen-ийн OTP send/verify шат ШААРДАГДАХГҮЙ - broker token-оор аль хэдийн баталгаажсан.\n- asset_address, property_area, property_used_year-г ӨГӨХ ШААРДЛАГАГҮЙ болсон — систем regnum + asset_registry_number-ээр ХУР (XYP)-аас автоматаар лукап хийж эдгээрийг өөрөө татаж авна. Хэрэв XYP лукап амжилтгүй болвол (систем унтарсан, мэдээлэл олдоогүй гэх мэт) энэ 3 талбарыг ӨӨРӨӨ гараар дамжуулах шаардлагатай болно (fallback байдлаар).\n- Эдгээр 3 талбарыг ГАРААР дамжуулбал (жишээ: XYP-ийн мэдээлэл буруу үед) тэдгээр нь XYP-ээс ирсэн утгыг үргэлж дарж бичнэ (payload давамгайлна).\n- property_market_value 3,000,000-с доошгүй байх ёстой, мөн ХУР-ын үнэлгээнээс доогуур байж болохгүй.\n- Хамтран даатгуулагч (co_borrower) — БҮГД OPTIONAL, nested объект хэлбэрээр дамжуулна: co_borrower: {lastname, firstname, regnum, phone_number, email, address, share_percent (0-100)}. Хэрэггүй бол co_borrower талбарыг бүрэн хасаж болно. (Хуучин flat co_borrower_* талбаруудыг ч мөн дэмждэг — эдгээрийг шууд илгээвэл co_borrower объектоос давамгайлна.)\n\ncallback_url (сонголттой): гэрээ 'insured' төлөвт шилжихэд (QPay төлбөр баталгаажих эсвэл backoffice-оор гараар баталгаажуулахад) систем энэ URL руу нэг удаа GET хүсэлт илгээнэ.",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -2102,6 +2158,10 @@
                         "type": "number"
                       }
                     }
+                  },
+                  "callback_url": {
+                    "type": "string",
+                    "format": "uri"
                   }
                 },
                 "required": [
@@ -2129,7 +2189,8 @@
                   "email": "",
                   "address": "",
                   "share_percent": null
-                }
+                },
+                "callback_url": "https://example.com/webhook"
               }
             }
           }
@@ -2297,7 +2358,7 @@
       "post": {
         "operationId": "postApiBrokerLuxuryCreate",
         "summary": "Create Luxury",
-        "description": "Luxury орон сууцны даатгалын гэрээ үүсгэнэ.\n\nЗаавал: set_id, surname, name, register, email, phone_number, duration (1/2/3), hot_id, duureg_id, horoo, bair, haalga, type.\n\nАнхаарах зүйл:\n- citizen-ийн OTP send/verify шат ШААРДАГДАХГҮЙ - broker token-оор аль хэдийн баталгаажсан.\n- set_id нь get_sets endpoint-ээс авсан утга байна.\n- Дүн = duration (жил) x сонгосон багцын yearly_amount.",
+        "description": "Luxury орон сууцны даатгалын гэрээ үүсгэнэ.\n\nЗаавал: set_id, surname, name, register, email, phone_number, duration (1/2/3), hot_id, duureg_id, horoo, bair, haalga, type.\n\nАнхаарах зүйл:\n- citizen-ийн OTP send/verify шат ШААРДАГДАХГҮЙ - broker token-оор аль хэдийн баталгаажсан.\n- set_id нь get_sets endpoint-ээс авсан утга байна.\n- Дүн = duration (жил) x сонгосон багцын yearly_amount.\n\ncallback_url (сонголттой): гэрээ 'insured' төлөвт шилжихэд (QPay төлбөр баталгаажих эсвэл backoffice-оор гараар баталгаажуулахад) систем энэ URL руу нэг удаа GET хүсэлт илгээнэ.",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -2379,6 +2440,10 @@
                   },
                   "type": {
                     "type": "integer"
+                  },
+                  "callback_url": {
+                    "type": "string",
+                    "format": "uri"
                   }
                 },
                 "required": [
@@ -2410,7 +2475,8 @@
                 "horoo": "5-р хороо",
                 "bair": "12А",
                 "haalga": "25",
-                "type": 1
+                "type": 1,
+                "callback_url": "https://example.com/webhook"
               }
             }
           }
@@ -2577,7 +2643,7 @@
       "post": {
         "operationId": "postApiBrokerTravelCreate",
         "summary": "Create Travel",
-        "description": "Travel гэрээ үүсгэнэ. Хүн бүрт тусдаа гэрээ үүсч, нэг нийт дүнгийн нэхэмжлэх (QPAY) бүгдэд нь хуваалцагдана.\n\nЗаавал: set (эсвэл set_id), travel_begin_date, travel_end_date, country.\n\nГанц зорчигч (бусад бүтээгдэхүүний адил): firstname, lastname, passport_id, birthdate, regnum (бас phone_number) -ийг шууд top-level талбар болгон явуулж болно.\n\nОлон зорчигч (дээд тал нь 10): дээрх талбаруудын оронд travellers[] array явуулна (тус бүр дээр firstname/lastname/passport_id/birthdate/regnum заавал) — хариу дотор 'contracts' массивт бүгд орж ирнэ, эхний зорчигчийн гэрээ 'contract_number'-т давхар гарна.",
+        "description": "Travel гэрээ үүсгэнэ. Хүн бүрт тусдаа гэрээ үүсч, нэг нийт дүнгийн нэхэмжлэх (QPAY) бүгдэд нь хуваалцагдана.\n\nЗаавал: set (эсвэл set_id), travel_begin_date, travel_end_date, country.\n\nГанц зорчигч (бусад бүтээгдэхүүний адил): firstname, lastname, passport_id, birthdate, regnum (бас phone_number) -ийг шууд top-level талбар болгон явуулж болно.\n\nОлон зорчигч (дээд тал нь 10): дээрх талбаруудын оронд travellers[] array явуулна (тус бүр дээр firstname/lastname/passport_id/birthdate/regnum заавал) — хариу дотор 'contracts' массивт бүгд орж ирнэ, эхний зорчигчийн гэрээ 'contract_number'-т давхар гарна.\n\ncallback_url (сонголттой): гэрээ 'insured' төлөвт шилжихэд (QPay төлбөр баталгаажих эсвэл backoffice-оор гараар баталгаажуулахад) систем энэ URL руу нэг удаа GET хүсэлт илгээнэ.\n\ndiscount_id (сонголттой): /{{product_key}}/discounts endpoint-ээс авсан хөнгөлөлтийн id-г дамжуулж болно. Broker/BBSB/сонгосон set тухайн хөнгөлөлтийг ашиглах эрхгүй бол create хүсэлт алдаатай буцна. Зайлсхийвэл (эсвэл null) хямдралгүйгээр үргэлжилнэ.",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -2649,6 +2715,17 @@
                       },
                       "phone_number": {
                         "type": "string"
+                      },
+                      "callback_url": {
+                        "type": "string",
+                        "format": "uri"
+                      },
+                      "discount_id": {
+                        "type": [
+                          "integer",
+                          "string",
+                          "null"
+                        ]
                       }
                     },
                     "required": [
@@ -2710,6 +2787,17 @@
                             "regnum"
                           ]
                         }
+                      },
+                      "callback_url": {
+                        "type": "string",
+                        "format": "uri"
+                      },
+                      "discount_id": {
+                        "type": [
+                          "integer",
+                          "string",
+                          "null"
+                        ]
                       }
                     },
                     "required": [
@@ -2731,7 +2819,9 @@
                 "passport_id": "P1234567",
                 "birthdate": "1990-01-01",
                 "regnum": "АБ12345678",
-                "phone_number": "99112233"
+                "phone_number": "99112233",
+                "callback_url": "https://example.com/webhook",
+                "discount_id": null
               }
             }
           }
@@ -2904,7 +2994,7 @@
       "post": {
         "operationId": "postApiBrokerUhdCreate",
         "summary": "Create UHD",
-        "description": "UHD гэрээ үүсгэнэ.\n\nЗаавал: set (эсвэл set_id), regnum, firstname, lastname, address, phone_number, types.\n\ntypes: даатгуулагч өмгөөлөгчийн мэргэшсэн чиглэлүүдийн id-н жагсаалт (доор хаяж 1). Боломжит утгыг Get Specializations UHD хариултаас авна (жишээ нь 1=Эрүүгийн, 2=Иргэний, 3=Захиргааны).",
+        "description": "UHD гэрээ үүсгэнэ.\n\nЗаавал: set (эсвэл set_id), regnum, firstname, lastname, address, phone_number, types.\n\ntypes: даатгуулагч өмгөөлөгчийн мэргэшсэн чиглэлүүдийн id-н жагсаалт (доор хаяж 1). Боломжит утгыг Get Specializations UHD хариултаас авна (жишээ нь 1=Эрүүгийн, 2=Иргэний, 3=Захиргааны).\n\ncallback_url (сонголттой): гэрээ 'insured' төлөвт шилжихэд (QPay төлбөр баталгаажих эсвэл backoffice-оор гараар баталгаажуулахад) систем энэ URL руу нэг удаа GET хүсэлт илгээнэ.",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -2966,6 +3056,10 @@
                     "items": {
                       "type": "integer"
                     }
+                  },
+                  "callback_url": {
+                    "type": "string",
+                    "format": "uri"
                   }
                 },
                 "required": [
@@ -2987,7 +3081,8 @@
                 "types": [
                   1,
                   2
-                ]
+                ],
+                "callback_url": "https://example.com/webhook"
               }
             }
           }
@@ -3236,7 +3331,7 @@
       "post": {
         "operationId": "postApiBrokerMachineryCreate",
         "summary": "Create Machinery",
-        "description": "Machinery гэрээ үүсгэнэ.\n\nЗаавал: set (эсвэл set_id), contract_type (1=иргэн, 2=байгууллага).\nИргэн бол owner{regnum, firstname, lastname, phone_number} (эсвэл flat regnum/firstname/lastname/phone_number), байгууллага бол company{regnum, name, address, phone_number} (эсвэл flat company_regnum/company_name/company_address/company_phone_number), мөн address (иргэний хаяг).\nvehicle{plate_number, cabin_number, vendor, model, vehicle_class_name, market_evaluation} (эсвэл flat талбарууд) заавал, vehicle_class_name нь 'M' байх ёстой (зөвхөн машин механизмын ангилал дэмжигдэнэ).\n\nОнцлог: owner/vehicle/company nested объект илгээвэл автоматаар харгалзах flat талбарууд руу normalize хийгдэнэ (HT-ийн create-тэй ижил хэлбэр).",
+        "description": "Machinery гэрээ үүсгэнэ.\n\nЗаавал: set (эсвэл set_id), contract_type (1=иргэн, 2=байгууллага).\nИргэн бол owner{regnum, firstname, lastname, phone_number} (эсвэл flat regnum/firstname/lastname/phone_number), байгууллага бол company{regnum, name, address, phone_number} (эсвэл flat company_regnum/company_name/company_address/company_phone_number), мөн address (иргэний хаяг).\nvehicle{plate_number, cabin_number, vendor, model, vehicle_class_name, market_evaluation} (эсвэл flat талбарууд) заавал, vehicle_class_name нь 'M' байх ёстой (зөвхөн машин механизмын ангилал дэмжигдэнэ).\n\nОнцлог: owner/vehicle/company nested объект илгээвэл автоматаар харгалзах flat талбарууд руу normalize хийгдэнэ (HT-ийн create-тэй ижил хэлбэр).\n\ndiscount_id (сонголттой): /{{product_key}}/discounts endpoint-ээс авсан хөнгөлөлтийн id-г дамжуулж болно. Broker/BBSB/сонгосон set тухайн хөнгөлөлтийг ашиглах эрхгүй бол create хүсэлт алдаатай буцна. Зайлсхийвэл (эсвэл null) хямдралгүйгээр үргэлжилнэ.",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -3336,6 +3431,13 @@
                       "vehicle_class_name",
                       "market_evaluation"
                     ]
+                  },
+                  "discount_id": {
+                    "type": [
+                      "integer",
+                      "string",
+                      "null"
+                    ]
                   }
                 },
                 "required": [
@@ -3363,7 +3465,8 @@
                   "vehicle_class_name": "M",
                   "market_evaluation": 50000000
                 },
-                "set": "{{set_value}}"
+                "set": "{{set_value}}",
+                "discount_id": null
               }
             }
           }
@@ -3489,7 +3592,7 @@
       "post": {
         "operationId": "postApiBrokerBhdCreate",
         "summary": "Create BHD",
-        "description": "BHD гэрээ үүсгэнэ.\n\nЗаавал: set (эсвэл set_id), contract_type (1=иргэн, 2=байгууллага), regnum (contract_type=1 үед), asset_registry_number, phone_number, evaluation (хөрөнгийн үнэлгээний дүн, ₮).\n\nevaluation талбарыг л илгээхэд хангалттай — систем сонгосон set-ийн loan_type-оос шалтгаалж дотроо loan_value (зах зээлийн үнэ) эсвэл loan_amount (зээлийн дүн) руу автоматаар хөрвүүлнэ. Хүсвэл loan_value/loan_amount-ийг шууд нэрээр нь ч илгээж болно (тэр үед evaluation талбар үл хэрэгсэгдэнэ).\n\ncontract_type=2 (байгууллага) үед одоогийн API нь бэлэн company_id (систем дэх байгууллагын id) шаардана — шинэ байгууллага regnum/name-ээр үүсгэх дэмжлэг одоогоор алга.\n\nОнцлог: citizen-ийн OTP send/verify шат ШААРДАГДАХГүй, гэхдээ систем regnum + asset_registry_number-ээр ХУР (XYP)-аас хөрөнгийн мэдээллийг автоматаар лукап хийж, кэшлээд гэрээг үүсгэнэ. XYP лукап амжилтгүй бол (хөрөнгө олдоогүй гэх мэт) гэрээ үүсэхгүй, алдаа буцна.",
+        "description": "BHD гэрээ үүсгэнэ.\n\nЗаавал: set (эсвэл set_id), contract_type (1=иргэн, 2=байгууллага), regnum (contract_type=1 үед), asset_registry_number, phone_number, evaluation (хөрөнгийн үнэлгээний дүн, ₮).\n\nevaluation талбарыг л илгээхэд хангалттай — систем сонгосон set-ийн loan_type-оос шалтгаалж дотроо loan_value (зах зээлийн үнэ) эсвэл loan_amount (зээлийн дүн) руу автоматаар хөрвүүлнэ. Хүсвэл loan_value/loan_amount-ийг шууд нэрээр нь ч илгээж болно (тэр үед evaluation талбар үл хэрэгсэгдэнэ).\n\ncontract_type=2 (байгууллага) үед одоогийн API нь бэлэн company_id (систем дэх байгууллагын id) шаардана — шинэ байгууллага regnum/name-ээр үүсгэх дэмжлэг одоогоор алга.\n\nОнцлог: citizen-ийн OTP send/verify шат ШААРДАГДАХГүй, гэхдээ систем regnum + asset_registry_number-ээр ХУР (XYP)-аас хөрөнгийн мэдээллийг автоматаар лукап хийж, кэшлээд гэрээг үүсгэнэ. XYP лукап амжилтгүй бол (хөрөнгө олдоогүй гэх мэт) гэрээ үүсэхгүй, алдаа буцна.\n\ncallback_url (сонголттой): гэрээ 'insured' төлөвт шилжихэд (QPay төлбөр баталгаажих эсвэл backoffice-оор гараар баталгаажуулахад) систем энэ URL руу нэг удаа GET хүсэлт илгээнэ.",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -3544,6 +3647,10 @@
                   },
                   "evaluation": {
                     "type": "integer"
+                  },
+                  "callback_url": {
+                    "type": "string",
+                    "format": "uri"
                   }
                 },
                 "required": [
@@ -3561,7 +3668,8 @@
                 "regnum": "АБ12345678",
                 "asset_registry_number": "1234567",
                 "phone_number": "99112233",
-                "evaluation": 50000000
+                "evaluation": 50000000,
+                "callback_url": "https://example.com/webhook"
               }
             }
           }
@@ -3777,6 +3885,74 @@
             }
           }
         }
+      }
+    },
+    "/api/broker/{product_key}/discounts": {
+      "get": {
+        "operationId": "getApiBrokerProductDiscounts",
+        "summary": "Get Discounts",
+        "description": "Сонгосон product_key-д идэвхтэй, broker/BBSB-д тохирсон хөнгөлөлтийн (discount) жагсаалтыг авна.\n\nБуцаах талбарууд:\n- id\n- code\n- percent\n- set_id (хоосон бол бүх багцад хамаарна)\n- starts_at\n- ends_at\n\nТайлбар:\n- Брокерт тухайн product ашиглах эрхгүй бол алдаа биш, хоосон жагсаалт (data: []) буцна.\n- Буцаасан id-г create хүсэлтэд discount_id болгон ашиглаж болно.\n\nАнхаарах зүйл:\n- discount_id create дээр ОДООГООР зөвхөн thd, travel, machinery product дээр л дэмжигдэнэ. Бусад product (ht, god, thd_loan, ajd, sgo, ipotek, luxury, uhd, bhd) дээр discount_id илгээсэн ч үл хэрэгсэгдэнэ.",
+        "parameters": [
+          {
+            "name": "product_key",
+            "in": "path",
+            "required": true,
+            "description": "Бүтээгдэхүүний key",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "thd",
+                "ht",
+                "god",
+                "thd_loan",
+                "ajd",
+                "sgo",
+                "ipotek",
+                "luxury",
+                "travel",
+                "uhd",
+                "machinery",
+                "bhd"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiscountsResponse"
+                },
+                "example": {
+                  "data": [
+                    {
+                      "id": 1,
+                      "code": "AUTUMN10",
+                      "percent": 10,
+                      "set_id": null,
+                      "starts_at": "2026-10-01",
+                      "ends_at": "2026-12-31"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "common-endpoints"
+        ],
+        "x-fern-sdk-group-name": [
+          "common-endpoints"
+        ],
+        "x-fern-sdk-method-name": "Get Discounts",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     }
   },
@@ -4565,6 +4741,60 @@
           "result": {
             "is_blacklisted": false
           }
+        }
+      },
+      "DiscountsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "code": {
+                  "type": "string"
+                },
+                "percent": {
+                  "type": "number"
+                },
+                "set_id": {
+                  "type": [
+                    "string",
+                    "integer",
+                    "null"
+                  ]
+                },
+                "starts_at": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "ends_at": {
+                  "type": "string",
+                  "format": "date"
+                }
+              },
+              "additionalProperties": true
+            }
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "additionalProperties": true,
+        "example": {
+          "data": [
+            {
+              "id": 1,
+              "code": "AUTUMN10",
+              "percent": 10,
+              "set_id": null,
+              "starts_at": "2026-10-01",
+              "ends_at": "2026-12-31"
+            }
+          ]
         }
       }
     },

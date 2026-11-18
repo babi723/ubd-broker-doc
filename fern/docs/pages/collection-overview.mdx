@@ -42,6 +42,9 @@ Broker Dynamic API Postman collection
 13. `POST /api/broker/blacklist-check`
 - Тухайн `regnum` blacklist (хар жагсаалт)-д байгаа эсэхийг шалгана.
 - Хариу: `result.is_blacklisted` (boolean).
+14. `GET /api/broker/{product_key}/discounts`
+- Broker/BBSB/product-д идэвхтэй хөнгөлөлтийн (discount) жагсаалт авна.
+- Буцаасан id-г create хүсэлтэд `discount_id` болгон ашиглана.
 
 ## Тест төлбөр баталгаажуулах
 
@@ -84,5 +87,7 @@ Broker Dynamic API Postman collection
 - THD Loan create дээр `type` талбар байхгүй, `company.address` сонголттой.
 - SGO create бүрэн шинэчлэгдсэн: `seat_type` (эсвэл хуучин `insured_seats`), `vehicle{plate_number, mark, model, seat_number}` (огт илгээхгүй бол XYP-ээс автомат татна), `driver{lastname, firstname, regnum, phone_number}` (regnum-аар автомат lookup хийнэ).
 - Travel create дээр ганц зорчигчийг `travellers[]` array биш шууд top-level талбараар (`firstname`, `lastname`, `passport_id`, `birthdate`, `regnum`, `phone_number`) явуулж болно; олон зорчигчид зориулж `travellers[]` хэвээр дэмжигдэнэ.
+- `create` хүсэлт бүр дээр `callback_url` (сонголттой) дамжуулж болно — гэрээ `insured` төлөвт шилжихэд энэ URL руу нэг удаа GET хүсэлт илгээнэ (`machinery` дээр дэмжигдэхгүй).
+- `discount_id` (сонголттой, `GET /api/broker/{product_key}/discounts`-ээс авсан утга) create дээр ОДООГООР зөвхөн `thd`, `travel`, `machinery` дээр л дэмжигдэнэ.
 - Баталгаажсан token-ийг `Authorization: <token>` хэлбэрээр protected endpoint бүрд дамжуулна.
 - `set` утга нь тухайн product-ийн `get_sets` endpoint-ээс авсан key/id байна.
